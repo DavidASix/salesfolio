@@ -4,8 +4,9 @@ import { useState, useRef } from "react";
 import Alert from "@/components/Alert";
 
 import Username from "./(screens)/Username";
+import Location from "./(screens)/Location";
 
-const screens = [Username, Username, Username];
+const screens = [Username, Location];
 
 export default function Setup() {
   const [step, setStep] = useState(1);
