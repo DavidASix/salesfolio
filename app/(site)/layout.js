@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { SessionProvider } from "next-auth/react";
 
 import NavBar from "@/components/Navigation";
 import Footer from "@/components/Footer";

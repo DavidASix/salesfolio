@@ -1,18 +1,22 @@
-import { auth } from "@/auth";
-import { SessionProvider } from "next-auth/react";
+import { redirect } from 'next/navigation'
 
+import { auth } from "@/auth";
 import NavBar from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
+/* 
+ * Redirect unauthed users to the login page.
+ */
+
 export default async function RootLayout({ children }) {
   const session = await auth();
+
+  if (!session?.user) {
+    return redirect('/login');
+  }
+
   if (session?.user) {
-    // filter out sensitive data before passing to client.
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-      image: session.user.image,
-    };
+    session.user = session.user;
   };
 
   return (

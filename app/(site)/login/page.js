@@ -2,17 +2,16 @@ import { signIn, signOut, auth } from "@/auth";
 
 async function loginLinkedin() {
   "use server";
-  await signIn("linkedin");
+  await signIn("linkedin", { redirectTo: "/profile" });
 }
 
 async function logout() {
-    "use server";
-    await signOut();
-  }
-  
+  "use server";
+  await signOut();
+}
 
 export default async function Login() {
-  const session = await auth()
+  const session = await auth();
   return (
     <>
       <h1>Hello {session?.user?.email || "world"}</h1>
