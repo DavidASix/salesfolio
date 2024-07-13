@@ -2,18 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
   @apply bg-primary-100 text-base-dark;
 }
 @layer components {
-  .content-container {
-    @apply max-w-[1500px] px-1 md:px-0;
-  }
-
   .section-padding {
     @apply w-full md:px-4 lg:px-10 xl:px-32 2xl:px-64 flex flex-col items-center;
   }
+
+  .content-container {
+    @apply max-w-[1500px] px-1 md:px-0 w-full;
+  }
+
   .button {
     @apply min-h-min text-base-dark flex justify-center items-center rounded-xl;
     @apply transition-all duration-200;
@@ -22,11 +27,16 @@ body {
 
   .button-outline-primary {
     @apply border border-primary text-primary font-semibold;
-    @apply hover:bg-primary hover:text-base-50 hover:border-0;
+    @apply hover:bg-primary hover:text-base-50;
   }
 
   .button-outline-secondary {
     @apply border border-secondary text-secondary font-semibold;
-    @apply hover:bg-secondary hover:text-base-50 hover:border-0;
+    @apply hover:bg-secondary hover:text-base-50;
+  }
+
+  .button-outline-success {
+    @apply border border-success text-success font-semibold;
+    @apply hover:bg-success hover:text-base-50;
   }
 }

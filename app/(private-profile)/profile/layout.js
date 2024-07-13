@@ -21,18 +21,14 @@ export default async function RootLayout({ children }) {
 
   return (
     <>
-      <div className="bg-transparent w-full h-16 absolute top-0" />
-      <header className="sticky top-0 z-50 h-20">
+      <header className="sticky top-0 z-50 h-16 bg-base-100">
         <NavBar session={session} />
       </header>
       <main
-        className={`z-20 row pt-2 md:pt-10 m-0 justify-content-center align-items-start`}
+        className={`z-20 row justify-content-center align-items-start relative`}
       >
         {children}
       </main>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 }
