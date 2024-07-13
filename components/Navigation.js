@@ -5,8 +5,9 @@ import Link from "next/link";
 
 const links = [
   { title: "Home", url: "/" },
-  { title: "Profile", url: "/p" },
-  { title: "Test", url: "/p/david" },
+  { title: "Edit Profile", url: "/profile" },
+  { title: "Public Profile", url: "/p" },
+  { title: "David P Profile", url: "/p/davidasix" },
   { title: "Login", url: "/login" },
 ];
 
@@ -99,7 +100,7 @@ export default function Navigation({ session }) {
               </div>
             </div>
             {session ? (
-              <a href="/p" className="h-10 w-10 flex justify-center items-center">
+              <a href="/profile" className="h-10 w-10 flex justify-center items-center">
                 <img
                   src={session?.user?.image || "/default-user.webp"}
                   className="rounded-full"
