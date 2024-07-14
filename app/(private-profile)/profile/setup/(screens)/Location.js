@@ -16,7 +16,7 @@ export default function Location({
     setLoading(() => true);
 
     try {
-      const regex = /^[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z]{0,3}$/
+      const regex = /^[a-zA-Z-\s]{3,32}\,?\s?[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z]{0,3}$/
       if (!regex.test(input)) {
         throw "Location format is invalid";
       }
@@ -61,7 +61,7 @@ export default function Location({
           className={`focus-visible:outline-none bg-transparent ms-2
           border-b border-primary-800 
           font-normal text-primary-800 text-3xl w-80`}
-          placeholder="myName"
+          placeholder="Toronto, ON"
         />
         <span className="h-10 w-10">
           <span

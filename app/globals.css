@@ -22,21 +22,27 @@ body {
   .button {
     @apply min-h-min text-base-dark flex justify-center items-center rounded-xl;
     @apply transition-all duration-200;
-    @apply hover:cursor-pointer;
+    @apply enabled:hover:cursor-pointer;
+    @apply disabled:border-base-700 disabled:text-base-700;
   }
 
   .button-outline-primary {
     @apply border border-primary text-primary font-semibold;
-    @apply hover:bg-primary hover:text-base-50;
+    @apply enabled:hover:bg-primary enabled:hover:text-base-50;
   }
 
   .button-outline-secondary {
     @apply border border-secondary text-secondary font-semibold;
-    @apply hover:bg-secondary hover:text-base-50;
+    @apply enabled:hover:bg-secondary enabled:hover:text-base-50;
   }
 
   .button-outline-success {
     @apply border border-success text-success font-semibold;
-    @apply hover:bg-success hover:text-base-50;
+    @apply enabled:hover:bg-success enabled:hover:text-base-50;
+  }
+
+  .button-outline-accent {
+    @apply border border-accent text-accent font-semibold;
+    @apply enabled:hover:bg-accent enabled:hover:text-base-50;
   }
 }
