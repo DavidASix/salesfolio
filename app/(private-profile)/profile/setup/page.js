@@ -1,39 +1,46 @@
 "use client";
 import { useState, useRef } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import Alert from "@/components/Alert";
 
 import Username from "./(screens)/Username";
 import Location from "./(screens)/Location";
+import WorkHistory from "./(screens)/WorkHistory";
 
-const screens = [Username, Location];
+const screens = [Username, Location, WorkHistory];
 
 export default function Setup() {
   const [step, setStep] = useState(1);
   const screensContainer = useRef(null);
   const alertRef = useRef(null);
+  const router = useRouter();
 
   const onError = (type, msg) => {
     alertRef.current.showAlert(type, msg);
-  }
+  };
 
-  const goNextStep = () => {
+  const goNextStep = async () => {
+    console.log(step);
     if (step === screens.length - 1) {
       // Submit button click
+      await axios.post("/api/user/setValue", { key: "firstLogin", value: false });
+      router.replace("/profile");
     }
     // Next Button Click
     setStep((prev) => {
-      prev + 1;
       screensContainer.current.scrollLeft +=
         screensContainer.current.offsetWidth;
+      return prev + 1;
     });
   };
 
   const goBackStep = () => {
     setStep((prev) => {
-      prev - 1;
       screensContainer.current.scrollLeft -=
         screensContainer.current.offsetWidth;
+      return prev - 1;
     });
   };
 
