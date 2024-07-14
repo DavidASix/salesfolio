@@ -1,5 +1,7 @@
 [
-    "location",
-    "sales-start",
-    "position"
+    {"key": "location", "type": "string"},
+    {"key": "saleStart", "type": "string"},
+    {"key": "position", "type": "string"},
+    {"key": "workHistory", "type": "object"},
+    {"key": "firstLogin", "type": "boolean"}
 ]
