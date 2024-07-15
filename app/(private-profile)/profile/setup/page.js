@@ -1,82 +1,17 @@
-"use client";
-import { useState, useRef } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect } from 'next/navigation'
+import { auth } from "@/auth";
 
-import Alert from "@/components/Alert";
+import SetupComponent from './Setup';
 
-import Username from "./(screens)/Username";
-import Location from "./(screens)/Location";
-import WorkHistory from "./(screens)/WorkHistory";
+const Setup = async () => {
+  const session = await auth();
+  const user = session?.user;
 
-const screens = [Username, Location, WorkHistory];
+  if (!user?.firstLogin) {
+    return redirect('/profile/settings');
+  }
 
-export default function Setup() {
-  const [step, setStep] = useState(1);
-  const screensContainer = useRef(null);
-  const alertRef = useRef(null);
-  const router = useRouter();
-
-  const onError = (type, msg) => {
-    alertRef.current.showAlert(type, msg);
-  };
-
-  const goNextStep = async () => {
-    console.log(step);
-    if (step === screens.length - 1) {
-      // Submit button click
-      await axios.post("/api/user/setValue", { key: "firstLogin", value: false });
-      router.replace("/profile");
-    }
-    // Next Button Click
-    setStep((prev) => {
-      screensContainer.current.scrollLeft +=
-        screensContainer.current.offsetWidth;
-      return prev + 1;
-    });
-  };
-
-  const goBackStep = () => {
-    setStep((prev) => {
-      screensContainer.current.scrollLeft -=
-        screensContainer.current.offsetWidth;
-      return prev - 1;
-    });
-  };
-
-  return (
-    <>
-      <Alert ref={alertRef} />
-      <section className="section-padding h-[100vh] -mt-16 pt-16">
-        <article className="content-container h-full py-8 flex flex-col">
-          <h1 className="text-4xl font-light">
-            Welcome to{" "}
-            <span className="text-primary-800 font-normal">
-              Sales<span className="font-bold">Folio</span>
-            </span>
-          </h1>
-          <p className="ps-4 mt-2 mb-4 text-2xl font-extralight">
-            Let's set up your profile...
-          </p>
-          <div
-            id="inputScreen"
-            ref={screensContainer}
-            className="flex-1 w-full flex
-          overflow-x-hidden snap-mandatory snap-x scroll-smooth"
-          >
-            {screens.map((Screen, i) => (
-              <Screen
-                key={i}
-                index={i}
-                final={i === screens.length - 1}
-                goNextStep={goNextStep}
-                goBackStep={goBackStep}
-                onError={onError}
-              />
-            ))}
-          </div>
-        </article>
-      </section>
-    </>
-  );
+  return <SetupComponent user={user} />;
 }
+
+export default Setup;
