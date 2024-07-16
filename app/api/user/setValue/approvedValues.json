@@ -3,5 +3,8 @@
     {"key": "saleStart", "type": "string"},
     {"key": "position", "type": "string"},
     {"key": "workHistory", "type": "object"},
-    {"key": "firstLogin", "type": "boolean"}
+    {"key": "firstLogin", "type": "boolean"},
+    {"key": "firstSalesYear", "type": "number"},
+    {"key": "role", "type": "string"},
+    {"key": "company", "type": "string"}
 ]
