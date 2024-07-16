@@ -10,6 +10,23 @@ body {
   min-height: 100vh;
   @apply bg-primary-100 text-base-dark;
 }
+
+.btn {
+  @apply rounded-xl
+}
+
+.btn-outline.btn-primary,
+.btn-outline.btn-secondary,
+.btn-outline.btn-accent,
+.btn-outline.btn-accent,
+.btn-outline.btn-neutral,
+.btn-outline.btn-info,
+.btn-outline.btn-success,
+.btn-outline.btn-warning,
+.btn-outline.btn-error {
+  @apply hover:text-base-light;
+}
+
 @layer components {
   .section-padding {
     @apply w-full md:px-4 lg:px-10 xl:px-32 2xl:px-64 flex flex-col items-center;
@@ -45,4 +62,10 @@ body {
     @apply border border-accent text-accent font-semibold;
     @apply enabled:hover:bg-accent enabled:hover:text-base-50;
   }
+
+  .button-outline-warning {
+    @apply border border-warning text-warning font-semibold;
+    @apply enabled:hover:bg-warning enabled:hover:text-base-50;
+  }
+
 }

@@ -75,7 +75,7 @@ export default function Location({
           </span>
         </div>
         <span className="w-full text-center -mt-8 text-sm text-base-800 md:hidden">
-          I live in{input ? ` ${input}` : "..."}
+          I live in 📍{input ? ` ${input}` : "..."} 
         </span>
 
         <p className="text-base-800 text-sm italic self-end">
