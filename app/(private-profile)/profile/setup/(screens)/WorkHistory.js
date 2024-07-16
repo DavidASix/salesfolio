@@ -73,9 +73,10 @@ export default function WorkHistory({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-start relative gap-y-8 pb-7"
+      flex flex-col justify-center items-center relative gap-y-16 pb-8"
     >
-      <div>
+      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
+      <div className="self-start">
         <h3 className="text-4xl">Where have you worked?</h3>
         <p className="text-lg font-extralight max-w-[600px]">
           Entering some of your relevant work history gives employeers an idea
@@ -143,6 +144,7 @@ export default function WorkHistory({
           </li>
         ))}
       </ol>
+      </div>
       <button
         className="button button-outline-accent px-10 py-3 self-end"
         type="button"

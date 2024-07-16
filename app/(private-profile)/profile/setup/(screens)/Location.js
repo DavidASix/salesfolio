@@ -7,8 +7,9 @@ export default function Location({
   goNextStep,
   goBackStep,
   onError,
+  user,
 }) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(user?.location || "");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -16,15 +17,16 @@ export default function Location({
     setLoading(() => true);
 
     try {
-      const regex = /^[a-zA-Z-\s]{3,32}\,?\s?[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z]{0,3}$/
+      const regex =
+        /^[a-zA-Z-\s]{3,32}\,?\s?[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z]{0,3}$/;
       if (!regex.test(input)) {
         throw "Location format is invalid";
       }
-      
-      await axios.post('/api/user/setValue', {
-        key: 'location',
-        value: input
-      })
+
+      await axios.post("/api/user/setValue", {
+        key: "location",
+        value: input,
+      });
       goNextStep();
     } catch (error) {
       const msg =
@@ -42,43 +44,44 @@ export default function Location({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-start relative gap-y-8"
+      flex flex-col justify-center items-center relative gap-y-16 pb-8"
     >
-      <h3 className="text-4xl">What city are you in?</h3>
-      <div className="flex items-center justify-center content-start flex-nowrap self-center">
-        <label
-          htmlFor="city"
-          className="text-3xl font-extralight hidden md:block"
-        >
-          I live in
-        </label>
-        <input
-          type="text"
-          id="city"
-          maxLength={20}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className={`focus-visible:outline-none bg-transparent ms-2
+      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
+        <h3 className="text-4xl self-start">What city are you in?</h3>
+        <div className="flex items-center justify-center content-start flex-nowrap self-center">
+          <label
+            htmlFor="city"
+            className="text-3xl font-extralight hidden md:block"
+          >
+            I live in
+          </label>
+          <input
+            type="text"
+            id="city"
+            maxLength={20}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className={`focus-visible:outline-none bg-transparent ms-2
           border-b border-primary-800 
           font-normal text-primary-800 text-3xl w-80`}
-          placeholder="Toronto, ON"
-        />
-        <span className="h-10 w-10">
-          <span
-            className={`loading loading-dots loading-lg text-primary transition-all duration-300 ${
-              !loading ? "opacity-0" : ""
-            }`}
+            placeholder="Toronto, ON"
           />
+          <span className="h-10 w-10">
+            <span
+              className={`loading loading-dots loading-lg text-primary transition-all duration-300 ${
+                !loading ? "opacity-0" : ""
+              }`}
+            />
+          </span>
+        </div>
+        <span className="w-full text-center -mt-8 text-sm text-base-800 md:hidden">
+          I live in{input ? ` ${input}` : "..."}
         </span>
+
+        <p className="text-base-800 text-sm italic self-end">
+          This will display on your profile
+        </p>
       </div>
-      <span className="w-full text-center -mt-8 text-sm text-base-800 md:hidden">
-        I live in{input ? ` ${input}` : "..."}
-      </span>
-
-      <p className="text-base-800 text-sm italic self-end">
-        This will display on your profile
-      </p>
-
       {index ? (
         <button
           type="button"
