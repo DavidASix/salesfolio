@@ -8,11 +8,20 @@ import Alert from "@/components/Alert";
 import Username from "./(screens)/Username";
 import ProfilePicture from "./(screens)/ProfilePicture";
 import Location from "./(screens)/Location";
+import CurrentEmployement from "./(screens)/CurrentEmployement";
 import WorkHistory from "./(screens)/WorkHistory";
+import TimeInSales from "./(screens)/TimeInSales";
 
-const screens = [Username, ProfilePicture, WorkHistory, Location, ];
+const screens = [
+  Username,
+  ProfilePicture,
+  Location,
+  CurrentEmployement,
+  WorkHistory,
+  TimeInSales,
+];
 
-export default function Setup({user}) {
+export default function Setup({ user }) {
   const [step, setStep] = useState(1);
   const screensContainer = useRef(null);
   const alertRef = useRef(null);
