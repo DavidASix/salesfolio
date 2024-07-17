@@ -4,6 +4,9 @@
 
 * {
   scroll-behavior: smooth;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
@@ -27,7 +30,15 @@ body {
   @apply hover:text-base-light;
 }
 
+.btn {
+  @apply text-base-light;
+}
+
 @layer components {
+  .header-font {
+    font-family: "Lilita One", sans-serif;
+  }
+
   .section-padding {
     @apply w-full md:px-4 lg:px-10 xl:px-32 2xl:px-64 flex flex-col items-center;
   }
