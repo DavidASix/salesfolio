@@ -47,16 +47,16 @@ export default function TimeInSales({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-center relative gap-y-16 pb-8"
+      flex flex-col justify-center items-center relative gap-y-16"
     >
-      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
+      <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-8">
         <h3 className="text-3xl self-start">
           Lastly, what year did you start in sales?
         </h3>
         <div className="flex items-center justify-center content-start flex-nowrap self-center">
           <label
             htmlFor="year"
-            className="text-3xl font-extralight hidden md:block"
+            className="text-xl md:text-3xl font-extralight "
           >
             I started my sales career in
           </label>
@@ -70,7 +70,7 @@ export default function TimeInSales({
             onChange={(e) => setInput(e.target.value.replace(/\D/g, ""))}
             className={`focus-visible:outline-none bg-transparent
           border-b border-primary-800 
-          font-normal text-primary-800 text-3xl w-24 ms-2`}
+          font-normal text-primary-800 text-2xl md:text-3xl w-24 ms-2`}
             placeholder="2020"
           />
           <span className="h-10 w-10">
@@ -81,9 +81,6 @@ export default function TimeInSales({
             />
           </span>
         </div>
-        <span className="w-full text-center -mt-8 text-sm text-base-800 md:hidden">
-          Is the year I started selling in.
-        </span>
 
         <p className="text-base-800 text-sm italic self-end">
           Your profile will show you've been in sales for{" "}
@@ -91,24 +88,26 @@ export default function TimeInSales({
         </p>
       </div>
 
-      {index ? (
+      <div className="w-full h-min flex justify-between p-4">
         <button
           type="button"
-          className="whitespace-nowrap w-min px-10 py-3 button button-outline-primary absolute bottom-4 left-4 "
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+            header-font btn btn-accent md:bottom-4 md:left-4`}
           onClick={goBackStep}
+          disabled={!index}
         >
           👈️ Back
         </button>
-      ) : null}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`whitespace-nowrap w-min px-10 py-2 absolute bottom-2 right-2
-        button ${final ? "button-outline-success" : "button-outline-primary"}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+        header-font btn ${final ? "btn-success" : "btn-primary"}
         md:bottom-4 md:right-4`}
-      >
-        {final ? "Submit 👍️" : "Next 👉️"}
-      </button>
+        >
+          {final ? "Submit 👍️" : "Next 👉️"}
+        </button>
+      </div>
     </form>
   );
 }

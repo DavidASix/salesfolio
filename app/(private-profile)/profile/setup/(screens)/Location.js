@@ -44,10 +44,10 @@ export default function Location({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-center relative gap-y-16 pb-8"
+      flex flex-col justify-center items-center relative gap-y-16"
     >
-      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
-        <h3 className="text-4xl self-start">What city are you in?</h3>
+      <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-8">
+        <h3 className="text-3xl  self-start">What city are you in?</h3>
         <div className="flex items-center justify-center content-start flex-nowrap self-center">
           <label
             htmlFor="city"
@@ -75,29 +75,34 @@ export default function Location({
           </span>
         </div>
         <span className="w-full text-center -mt-8 text-sm text-base-800 md:hidden">
-          I live in 📍{input ? ` ${input}` : "..."} 
+          I live in 📍{input ? ` ${input}` : "..."}
         </span>
 
         <p className="text-base-800 text-sm italic self-end">
           This will display on your profile
         </p>
       </div>
-      {index ? (
+
+      <div className="w-full h-min flex justify-between p-4">
         <button
           type="button"
-          className="whitespace-nowrap w-min px-10 py-3 button button-outline-primary absolute bottom-4 left-4 "
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+            header-font btn btn-accent md:bottom-4 md:left-4`}
           onClick={goBackStep}
+          disabled={!index}
         >
           👈️ Back
         </button>
-      ) : null}
-      <button
-        type="submit"
-        className={`whitespace-nowrap w-min px-10 py-3 absolute bottom-4 right-4
-        button ${final ? "button-outline-success" : "button-outline-primary"}`}
-      >
-        {final ? "Submit 👍️" : "Next 👉️"}
-      </button>
+        <button
+          type="submit"
+          disabled={loading}
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+        header-font btn ${final ? "btn-success" : "btn-primary"}
+        md:bottom-4 md:right-4`}
+        >
+          {final ? "Submit 👍️" : "Next 👉️"}
+        </button>
+      </div>
     </form>
   );
 }

@@ -66,9 +66,9 @@ export default function ProfilePicture({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-center relative gap-y-16 pb-8"
+      flex flex-col justify-center items-center relative gap-y-16"
     >
-      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
+      <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-8">
         <div className="flex items-center gap-4 md:flex-row flex-col">
           <div className="h-48 w-48 bg-primary rounded-full flex justify-center items-center relative">
             <div className="h-48 w-48 bg-primary rounded-full absolute -left-1 -bottom-[2px] z-0" />
@@ -97,30 +97,33 @@ export default function ProfilePicture({
             </span>
           </div>
         </div>
-        <h3 className="text-3xl self-start">
+        <h3 className="text-2xl md:text-3xl self-center text-center">
           {user?.image
             ? "You look great! Would you like to change your photo?"
             : "Let's start with a profile picture"}
         </h3>
       </div>
-      {index ? (
+
+      <div className="w-full h-min flex justify-between p-4">
         <button
           type="button"
-          className="whitespace-nowrap w-min px-10 py-3 button button-outline-primary absolute bottom-4 left-4 "
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+            header-font btn btn-accent md:bottom-4 md:left-4`}
           onClick={goBackStep}
+          disabled={!index}
         >
           👈️ Back
         </button>
-      ) : null}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`whitespace-nowrap w-min px-10 py-2 absolute bottom-2 right-2
-        button ${final ? "button-outline-success" : "button-outline-primary"}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+        header-font btn ${final ? "btn-success" : "btn-primary"}
         md:bottom-4 md:right-4`}
-      >
-        {final ? "Submit 👍️" : "Next 👉️"}
-      </button>
+        >
+          {final ? "Submit 👍️" : "Next 👉️"}
+        </button>
+      </div>
     </form>
   );
 }

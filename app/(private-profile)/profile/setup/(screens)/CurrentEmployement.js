@@ -53,11 +53,14 @@ export default function CurrentEmployement({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-center relative gap-y-16 pb-8"
+      flex flex-col justify-center items-center relative"
     >
-      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
-        <h3 className="text-3xl self-start">Are you currently employeed?</h3>
-        <div className="w-full flex justify-center items-center gap-8 flex-col md:flex-row">
+      <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-4 md:gap-16">
+        <h3 className="text-2xl md:text-3xl self-start">
+          Are you currently employed?
+        </h3>
+
+        <div className="w-full flex justify-center items-center gap-2 md:gap-4 flex-col md:flex-row">
           <button
             type="button"
             className={`btn btn-success text-base-light px-10 py-2 min-w-52 ${
@@ -78,20 +81,21 @@ export default function CurrentEmployement({
           </button>
         </div>
 
-        <p className="text-3xl min-h-10 font-light">
+        <p className="text-2xl md:text-3xl text-center min-h-10 font-light">
           {employed === true && "Awesome, where are you working right now? 🏢"}
-          {employed === false &&
-            "Not a problem, let's show off your skills! 💪"}
+          {employed === false && "No problem, let's hear about past jobs! 💪"}
         </p>
+
         <div
-          className={`w-min-content flex flex-col items-start gap-4 
-            transition-all duration-500 
-        ${!employed ? "opacity-30" : "opacity-100"}`}
+          className={`w-min-content max-w-full flex flex-col items-start gap-4 
+            transition-all duration-500  ${
+              !employed ? "opacity-30" : "opacity-100"
+            }`}
         >
-          <div className="flex items-center justify-center content-start flex-nowrap">
+          <div className="flex flex-nowrap md:flex-row md:items-center md:justify-center flex-col">
             <label
-              htmlFor="year"
-              className="text-3xl font-extralight hidden md:block"
+              htmlFor="title"
+              className="text-2xl md:text-3xl font-extralight"
             >
               I'm a
             </label>
@@ -109,10 +113,10 @@ export default function CurrentEmployement({
             />
           </div>
 
-          <div className="flex items-center justify-center content-start flex-nowrap">
+          <div className="flex flex-nowrap md:flex-row md:items-center md:justify-center flex-col">
             <label
-              htmlFor="year"
-              className="text-3xl font-extralight hidden md:block"
+              htmlFor="company"
+              className="text-2xl md:text-3xl font-extralight"
             >
               working at
             </label>
@@ -138,24 +142,27 @@ export default function CurrentEmployement({
           </div>
         </div>
       </div>
-      {index ? (
+
+      <div className="w-full h-min flex justify-between p-4">
         <button
           type="button"
-          className="whitespace-nowrap btn btn-outline btn-primary absolute bottom-4 left-4 "
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+            header-font btn btn-accent md:bottom-4 md:left-4`}
           onClick={goBackStep}
+          disabled={!index}
         >
           👈️ Back
         </button>
-      ) : null}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`whitespace-nowrap w-min px-10 py-2 absolute bottom-2 right-2
-        btn btn-outline ${final ? "btn-success" : "btn-primary"}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+        header-font btn ${final ? "btn-success" : "btn-primary"}
         md:bottom-4 md:right-4`}
-      >
-        {final ? "Submit 👍️" : "Next 👉️"}
-      </button>
+        >
+          {final ? "Submit 👍️" : "Next 👉️"}
+        </button>
+      </div>
     </form>
   );
 }

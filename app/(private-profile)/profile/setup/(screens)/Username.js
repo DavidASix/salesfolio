@@ -41,9 +41,9 @@ export default function Username({
     <form
       onSubmit={handleSubmit}
       className="w-full h-full min-w-full snap-center snap-always
-      flex flex-col justify-center items-center relative gap-y-16 pb-8"
+      flex flex-col justify-center items-center relative gap-y-16"
     >
-      <div className="max-w-[800px] w-full flex flex-col justify-center items-center gap-8">
+      <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-8">
         <h3 className="text-3xl self-start">Let's start with a handle</h3>
         <div className="flex items-center justify-center content-start flex-nowrap self-center">
           <label
@@ -59,8 +59,8 @@ export default function Username({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className={`focus-visible:outline-none bg-transparent
-          border-b border-primary-800 
-          font-normal text-primary-800 text-3xl w-80`}
+              border-b border-primary-800 
+              font-normal text-primary-800 text-3xl w-80`}
             placeholder="myName"
           />
           <span className="h-10 w-10">
@@ -80,24 +80,26 @@ export default function Username({
         </p>
       </div>
 
-      {index ? (
+      <div className="w-full h-min flex justify-between p-4">
         <button
           type="button"
-          className="whitespace-nowrap w-min px-10 py-3 button button-outline-primary absolute bottom-4 left-4 "
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+            header-font btn btn-accent md:bottom-4 md:left-4`}
           onClick={goBackStep}
+          disabled={!index}
         >
           👈️ Back
         </button>
-      ) : null}
-      <button
-        type="submit"
-        disabled={loading}
-        className={`whitespace-nowrap w-min px-10 py-2 absolute bottom-2 right-2
-        button ${final ? "button-outline-success" : "button-outline-primary"}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`whitespace-nowrap w-min px-8 py-2 text-xl
+        header-font btn ${final ? "btn-success" : "btn-primary"}
         md:bottom-4 md:right-4`}
-      >
-        {final ? "Submit 👍️" : "Next 👉️"}
-      </button>
+        >
+          {final ? "Submit 👍️" : "Next 👉️"}
+        </button>
+      </div>
     </form>
   );
 }

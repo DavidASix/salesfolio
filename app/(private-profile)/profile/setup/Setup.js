@@ -62,9 +62,9 @@ export default function Setup({ user }) {
       <Alert ref={alertRef} />
       <section className="section-padding h-[100vh] -mt-16 pt-16">
         <article className="content-container h-full pt-8 flex flex-col">
-          <h1 className="text-4xl font-light">
+          <h1 className="text-4xl font-light header-font">
             Welcome to{" "}
-            <span className="text-primary-800 font-normal">
+            <span className="text-primary-800 font-normal header-font">
               Sales<span className="font-bold">Folio</span>
             </span>
           </h1>
@@ -91,6 +91,6 @@ export default function Setup({ user }) {
           </div>
         </article>
       </section>
-    </>
+      </>
   );
 }
