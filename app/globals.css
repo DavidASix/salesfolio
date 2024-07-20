@@ -31,7 +31,7 @@ body {
 }
 
 .btn {
-  @apply text-base-light;
+  @apply text-base-light min-h-0;
 }
 
 @layer components {

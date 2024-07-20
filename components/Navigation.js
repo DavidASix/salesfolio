@@ -3,14 +3,6 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const links = [
-  { title: "Home", url: "/" },
-  { title: "Edit Profile", url: "/profile" },
-  { title: "Public Profile", url: "/p" },
-  { title: "David P Profile", url: "/p/davidasix" },
-  { title: "Login", url: "/login" },
-];
-
 const NavLink = (props) => {
   const { link, currentPath } = props;
   const baseStyle = "text-base-900 hover:text-primary-800";
@@ -66,18 +58,27 @@ export default function Navigation({ session }) {
   const [expanded, setExpanded] = useState(false);
   const expandedStyle = expanded ? "h-40" : "h-12";
 
+  const links = [
+    { title: "Home", url: "/" },
+  ];
+
+  if (session?.user) {
+    links.push({ title: "Profile", url: "/profile" })
+  } else {
+    links.push({ title: "Login", url: "/login" })
+  }
   const currentPath = usePathname();
   return (
     <>
       <div
-        className="flex items-center justify-end px-3 md:px-3 py-2"
+        className="flex items-center justify-end px-3 md:px-3 py-2 border-b border-base-200"
         aria-label="Main Menu"
       >
         <nav
           className={`${expandedStyle} relative overflow-hidden md:overflow-visible
             flex justify-between items-start md:items-center px-4
-            w-full rounded-2xl bg-primary-50
-            border border-primary-100
+            w-full rounded-2xl 
+            border-0 border-primary-100
             transition-all duration-300
             `}
         >
@@ -109,7 +110,7 @@ export default function Navigation({ session }) {
             ) : (
               <a
                 href="/login"
-                className="h-8 w-32 button button-outline-secondary"
+                className="h-8 w-32 btn btn-primary btn-outline"
               >
                 Sign Up
               </a>

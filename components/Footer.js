@@ -3,7 +3,7 @@ import c from "@/assets/constants";
 
 export default function Footer() {
   return (
-    <div className={`w-full min-h-48 section-padding justify-center`}>
+    <div className={`w-full min-h-48 section-padding justify-center bg-base-50 border-t border-base-200`}>
       <div
         className={`content-container w-full py-8 
         flex flex-col md:flex-row justify-between items-start`}
