@@ -6,5 +6,6 @@
     {"key": "firstLogin", "type": "boolean"},
     {"key": "firstSalesYear", "type": "number"},
     {"key": "role", "type": "string"},
-    {"key": "company", "type": "string"}
+    {"key": "company", "type": "string"},
+    {"key": "emailConsent", "type": "boolean"}
 ]

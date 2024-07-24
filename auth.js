@@ -23,6 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // New user
           user.uuid = uuidv4();
           user.firstLogin = true;
+          user.emailConsent = true;
         } else if (!existingUser?.uuid) {
           // User exists but doesn't have a UUID
           await usersCollection.updateOne(
