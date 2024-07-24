@@ -6,5 +6,5 @@ import { redirect } from "next/navigation";
  */
 
 export default async function Profile() {
-  return redirect("/profile/settings");
+  return redirect("/profile/folio");
 }

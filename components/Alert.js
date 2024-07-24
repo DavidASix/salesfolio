@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 
 const Alert = forwardRef((props, ref) => {

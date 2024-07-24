@@ -1,27 +1,25 @@
 import { redirect } from 'next/navigation'
 
 import { auth } from "@/auth";
-import NavBar from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import NavBar from "@/components/NavigationPrivate";
 
-/* 
- * Redirect unauthed users to the login page.
- */
 
 export default async function RootLayout({ children }) {
   const session = await auth();
-
+  
+  // Redirect unauthed users to the login page.
   if (!session?.user) {
     return redirect('/login');
   }
 
   if (session?.user) {
+    // TODO: Remove any unwanted data that goes to client side.
     session.user = session.user;
   };
 
   return (
     <>
-      <header className="sticky top-0 z-50 h-16 bg-base-100">
+      <header className="sticky top-0 z-50 h-16 bg-transparent">
         <NavBar session={session} />
       </header>
       <main
