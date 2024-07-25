@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Navigation({ session }) {
   const links = [
-    { title: "My Folio", url: "/profile/folio" },
-    { title: "Settings", url: "/profile/settings" },
+    { title: "📁  My Folio", url: "/profile/folio" },
+    { title: "⚙️  Settings", url: "/profile/settings" },
   ];
 
   return (

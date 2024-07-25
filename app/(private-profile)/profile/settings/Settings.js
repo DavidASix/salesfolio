@@ -27,9 +27,9 @@ export default function Settings({ session }) {
   const [imgPreview, setImgPreview] = useState(false);
   const [image, setImage] = useState(false);
 
-  const [linkedinUrl, setLinkedinUrl] = useState("");
-  const [website, setWebsiteUrl] = useState("");
-  const [twitter, setTwitter] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState(session?.user?.linkedinUrl || "");
+  const [website, setWebsiteUrl] = useState(session?.user?.website || "");
+  const [twitter, setTwitter] = useState(session?.user?.twitter || "");
 
   const [loading, setLoading] = useState(false);
 
@@ -124,7 +124,7 @@ export default function Settings({ session }) {
   };
 
   function inputChangeDetected() {
-    
+
     return !(
       username == (session?.user?.username || "") &&
       publicEmail == (session?.user?.publicEmail || "") &&
