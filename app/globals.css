@@ -79,4 +79,13 @@ body {
     @apply enabled:hover:bg-warning enabled:hover:text-base-50;
   }
 
+  .folio-tab {
+    @apply flex justify-start items-center gap-2 px-4 flex-nowrap;
+    @apply text-lg;
+    @apply min-w-36 h-12 bg-base-50 border-base border-t border-l border-r rounded-t-2xl;
+    @apply transition-all duration-300
+  }
+}
+.folio-tab-inactive {
+  @apply min-w-36 h-12 bg-base;
 }
