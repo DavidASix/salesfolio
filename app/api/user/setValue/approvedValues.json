@@ -7,5 +7,10 @@
     {"key": "firstSalesYear", "type": "number"},
     {"key": "role", "type": "string"},
     {"key": "company", "type": "string"},
-    {"key": "emailConsent", "type": "boolean"}
+    {"key": "emailConsent", "type": "boolean"},
+    {"key": "publicEmail", "type": "string"},
+    {"key": "publicPhone", "type": "string"},
+    {"key": "linkedinUrl", "type": "string"},
+    {"key": "twitter", "type": "string"},
+    {"key": "website", "type": "string"}
 ]

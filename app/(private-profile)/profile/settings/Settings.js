@@ -3,12 +3,18 @@ import { useState, useRef } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { BsLinkedin, BsTwitterX, BsGlobe } from "react-icons/bs";
 
 import Alert from "@/components/Alert";
 
 export default function Settings({ session }) {
   const [username, setUsername] = useState(session?.user?.username || "");
-  const [email, setEmail] = useState(session?.user?.email || "");
+  const [publicEmail, setPublicEmail] = useState(
+    session?.user?.publicEmail || ""
+  );
+  const [publicPhone, setPublicPhone] = useState(
+    session?.user?.publicPhone || ""
+  );
   const [location, setLocation] = useState(session?.user?.location || "");
   const [role, setRole] = useState(session?.user?.role || "");
   const [company, setCompany] = useState(session?.user?.company || "");
@@ -20,6 +26,11 @@ export default function Settings({ session }) {
   );
   const [imgPreview, setImgPreview] = useState(false);
   const [image, setImage] = useState(false);
+
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [website, setWebsiteUrl] = useState("");
+  const [twitter, setTwitter] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -28,9 +39,9 @@ export default function Settings({ session }) {
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
   async function saveChanges() {
-    console.log('saveChanges called')
+    console.log("saveChanges called");
     if (!inputChangeDetected()) {
-      console.log('No Change Detected')
+      console.log("No Change Detected");
       return;
     }
 
@@ -59,16 +70,23 @@ export default function Settings({ session }) {
 
       // Upload all other changed data
       const profileValues = {
-        email,
+        publicEmail,
         location,
         role,
         company,
         firstSalesYear,
         emailConsent,
+        publicPhone,
+        linkedinUrl,
+        website,
+        twitter,
       };
       for await (const key of Object.keys(profileValues)) {
         // Only upload values for things that have changed and have value
-        if (profileValues[key] !== "" && profileValues[key] !== session?.user?.[key]) {
+        if (
+          profileValues[key] !== "" &&
+          profileValues[key] !== session?.user?.[key]
+        ) {
           await axios.post("/api/user/setValue", {
             key: key,
             value: profileValues[key],
@@ -106,14 +124,19 @@ export default function Settings({ session }) {
   };
 
   function inputChangeDetected() {
+    
     return !(
-      username == session?.user?.username &&
-      email == session?.user?.email &&
-      location == session?.user?.location &&
-      role == session?.user?.role &&
-      company == session?.user?.company &&
-      firstSalesYear == session?.user?.firstSalesYear &&
-      emailConsent == session?.user?.emailConsent &&
+      username == (session?.user?.username || "") &&
+      publicEmail == (session?.user?.publicEmail || "") &&
+      location == (session?.user?.location || "") &&
+      role == (session?.user?.role || "") &&
+      company == (session?.user?.company || "") &&
+      firstSalesYear == (session?.user?.firstSalesYear || "") &&
+      emailConsent == (session?.user?.emailConsent || "") &&
+      publicPhone == (session?.user?.publicPhone || "") && 
+      linkedinUrl == (session?.user?.linkedinUrl || "") && 
+      website == (session?.user?.website || "") && 
+      twitter == (session?.user?.twitter || "") && 
       !imgPreview
     );
   }
@@ -202,30 +225,6 @@ export default function Settings({ session }) {
               </div>
               <div className="w-full flex items-center gap-4 px-4 pb-3">
                 <hr className="w-full" />
-              </div>
-            </article>
-            {/* EMAIL ADDRESS */}
-            <article className="w-full">
-              <label
-                htmlFor="email"
-                className="font-bold text-sm text-base-800"
-              >
-                Email
-              </label>
-              <div className="w-full flex items-center gap-4 px-4 pb-3">
-                <span>✉️</span>
-                <input
-                  disabled={session?.user?.email}
-                  type="email"
-                  id="email"
-                  autoComplete="off"
-                  maxLength={20}
-                  value={(session?.user?.email ? "🔒️ " : "") + email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
-                disabled:text-base-800`}
-                  placeholder="myEmail@gmail.com"
-                />
               </div>
             </article>
             {/* LOCATION */}
@@ -319,6 +318,128 @@ export default function Settings({ session }) {
               </div>
             </article>
 
+            {/* EMAIL ADDRESS */}
+            <article className="w-full">
+              <label
+                htmlFor="email"
+                className="font-bold text-sm text-base-800"
+              >
+                Public Email
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+                <span>✉️</span>
+                <input
+                  type="email"
+                  id="email"
+                  autoComplete="off"
+                  maxLength={128}
+                  value={publicEmail}
+                  onChange={(e) => setPublicEmail(e.target.value)}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                  placeholder="myEmail@gmail.com"
+                />
+              </div>
+            </article>
+
+            {/* PUBLIC PHONE NUMBER */}
+            <article className="w-full">
+              <label
+                htmlFor="phone"
+                className="font-bold text-sm text-base-800"
+              >
+                Public Phone Number
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+                <span>📞</span>
+                <input
+                  type="tel"
+                  id="phone"
+                  maxLength={15}
+                  value={publicPhone}
+                  onChange={(e) => setPublicPhone(e.target.value)}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                  placeholder="416-000-0000"
+                />
+              </div>
+            </article>
+
+            {/* Linkedin */}
+            <article className="w-full">
+              <label
+                htmlFor="linkedin"
+                className="font-bold text-sm text-base-800"
+              >
+                Linkedin URL
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+                <BsLinkedin className="fill-blue-500 h-4 w-4" />
+                <input
+                  type="url"
+                  id="linkedin"
+                  autoComplete="off"
+                  maxLength={256}
+                  minLength={25}
+                  value={linkedinUrl}
+                  onChange={(e) => setLinkedinUrl(e.target.value)}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                  placeholder="https://linkedin.com/in/salesfolio"
+                />
+              </div>
+            </article>
+
+            {/* X (twitter) */}
+            <article className="w-full">
+              <label
+                htmlFor="twitter"
+                className="font-bold text-sm text-base-800"
+              >
+                X (Twitter) Handle
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+              <BsTwitterX className="fill-black h-4 w-4" />
+                <input
+                  type="text"
+                  id="twitter"
+                  autoComplete="off"
+                  maxLength={256}
+                  minLength={2}
+                  value={twitter}
+                  onChange={(e) => setTwitter(e.target.value)}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                  placeholder="myTwitterHandle"
+                />
+              </div>
+            </article>
+
+            {/* PERSONAL WEBSITE */}
+            <article className="w-full">
+              <label
+                htmlFor="website"
+                className="font-bold text-sm text-base-800"
+              >
+                Personal Website
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+                <BsGlobe className="fill-primary-900 h-4 w-4" />
+                <input
+                  type="url"
+                  id="website"
+                  autoComplete="off"
+                  maxLength={256}
+                  minLength={25}
+                  value={website}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                  placeholder="https://mysite.com"
+                />
+              </div>
+            </article>
+
             {/* EMAIL CONSENT */}
             <article className="w-full">
               <label
@@ -344,6 +465,28 @@ export default function Settings({ session }) {
               </div>
             </article>
           </div>
+          {/* EMAIL ADDRESS */}
+          <article className="w-full">
+            <label htmlFor="email" className="font-bold text-sm text-base-800">
+              Account Email
+            </label>
+            <div className="w-full flex items-center gap-4 px-4 pb-3">
+              <span>✉️</span>
+              <input
+                disabled={true}
+                type="email"
+                id="email"
+                autoComplete="off"
+                maxLength={128}
+                value={
+                  (session?.user?.email ? "🔒️ " : "") + session?.user?.email
+                }
+                className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+                disabled:text-base-800`}
+                placeholder="myEmail@gmail.com"
+              />
+            </div>
+          </article>
           {/* SIGN OUT BUTTON */}
           <button
             type="button"
