@@ -18,12 +18,18 @@ import {
   BsPen,
 } from "react-icons/bs";
 
+import Home from './(sections)/Home'
+import Outreach from './(sections)/Outreach'
+import Deals from './(sections)/Deals'
+import Highlights from './(sections)/Highlights'
+import Stats from './(sections)/Stats'
+
 const tabs = [
-  { slug: "home", title: "Home", icon: AiOutlineHome },
-  { slug: "outreach", title: "Outreach", icon: AiOutlineNotification },
-  { slug: "deals", title: "Deals", icon: LiaPenAltSolid },
-  { slug: "highlights", title: "Highlights", icon: LiaAwardSolid },
-  { slug: "kpis", title: "KPI's", icon: BsGraphUpArrow },
+  { slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
+  { slug: "outreach", title: "Outreach", icon: AiOutlineNotification, tab: Outreach },
+  { slug: "deals", title: "Deals", icon: LiaPenAltSolid, tab: Deals },
+  //{ slug: "highlights", title: "Highlights", icon: LiaAwardSolid, tab: Highlights },
+  //{ slug: "kpis", title: "KPI's", icon: BsGraphUpArrow, tab: Stats },
 ];
 
 export default function Folio({ session }) {
@@ -88,7 +94,7 @@ export default function Folio({ session }) {
       },
     ],
   };
-
+  const CurrentTab = tabs.filter(t => t.slug === activeTab)[0].tab;
   return (
     <>
       <Alert ref={alertRef} />
@@ -165,10 +171,11 @@ export default function Folio({ session }) {
             </ul>
             <div
               className="flex-1 z-0 min-h-[80vh] sm:min-h-0
-                bg-base-50 border-x border-t border-base px-4 pb-4
-                rounded-tr-3xl overflow-y-scroll"
+                bg-base-50 border-x border-t border-base
+                rounded-tr-3xl overflow-y-scroll
+                p-4"
             >
-              <span>Card Content</span>
+              <CurrentTab />
             </div>
           </div>
         </div>
