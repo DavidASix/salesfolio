@@ -27,7 +27,9 @@ export default function Settings({ session }) {
   const [imgPreview, setImgPreview] = useState(false);
   const [image, setImage] = useState(false);
 
-  const [linkedinUrl, setLinkedinUrl] = useState(session?.user?.linkedinUrl || "");
+  const [linkedinUrl, setLinkedinUrl] = useState(
+    session?.user?.linkedinUrl || ""
+  );
   const [website, setWebsiteUrl] = useState(session?.user?.website || "");
   const [twitter, setTwitter] = useState(session?.user?.twitter || "");
 
@@ -124,7 +126,6 @@ export default function Settings({ session }) {
   };
 
   function inputChangeDetected() {
-
     return !(
       username == (session?.user?.username || "") &&
       publicEmail == (session?.user?.publicEmail || "") &&
@@ -133,10 +134,10 @@ export default function Settings({ session }) {
       company == (session?.user?.company || "") &&
       firstSalesYear == (session?.user?.firstSalesYear || "") &&
       emailConsent == (session?.user?.emailConsent || "") &&
-      publicPhone == (session?.user?.publicPhone || "") && 
-      linkedinUrl == (session?.user?.linkedinUrl || "") && 
-      website == (session?.user?.website || "") && 
-      twitter == (session?.user?.twitter || "") && 
+      publicPhone == (session?.user?.publicPhone || "") &&
+      linkedinUrl == (session?.user?.linkedinUrl || "") &&
+      website == (session?.user?.website || "") &&
+      twitter == (session?.user?.twitter || "") &&
       !imgPreview
     );
   }
@@ -174,6 +175,9 @@ export default function Settings({ session }) {
           </div>
           <div className="flex flex-col justify-center items-center divide-y divide-base-50">
             {/* USERNAME */}
+            <h2 className="header-font text-2xl self-start mt-4 mb-2 -ms-1">
+              Profile
+            </h2>
             <article className="w-full">
               <label
                 htmlFor="handle"
@@ -318,6 +322,9 @@ export default function Settings({ session }) {
               </div>
             </article>
 
+            <h2 className="header-font text-2xl self-start mt-4 mb-2 -ms-1">
+              Socials
+            </h2>
             {/* EMAIL ADDRESS */}
             <article className="w-full">
               <label
@@ -399,7 +406,7 @@ export default function Settings({ session }) {
                 X (Twitter) Handle
               </label>
               <div className="w-full flex items-center gap-4 px-4 pb-3">
-              <BsTwitterX className="fill-black h-4 w-4" />
+                <BsTwitterX className="fill-black h-4 w-4" />
                 <input
                   type="text"
                   id="twitter"
@@ -440,6 +447,9 @@ export default function Settings({ session }) {
               </div>
             </article>
 
+            <h2 className="header-font text-2xl self-start mt-4 mb-2 -ms-1">
+              Settings
+            </h2>
             {/* EMAIL CONSENT */}
             <article className="w-full">
               <label
