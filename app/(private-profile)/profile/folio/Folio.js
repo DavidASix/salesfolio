@@ -173,7 +173,7 @@ export default function Folio({ session }) {
               className="flex-1 z-0 min-h-[80vh] sm:min-h-0
                 bg-base-50 border-x border-t border-base
                 rounded-tr-3xl overflow-y-scroll
-                p-4"
+                p-4 sm:p-4 lg:p-8"
             >
               <CurrentTab />
             </div>
