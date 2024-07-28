@@ -155,7 +155,7 @@ export default function Folio({ session }) {
           </aside>
 
           <div className="flex flex-col flex-1">
-            <ul className="flex gap-2 lg:gap-4 w-full z-10 -mb-[1px] overflow-scroll rounded-e-2xl">
+            <ul className="flex gap-2 lg:gap-2 w-full z-10 -mb-[1px] overflow-scroll rounded-e-2xl">
               {tabs.map((tab, i) => (
                 <li key={i}>
                   <button
@@ -173,9 +173,11 @@ export default function Folio({ session }) {
               className="flex-1 z-0 min-h-[80vh] sm:min-h-0
                 bg-base-50 border-x border-t border-base
                 rounded-tr-3xl overflow-y-scroll
-                p-4 sm:p-4 lg:p-8"
+                px-4 pt-4 lg:px-8 lg:pt-8"
             >
-              <CurrentTab />
+              <CurrentTab 
+                onError={(type, msg) => alertRef.current.showAlert(type, msg)}
+                user={user} />
             </div>
           </div>
         </div>

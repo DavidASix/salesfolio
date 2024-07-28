@@ -31,6 +31,18 @@ body {
 }
 
 .btn {
+  @apply min-h-0;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-accent,
+.btn-accent,
+.btn-neutral,
+.btn-info,
+.btn-success,
+.btn-warning,
+.btn-error {
   @apply text-base-light min-h-0;
 }
 

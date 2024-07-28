@@ -101,7 +101,7 @@ export default function Home({ user }) {
   };
 
   return (
-    <section id="home" className="flex flex-col w-full gap-8">
+    <section id="home" className="flex flex-col w-full gap-8 pb-20">
       <h2 className="header-font text-4xl">About Me</h2>
       <div className="flex flex-col">
         <span className="mb-4 font-extralight">
