@@ -50,7 +50,7 @@ export default function Outreach({ user, onError }) {
           some creative outreach strategy? Brag about it here.
         </p>
         {/* Add new outreach card */}
-        <div className="border bg-white rounded-3xl flex flex-col overflow-hidden w-full max-w-[7500px] self-center">
+        <div className="border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full max-w-[750px] self-center">
           <div className="bg-primary w-full h-min flex flex-col p-4">
             <h3 className="text-white header-font font-bold text-4xl">
               New outreach
@@ -74,7 +74,7 @@ export default function Outreach({ user, onError }) {
               ))}
             </div>
           </div>
-          <div className="bg-white w-full flex flex-col p-4 gap-8">
+          <div className="w-full flex flex-col p-4 gap-4">
             <div>
               <label for="title" className="text-sm text-base-700">
                 Title
@@ -85,7 +85,19 @@ export default function Outreach({ user, onError }) {
                 placeholder={`My Awesome ${
                   outreachTypes.find((v) => v.slug === newOutreachType).title
                 } Outreach`}
-                className="w-full rounded-2xl border-2 border-dashed border-base p-4 focus-visible:outline-none focus:shadow transition-all duration-300"
+                className="w-full rounded-2xl border-2 border-dashed border-base px-4 py-2 focus-visible:outline-none focus:shadow transition-all duration-300"
+              />
+            </div>
+
+            <div>
+              <label for="description" className="text-sm text-base-700">
+                Description
+              </label>
+              <textarea
+                className="w-full min-h-32 rounded-2xl border-2 border-dashed border-base px-4 py-2  focus-visible:outline-none focus:shadow transition-all duration-300"
+                placeholder="This call is a great example of my etc etc etc"
+                id="description"
+                value=""
               />
             </div>
 
@@ -95,16 +107,16 @@ export default function Outreach({ user, onError }) {
               {/* CALL OUTREACH INPUTS */}
               {newOutreachType === "call" && (
                 <>
-                  <label for="audio-url" className="text-sm text-base-700">
+                  {/*<label for="audio-url" className="text-sm text-base-700">
                     Audio URL
                   </label>
                   <input
                     type="url"
                     id="audio-url"
                     placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    className="w-full rounded-2xl border-2 border-dashed border-base p-4 focus-visible:outline-none focus:shadow transition-all duration-300"
+                    className="w-full rounded-2xl border-2 border-dashed border-base px-4 py-2 focus-visible:outline-none focus:shadow transition-all duration-300"
                   />
-                  <span className="self-center font-extralight mt-4">or</span>
+                  <span className="self-center font-extralight mt-2 -mb-2">or</span>
                   <label for="video-url" className="text-sm text-base-700">
                     Video URL
                   </label>
@@ -112,9 +124,9 @@ export default function Outreach({ user, onError }) {
                     type="url"
                     id="video-url"
                     placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                    className="w-full rounded-2xl border-2 border-dashed border-base p-4 focus-visible:outline-none focus:shadow transition-all duration-300"
+                    className="w-full rounded-2xl border-2 border-dashed border-base px-4 py-2 focus-visible:outline-none focus:shadow transition-all duration-300"
                   />
-                  <span className="self-center font-extralight mt-4">or</span>
+                  <span className="self-center font-extralight mt-2 -mb-2">or</span>*/}
                   <label for="audio-file" className="text-sm text-base-700">
                     Audio File Upload
                   </label>
@@ -139,15 +151,15 @@ export default function Outreach({ user, onError }) {
                     type="text"
                     id="subject"
                     placeholder={`Hi there!`}
-                    className="w-full rounded-2xl border-2 border-dashed border-base p-4 focus-visible:outline-none focus:shadow transition-all duration-300"
+                    className="w-full rounded-2xl border-2 border-dashed border-base px-4 py-2 focus-visible:outline-none focus:shadow transition-all duration-300"
                   />
 
                   <label for="body" className="text-sm text-base-700">
                     Email Body
                   </label>
                   <textarea
-                    className="w-full min-h-52 rounded-2xl border-2 border-dashed border-base p-4  focus-visible:outline-none focus:shadow transition-all duration-300"
-                    placeholder={`Hey, this is my email,\n Nice to meet you!`}
+                    className="w-full min-h-52 rounded-2xl border-2 border-dashed border-base px-4 py-2  focus-visible:outline-none focus:shadow transition-all duration-300"
+                    placeholder={`Hi there,\n\nThis is my email, nice to meet you!`}
                     id="body"
                     value=""
                   />
@@ -170,21 +182,8 @@ export default function Outreach({ user, onError }) {
                 />
                 </>
               )}
-
-
             </div>
 
-            <div>
-              <label for="description" className="text-sm text-base-700">
-                Description
-              </label>
-              <textarea
-                className="w-full min-h-52 rounded-2xl border-2 border-dashed border-base p-4  focus-visible:outline-none focus:shadow transition-all duration-300"
-                placeholder="This call is a great example of my etc etc etc"
-                id="description"
-                value=""
-              />
-            </div>
           </div>
         </div>
     </section>
