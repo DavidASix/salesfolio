@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
-          crossOrigin="true"
+          crossOrigin="anonymous"
         ></link>
         <link
           href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
