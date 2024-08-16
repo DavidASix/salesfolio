@@ -19,21 +19,21 @@ import {
 } from "react-icons/bs";
 
 import Home from './(sections)/Home'
-import Outreach from './(sections)/Outreach'
+import OutreachPage from './(sections)/Outreach.tsx'
 import Deals from './(sections)/Deals'
 import Highlights from './(sections)/Highlights'
 import Stats from './(sections)/Stats'
 
 const tabs = [
-  { slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
-  { slug: "outreach", title: "Outreach", icon: AiOutlineNotification, tab: Outreach },
+  //{ slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
+  { slug: "outreach", title: "Outreach", icon: AiOutlineNotification, tab: OutreachPage },
   { slug: "deals", title: "Deals", icon: LiaPenAltSolid, tab: Deals },
   //{ slug: "highlights", title: "Highlights", icon: LiaAwardSolid, tab: Highlights },
   //{ slug: "kpis", title: "KPI's", icon: BsGraphUpArrow, tab: Stats },
 ];
 
 export default function Folio({ session }) {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("outreach");
   const alertRef = useRef(null);
   const user = session?.user;
   const aside = {
@@ -51,7 +51,7 @@ export default function Folio({ session }) {
         text: user?.company,
       },
       {
-        key: "location",
+        key: "firstSalesYear",
         value: user?.firstSalesYear,
         icon: BsCalendar2Month,
         text: user?.firstSalesYear
@@ -128,7 +128,7 @@ export default function Folio({ session }) {
               <ul className="flex gap-4">
                 {aside.socials.map((li, i) =>
                   li.value ? (
-                    <li>
+                    <li key={`${li.key}${i}`}>
                       <a href={li.link} className="group">
                         <li.icon className="h-5 w-5 group-hover:fill-primary transition-colors duration-200" />
                       </a>
@@ -143,7 +143,7 @@ export default function Folio({ session }) {
             <div className="flex flex-col gap-1 justify-center px-2">
               {aside.list.map((li, i) =>
                 li.value ? (
-                  <p className="flex text-lg font-extralight items-center">
+                  <p key={`${li.key}${i}`} className="flex text-lg font-extralight items-center">
                     <li.icon className="h-5 w-5 me-4" />
                     {li.text}
                   </p>
@@ -155,7 +155,7 @@ export default function Folio({ session }) {
           </aside>
 
           <div className="flex flex-col flex-1">
-            <ul className="flex gap-2 lg:gap-2 w-full z-10 -mb-[1px] overflow-scroll rounded-e-2xl">
+            <ul className="flex gap-2 lg:gap-2 w-full z-10 -mb-[1px] overflow-scroll rounded-e-2xl no-scrollbar">
               {tabs.map((tab, i) => (
                 <li key={i}>
                   <button

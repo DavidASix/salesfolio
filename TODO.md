@@ -13,3 +13,10 @@ Profile picture is optional as a video instead of a photo
 ## Pre MVP
 ~~Switch Work history for start and end date instea of numbere of years~~
 Add validation to inputs in settings
+
+## V 1.2
+Badges
+
+## V2
+Groups
+Leaderboards
