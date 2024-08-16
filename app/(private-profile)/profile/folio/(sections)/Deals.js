@@ -1,6 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
-import Alert from "@/components/Alert";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Deals({ user }) {

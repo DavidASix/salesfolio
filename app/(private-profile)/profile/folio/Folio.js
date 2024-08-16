@@ -1,6 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
-import Alert from "@/components/Alert";
+import { useState } from "react";
 import Link from "next/link";
 
 import { AiOutlineHome, AiOutlineNotification } from "react-icons/ai";
@@ -34,7 +33,6 @@ const tabs = [
 
 export default function Folio({ session }) {
   const [activeTab, setActiveTab] = useState("outreach");
-  const alertRef = useRef(null);
   const user = session?.user;
   const aside = {
     list: [
@@ -97,7 +95,6 @@ export default function Folio({ session }) {
   const CurrentTab = tabs.filter(t => t.slug === activeTab)[0].tab;
   return (
     <>
-      <Alert ref={alertRef} />
       <section className="section-padding h-screen -mt-16 pt-16 px-2">
         <div className="content-container h-full flex flex-col lg:flex-row gap-4 lg:gap-0">
           <aside className="relative h-min-content w-full lg:w-[300px] flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-6
@@ -176,7 +173,6 @@ export default function Folio({ session }) {
                 px-4 pt-4 lg:px-8 lg:pt-8"
             >
               <CurrentTab 
-                onError={(type, msg) => alertRef.current.showAlert(type, msg)}
                 user={user} />
             </div>
           </div>

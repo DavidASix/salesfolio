@@ -1,4 +1,5 @@
 import "./globals.css";
+import {AlertProvider} from "@/components/AlertContext";
 
 export const metadata = {
   title: "Sales Folio",
@@ -20,7 +21,11 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         ></link>
       </head>
-      <body className="flex flex-col w-full">{children}</body>
+      <body className="flex flex-col w-full">
+        <AlertProvider>
+          {children}
+        </AlertProvider>
+      </body>
     </html>
   );
 }

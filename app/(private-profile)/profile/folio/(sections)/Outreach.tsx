@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
-
+import { AlertContext } from "@/components/AlertContext";
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
 
 const outreachTypes = [
@@ -13,7 +13,8 @@ const outreachTypes = [
 const outreachSlugs = [...outreachTypes.map((v) => v.slug)] as const;
 type OutreachTypes = (typeof outreachSlugs)[number];
 
-export default function OutreachPage({ user, onError }) {
+export default function OutreachPage({ user }) {
+  const { showAlert } = useContext(AlertContext);
   const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(
     outreachTypes[0].slug
   );
@@ -33,10 +34,10 @@ export default function OutreachPage({ user, onError }) {
   const onChangeAudioFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (!file) {
-      return onError("warning", "Audio File Invalid");
+      return showAlert("warning", "Audio File Invalid");
     }
     if (file.size > 1024 * 1024 * 128) {
-      return onError("warning", "Please choose a smaller audio file");
+      return showAlert("warning", "Please choose a smaller audio file");
     }
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -46,10 +47,10 @@ export default function OutreachPage({ user, onError }) {
   const onChangeImageFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (!file) {
-      return onError("warning", "Image Invalid");
+      return showAlert("warning", "Image Invalid");
     }
     if (file.size > 1024 * 1024 * 10) {
-      return onError("warning", "Please choose a smaller image");
+      return showAlert("warning", "Please choose a smaller image");
     }
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -58,7 +59,7 @@ export default function OutreachPage({ user, onError }) {
 
   async function submitOutreach() {
     if (!title || !description) {
-      return onError("warning", "Please add a title & description");
+      return showAlert("warning", "Please add a title & description");
     }
     setLoading(true);
 
@@ -101,7 +102,7 @@ export default function OutreachPage({ user, onError }) {
     } catch (err) {
       console.log(err);
       setLoading(false);
-      return onError(
+      return showAlert(
         "error",
         `Error uploading ${
           newOutreachType === "call" ? "audio" : "image"
@@ -139,10 +140,10 @@ export default function OutreachPage({ user, onError }) {
       if (audioInput?.current) {
         audioInput.current.value = "";
       }
-      onError("success", "Outreach Uploaded!");
+      showAlert("success", "Outreach Uploaded!");
     } catch (err) {
       console.log(err);
-      onError("warning", err?.response?.data || "An error occured, try again.");
+      showAlert("warning", err?.response?.data || "An error occured, try again.");
     } finally {
       setLoading(false);
     }

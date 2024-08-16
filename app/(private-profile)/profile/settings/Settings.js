@@ -1,13 +1,15 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useContext } from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { BsLinkedin, BsTwitterX, BsGlobe } from "react-icons/bs";
 
-import Alert from "@/components/Alert";
+import { AlertContext } from "@/components/AlertContext";
 
 export default function Settings({ session }) {
+  const { showAlert } = useContext(AlertContext);
+
   const [username, setUsername] = useState(session?.user?.username || "");
   const [publicEmail, setPublicEmail] = useState(
     session?.user?.publicEmail || ""
@@ -102,7 +104,7 @@ export default function Settings({ session }) {
         typeof err === "string"
           ? err
           : err?.message || err?.data?.message || "Something went wrong";
-      alertRef.current.showAlert("warning", msg);
+      showAlert("warning", msg);
     } finally {
       setLoading(false);
     }
@@ -142,10 +144,8 @@ export default function Settings({ session }) {
     );
   }
 
-  const alertRef = useRef(null);
   return (
     <>
-      <Alert ref={alertRef} />
       <section className="section-padding min-h-screen -mt-16 pt-16 px-2">
         <div
           className="content-container min-h-full flex flex-col 

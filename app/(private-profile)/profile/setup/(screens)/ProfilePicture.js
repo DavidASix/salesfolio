@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+
+import { AlertContext } from "@/components/AlertContext";
 
 export default function ProfilePicture({
   index,
   final,
   goNextStep,
   goBackStep,
-  onError,
   user,
 }) {
+  const { showAlert } = useContext(AlertContext);
   const [input, setInput] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imgPreview, setImgPreview] = useState(false);
@@ -18,10 +20,10 @@ export default function ProfilePicture({
     const file = e.target.files[0];
 
     if (!file) {
-      return onError("warning", "Image Invalid");
+      return showAlert("warning", "Image Invalid");
     }
     if (file.size > 1024 * 1024 * 2) {
-      return onError("warning", "Please choose a smaller image");
+      return showAlert("warning", "Please choose a smaller image");
     }
 
     const reader = new FileReader();
@@ -56,7 +58,7 @@ export default function ProfilePicture({
         typeof error === "string"
           ? error
           : error?.message || error?.data?.message || "Something went wrong";
-      onError("warning", msg);
+      showAlert("warning", msg);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
     }

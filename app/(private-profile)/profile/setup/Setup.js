@@ -3,8 +3,6 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-import Alert from "@/components/Alert";
-
 import Username from "./(screens)/Username";
 import ProfilePicture from "./(screens)/ProfilePicture";
 import Location from "./(screens)/Location";
@@ -24,12 +22,7 @@ const screens = [
 export default function Setup({ user }) {
   const [step, setStep] = useState(1);
   const screensContainer = useRef(null);
-  const alertRef = useRef(null);
   const router = useRouter();
-
-  const onError = (type, msg) => {
-    alertRef.current.showAlert(type, msg);
-  };
 
   const goNextStep = async () => {
     if (step === screens.length) {
@@ -59,7 +52,6 @@ export default function Setup({ user }) {
 
   return (
     <>
-      <Alert ref={alertRef} />
       <section className="section-padding h-[100vh] -mt-16 pt-16">
         <article className="content-container h-full pt-8 flex flex-col">
           <h1 className="text-4xl font-light header-font">
@@ -84,7 +76,6 @@ export default function Setup({ user }) {
                 final={i === screens.length - 1}
                 goNextStep={goNextStep}
                 goBackStep={goBackStep}
-                onError={onError}
                 user={user}
               />
             ))}

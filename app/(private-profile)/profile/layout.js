@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 h-16 bg-transparent">
+      <header className="sticky top-0 z-40 h-16 bg-transparent">
         <NavBar session={session} />
       </header>
       <main

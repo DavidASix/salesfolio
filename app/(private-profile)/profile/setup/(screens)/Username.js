@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+
+import { AlertContext } from "@/components/AlertContext";
 
 export default function Username({
   index,
   final,
   goNextStep,
   goBackStep,
-  onError,
   user,
 }) {
+  const { showAlert } = useContext(AlertContext)
   const [input, setInput] = useState(user?.username || "");
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +32,7 @@ export default function Username({
         typeof error === "string"
           ? error
           : error?.message || error?.data?.message || "Something went wrong";
-      onError("warning", msg);
+      showAlert("warning", msg);
       //alert(error);
     } finally {
       setTimeout(() => setLoading(() => false), 500);

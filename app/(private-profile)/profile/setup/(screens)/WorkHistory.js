@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import MonthYearPicker from "@/components/MonthYearPicker";
+import { AlertContext } from "@/components/AlertContext";
 
 export default function WorkHistory({
   index,
   final,
   goNextStep,
   goBackStep,
-  onError,
   user
 }) {
+  const { showAlert } = useContext(AlertContext)
   const [inputs, setInputs] = useState(
     user?.workHistory || [{ company: "", start: "", end: "" }]
   );
@@ -31,7 +32,7 @@ export default function WorkHistory({
         typeof error === "string"
           ? error
           : error?.message || error?.data?.message || "Something went wrong";
-      onError("warning", msg);
+      showAlert("warning", msg);
       //alert(error);
     } finally {
       setTimeout(() => setLoading(() => false), 500);

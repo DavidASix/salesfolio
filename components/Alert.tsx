@@ -1,23 +1,9 @@
 "use client"
-import React, { useState, useImperativeHandle, forwardRef } from "react";
+import React, { useContext } from "react";
+import { AlertContext } from "./AlertContext";
 
-const Alert = forwardRef((props, ref) => {
-  const [message, setAlertMessage] = useState("");
-  const [visible, setAlertVisible] = useState("");
-  const [type, setAlertType] = useState("");
-
-  function showAlert(type, msg) {
-    if (!visible) {
-      setAlertType(type);
-      setAlertMessage(msg);
-      setAlertVisible(true);
-      setTimeout(() => setAlertVisible(false), 3000);
-    }
-  }
-
-  useImperativeHandle(ref, () => ({
-    showAlert
-  }));
+const Alert = () => {
+    const {message, type, visible} = useContext(AlertContext);
 
   // Helper function to get the correct classes and icon
   const getAlertDetails = (type) => {
@@ -105,7 +91,7 @@ const Alert = forwardRef((props, ref) => {
 
   return (
     <div
-      className={`w-full p-4 absolute z-50 top-0 transition-all duration-400 ${
+      className={`w-full p-4 fixed z-50 top-0 transition-all duration-400 ${
         visible ? "translate-y-0" : "-translate-y-full opacity-0"
       }`}
     >
@@ -115,6 +101,6 @@ const Alert = forwardRef((props, ref) => {
       </div>
     </div>
   );
-});
+};
 
 export default Alert;

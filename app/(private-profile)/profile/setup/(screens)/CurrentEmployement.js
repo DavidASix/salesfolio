@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { AlertContext } from "@/components/AlertContext";
 
 export default function CurrentEmployement({
   index,
   final,
   goNextStep,
   goBackStep,
-  onError,
   user,
 }) {
+  const { showAlert } = useContext(AlertContext);
   const [role, setRole] = useState(user?.role || "");
   const [company, setCompany] = useState(user?.company || "");
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ export default function CurrentEmployement({
         typeof error === "string"
           ? error
           : error?.message || error?.data?.message || "Something went wrong";
-      onError("warning", msg);
+      showAlert("warning", msg);
       //alert(error);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
