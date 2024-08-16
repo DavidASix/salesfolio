@@ -18,7 +18,7 @@ import {
 } from "react-icons/bs";
 
 import Home from './(sections)/Home'
-import OutreachPage from './(sections)/Outreach.tsx'
+import OutreachPage from './(sections)/Outreach/'
 import Deals from './(sections)/Deals'
 import Highlights from './(sections)/Highlights'
 import Stats from './(sections)/Stats'

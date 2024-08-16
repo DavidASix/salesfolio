@@ -13,7 +13,7 @@ const outreachTypes = [
 const outreachSlugs = [...outreachTypes.map((v) => v.slug)] as const;
 type OutreachTypes = (typeof outreachSlugs)[number];
 
-export default function OutreachPage({ user }) {
+export default function OutreachUpload() {
   const { showAlert } = useContext(AlertContext);
   const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(
     outreachTypes[0].slug
@@ -150,13 +150,6 @@ export default function OutreachPage({ user }) {
   }
 
   return (
-    <section id="outreach" className="flex flex-col w-full gap-8 pb-20">
-      <h2 className="header-font text-4xl">Outreach</h2>
-      <p className="mb-4 font-extralight">
-        Did you complete a killer cold call, write an amazing email, or have
-        some creative outreach strategy? Brag about it here.
-      </p>
-      {/* Add new outreach card */}
       <div className="border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full max-w-[750px] self-center">
         <div
           className={`${
@@ -303,6 +296,5 @@ export default function OutreachPage({ user }) {
           </div>
         </div>
       </div>
-    </section>
   );
 }

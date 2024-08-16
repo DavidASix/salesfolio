@@ -50,6 +50,16 @@ const outreachSchema = new mongoose.Schema(
         message: (props) => `File upload does not have valid URL`,
       },
     },
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now
+    },
+    updatedAt: {
+      type: Date,
+      required: true,
+      default: Date.now
+    },
   },
   {
     versionKey: false,
