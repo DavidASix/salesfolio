@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Deals({ user }) {
+export default function Deals({ profile }) {
   return (
     <section id="deals">
       <h2 className="header-font text-2xl">Deals</h2>

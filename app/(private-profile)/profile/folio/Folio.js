@@ -31,7 +31,7 @@ const tabs = [
   //{ slug: "kpis", title: "KPI's", icon: BsGraphUpArrow, tab: Stats },
 ];
 
-export default function Folio({ session }) {
+export default function Folio({ session, profile }) {
   const [activeTab, setActiveTab] = useState("outreach");
   const user = session?.user;
   const aside = {
@@ -172,8 +172,8 @@ export default function Folio({ session }) {
                 rounded-tr-3xl overflow-y-scroll
                 px-4 pt-4 lg:px-8 lg:pt-8"
             >
-              <CurrentTab 
-                user={user} />
+              <CurrentTab
+                profile={profile} />
             </div>
           </div>
         </div>

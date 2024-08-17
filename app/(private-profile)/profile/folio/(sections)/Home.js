@@ -63,7 +63,7 @@ const software = [
   "ZoomInfo",
 ];
 
-export default function Home({ user }) {
+export default function Home({ profile }) {
   const [aboutMe, setAboutMe] = useState("");
   const [videoLink, setVideoLink] = useState("");
   const [selectedIndustries, setSelectedIndustries] = useState([]);
