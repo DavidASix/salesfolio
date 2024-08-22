@@ -12,21 +12,21 @@ export default async function RootLayout({ children }) {
       email: session.user.email,
       image: session.user.image,
     };
-  };
+  }
 
   return (
-    <>
-      <header className="sticky top-0 z-50 h-16 bg-base-50">
+    <div className="bg-dotted flex flex-col w-full">
+      <header className="z-40 h-16">
         <NavBar session={session} />
       </header>
       <main
-        className={`z-20 row  justify-content-center align-items-start`}
+        className={`z-20 row justify-content-center align-items-start relative`}
       >
         {children}
       </main>
       <footer>
         <Footer />
       </footer>
-    </>
+    </div>
   );
 }

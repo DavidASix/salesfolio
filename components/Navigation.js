@@ -59,19 +59,20 @@ export default function Navigation({ session }) {
   const expandedStyle = expanded ? "h-40" : "h-12";
 
   const links = [
-    { title: "Home", url: "/" },
+    //{ title: "Home", url: "/" },
   ];
-
+/*
   if (session?.user) {
     links.push({ title: "Profile", url: "/profile" })
   } else {
     links.push({ title: "Login", url: "/login" })
   }
+  */
   const currentPath = usePathname();
   return (
     <>
       <div
-        className="flex items-center justify-end px-3 md:px-3 py-2 border-b border-base-200"
+        className="flex items-center justify-end px-3 md:px-3 py-2"
         aria-label="Main Menu"
       >
         <nav
@@ -84,7 +85,8 @@ export default function Navigation({ session }) {
         >
           <div className="h-12 w-full flex items-center justify-between">
             <div className="flex w-full flex-row items-center space-y-4 md:space-y-0">
-              <span className="text-2xl me-1 header-font cursor-default text-primary-800">
+              <img src="/logo-sf-white.svg" className="h-10 w-10 me-4"/>
+              <span className="text-2xl me-1 header-font cursor-default text-base-50">
                 Sales<span className="font-bold">Folio</span>
               </span>
               <div className="flex-1 flex justify-center items-center">
@@ -100,7 +102,8 @@ export default function Navigation({ session }) {
                 </ul>
               </div>
             </div>
-            {session ? (
+
+            {/* {session ? (
               <a href="/profile" className="h-10 w-10 flex justify-center items-center">
                 <img
                   src={session?.user?.image || "/default-user.webp"}
@@ -127,7 +130,7 @@ export default function Navigation({ session }) {
             >
               <span className="sr-only">Open main menu</span>
               <svg
-                className="w-5 h-5 stroke-primary-800"
+                className="w-5 h-5 stroke-base-50"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 14"
@@ -139,7 +142,7 @@ export default function Navigation({ session }) {
                   d="M3 1h10M0 7h16M3 14h10"
                 />
               </svg>
-            </button>
+            </button> */}
           </div>
         </nav>
       </div>

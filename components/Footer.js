@@ -3,7 +3,7 @@ import c from "@/assets/constants";
 
 export default function Footer() {
   return (
-    <div className={`w-full min-h-48 section-padding justify-center bg-base-50 border-t border-base-200`}>
+    <div className={`w-full min-h-48 section-padding justify-center`}>
       <div
         className={`content-container w-full py-8 
         flex flex-col md:flex-row justify-between items-start`}
@@ -13,20 +13,18 @@ export default function Footer() {
             <img src="/favicon.ico" alt="Home Icon" />
           </Link>
           <div className="flex flex-col justify-center items-start space-y-1">
-            <span className="text-sm">Created with ♥️ in Ontario 🇨🇦</span>
-            <span className="text-sm"></span>
+            <span
+              className="text-sm font-bold"
+              title="Created with love in Canada"
+            >
+              Created with ♥️ in 🇨🇦
+            </span>
           </div>
         </div>
         <div
           className={`flex flex-col justify-end items-end self-end md:self-auto`}
         >
-          <a
-            href="/?utm_source=mysalesfolio&utm_medium=footer_menu&utm_campaign=referral"
-            className="text-sm hover:text-primary transition-all duration-150"
-          >
-            SalesFolio
-          </a>
-          <span className="text-sm text-ku-dark-muted">
+          <span className="text-sm font-bold">
             ©{new Date().getFullYear()} {c.siteName}, all rights reserved
           </span>
         </div>
