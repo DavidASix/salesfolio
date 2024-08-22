@@ -2,6 +2,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { FaAngleDoubleRight } from "react-icons/fa";
+import { TbMailCheck } from "react-icons/tb";
 
 import { AlertContext } from "@/components/AlertContext";
 import regex from "@/utils/regex";
@@ -37,7 +38,6 @@ export default function Home() {
       await axios.post("/api/marketing/recordEmail", { email });
       setSubmitted(true);
     } catch (err) {
-      console.log(err);
       let msg = typeof err === "string" ? err : false;
       msg =
         msg ||
@@ -187,7 +187,7 @@ export default function Home() {
         id="email-list"
       >
         <article
-          className={`rounded-2xl p-4 md:p-10 shadow-lg z-10 gap-4
+          className={`rounded-2xl px-4 py-8 md:p-10 shadow-lg z-10 gap-4
           w-full max-w-[95%] md:max-w-2xl lg:max-w-4xl flex flex-col justify-start items-center
           transition-all duration-500 cursor-default ${
             submitted ? "bg-success" : "bg-primary"
@@ -206,25 +206,23 @@ export default function Home() {
             className="w-full flex justify-center items-center gap-4 flex-wrap"
             onSubmit={submitForm}
           >
-            <label className="input rounded-full w-full max-w-96 flex items-center gap-2 transition-all duration-300">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="h-4 w-4 opacity-70"
-              >
-                <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-                <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
-              </svg>
+            <div className="input rounded-full w-full max-w-96 flex items-center gap-2 transition-all duration-300">
+              <TbMailCheck
+                className={`${
+                  submitted ? "stroke-success" : "stroke-primary"
+                } h-6 w-6 transition-all duration-300`}
+              />
               <input
                 value={email}
+                aria-label="email list input"
+                title="email list input"
                 onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 className="grow transition-all duration-300"
                 placeholder="Email"
                 disabled={loading}
               />
-            </label>
+            </div>
 
             <button
               className="btn btn-secondary text-xl h-12 justify-between pe-0 gap-4 flex-nowrap transition-all duration-300"
