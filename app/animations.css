@@ -8,8 +8,6 @@
 }
 
 .text-link {
-  color: var(--color-new-green) !important;
-  overflow: visible;
   background-image: none;
   background-position: 0px bottom;
   padding-bottom: 3px;
@@ -20,5 +18,5 @@
 }
 
 .text-link:hover {
-  background-image: url('');
+  background-image: url("/design-assets/underline.svg");
 }
