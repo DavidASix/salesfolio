@@ -1,6 +1,7 @@
 "use client";
 import { useState, useContext } from "react";
 import axios from "axios";
+import { motion } from "framer-motion"
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { TbMailCheck } from "react-icons/tb";
 
@@ -80,7 +81,7 @@ export default function Home() {
         <article
           className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 
           w-full max-w-[95%] md:max-w-2xl lg:max-w-3xl flex flex-col justify-start items-center
-          md:hover:scale-[1.005] transition-all duration-500 cursor-default"
+           transition-all duration-500 cursor-default"
         >
           <span className="text-md font-bold text-base-700 text-center">
             Visibility
@@ -94,37 +95,53 @@ export default function Home() {
             with interviewers to stand out.
           </p>
           <figure className="mt-4 relative flex justify-start items-start -gap-2">
-            <figure className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4">
+            <motion.figure 
+              className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 z-10"
+              transition={{ delay: 0.1, duration: 0.25 }}
+              initial={{ opacity: 0, translateY: 15 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              >
               <img
                 src="/home/side-bar.png"
                 className="w-40 md:w-56 h-auto transition-all duration-200"
               />
-            </figure>
-            <div>
-              <figure className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-5 mt-4 w-fit">
+            </motion.figure>
+            <div className="z-20">
+              <motion.figure 
+                className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-5 mt-4 w-fit z-20"
+                transition={{ delay: 0.15, duration: 0.25 }}
+                initial={{ opacity: 0, translateX: 15 }}
+                whileInView={{ opacity: 1, translateX: 0 }}>
                 <img
                   src="/home/player.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
                 />
-              </figure>
+              </motion.figure>
 
-              <figure className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-8 mt-1 w-fit">
+              <motion.figure 
+                className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-8 mt-1 w-fit z-20"
+                transition={{ delay: 0.30, duration: 0.25 }}
+                initial={{ opacity: 0, translateX: 15 }}
+                whileInView={{ opacity: 1, translateX: 0 }}>
                 <img
                   src="/home/email-content.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
                 />
-              </figure>
+              </motion.figure>
             </div>
           </figure>
         </article>
       </section>
 
       <section className="relative flex justify-center items-start gap-8 flex-wrap py-8">
-        <article
+        <motion.article
           className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 gap-4
           w-full max-w-[95%] md:max-w-xl lg:max-w-lg flex flex-col justify-start items-center
           transition-all duration-500 cursor-default"
-        >
+          viewport={{ once: true }}
+          transition={{ delay: 0.0, duration: 0.35 }}
+          initial={{ scale: 0.90, translateY: 30 }}
+          whileInView={{ scale: 1, translateY: 0 }}>
           <span className="text-md font-bold text-base-700 text-center">
             Founders
           </span>
@@ -154,13 +171,16 @@ export default function Home() {
             They reconnected and decided to combine their shared love of sales
             with a passion to innovate, resulting in SalesFolio!
           </p>
-        </article>
+        </motion.article>
 
-        <article
+        <motion.article
           className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 gap-4
           w-full max-w-[95%] md:max-w-xl lg:max-w-lg flex flex-col justify-start items-center
           transition-all duration-500 cursor-default"
-        >
+          viewport={{ once: true }}
+          transition={{ delay: 0, duration: 0.50 }}
+          initial={{ scale: 0.90, translateY: 30 }}
+          whileInView={{ scale: 1, translateY: 0 }}>
           <span className="text-md font-bold text-base-700 text-center">
             How it works
           </span>
@@ -179,7 +199,7 @@ export default function Home() {
               </div>
             </div>
           ))}
-        </article>
+        </motion.article>
       </section>
 
       <section
