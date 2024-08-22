@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./animations.css";
 import {AlertProvider} from "@/components/AlertContext";
 
 export const metadata = {

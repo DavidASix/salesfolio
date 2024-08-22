@@ -57,6 +57,15 @@ body {
   @apply text-base-light min-h-0;
 }
 
+@layer utilities {
+
+  .bg-dotted {
+    background-image: radial-gradient(circle at 1.2px 1.2px, theme('colors.secondary') 1.2px, transparent 0);
+    background-size: 25px 25px;
+    background-position: -25px -25px;
+  }
+}
+
 @layer components {
   .header-font {
     font-family: "Lilita One", sans-serif;

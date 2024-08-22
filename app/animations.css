@@ -1,0 +1,24 @@
+@keyframes wiggle {
+  0% {
+    background-position: 0px bottom;
+  }
+  100% {
+    background-position: 20px bottom;
+  }
+}
+
+.text-link {
+  color: var(--color-new-green) !important;
+  overflow: visible;
+  background-image: none;
+  background-position: 0px bottom;
+  padding-bottom: 3px;
+  background-repeat: repeat-x;
+  background-size: 20px 5px;
+  animation: 1s linear 0s infinite normal none running wiggle;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.text-link:hover {
+  background-image: url('');
+}
