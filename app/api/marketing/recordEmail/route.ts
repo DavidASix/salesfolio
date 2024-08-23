@@ -1,18 +1,21 @@
 import { Error as MongooseError } from "mongoose";
 import clientPromise from "@/utils/mongoose-connect";
 import MarketingEmail from "@/model/MarketingEmail";
+import rateLimit from '@/middleware/rateLimit';
 
 export async function POST(request) {
   const { email } = await request.json();
   try {
+    await rateLimit(request, 3, '10 m')
     await clientPromise;
     const marketingEmail = new MarketingEmail({email});
     await marketingEmail.save();
     return new Response("Success");
   } catch (err) {
+    console.log(err)
     let resErr: {message: string; code: number} = {
-        message: '',
-        code: 500,
+        message: err.message || '',
+        code: err.code || 500,
     }
     // Handle custom validation errors
     if (err instanceof MongooseError.ValidationError) {
@@ -24,7 +27,7 @@ export async function POST(request) {
     }
     if (err?.errorResponse?.code === 11000) {
         resErr.message = "Value already recorded";
-        resErr.code = 401
+        resErr.code = 400
     }
     return new Response(JSON.stringify(resErr), { status: resErr.code || err.code || 400 });
   }
