@@ -53,8 +53,16 @@ export default function Home() {
     [0, 0.25, 1],
     ["-5deg", "-70deg", "0deg"]
   );
-  const moveLeftOffScreen = useTransform(scrollYProgress, [0, 1], ["0%", "-100vw"]);
-  const moveRightOffScreen = useTransform(scrollYProgress, [0, 1], ["0%", "100vw"]);
+  const moveLeftOffScreen = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "-100vw"]
+  );
+  const moveRightOffScreen = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "100vw"]
+  );
   const moveDown = useTransform(scrollYProgress, [0, 1], [0, 500]);
 
   async function submitForm(e) {
@@ -111,7 +119,6 @@ export default function Home() {
         />
       </motion.figure>
 
-
       <motion.figure
         className="hidden lg:block absolute top-[28rem] lg:left-2 xl:left-20 z-10 origin-top
         bg-white shadow-2xl border border-base-400 rounded-xl md:rounded-2xl w-fit p-4"
@@ -122,10 +129,10 @@ export default function Home() {
           rotate: rotateLeftSlow,
         }}
       >
-      <img
-        src="/home/player.png"
-        className="w-56 md:w-64 h-auto transition-all duration-200"
-      />
+        <img
+          src="/home/player.png"
+          className="w-56 md:w-64 h-auto transition-all duration-200"
+        />
       </motion.figure>
 
       <motion.figure
@@ -138,10 +145,10 @@ export default function Home() {
           rotate: rotateRightFast,
         }}
       >
-      <img
-        src="/home/side-bar.png"
-        className="w-40 md:w-44 h-auto transition-all duration-200"
-      />
+        <img
+          src="/home/side-bar.png"
+          className="w-40 md:w-44 h-auto transition-all duration-200"
+        />
       </motion.figure>
 
       <section

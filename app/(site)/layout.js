@@ -20,7 +20,7 @@ export default async function RootLayout({ children }) {
         <NavBar session={session} />
       </header>
       <main
-        className={`z-20 row justify-content-center align-items-start relative`}
+        className={`z-20 row justify-content-center align-items-start relative overflow-x-clip`}
       >
         {children}
       </main>
