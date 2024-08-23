@@ -181,9 +181,9 @@ export default function Home() {
         className="relative flex flex-col justify-center items-center"
         id="info"
       >
-        <OvalSeperator className="w-full h-40 fill-primary absolute -top-1 z-0" />
+        <OvalSeperator className="w-full h-10 md:h-40 fill-primary absolute -top-1 z-0" />
         <article
-          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-20 
+          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-20 -mt-7 md:mt-0
           w-full max-w-[95%] md:max-w-2xl lg:max-w-3xl flex flex-col justify-start items-center
            transition-all duration-500 cursor-default"
         >
