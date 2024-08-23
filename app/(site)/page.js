@@ -1,7 +1,7 @@
 "use client";
 import { useState, useContext } from "react";
 import axios from "axios";
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { TbMailCheck } from "react-icons/tb";
 
@@ -29,7 +29,36 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // Motion Translations
+  const { scrollYProgress } = useScroll();
+  const invertScrollYProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const quickFade = useTransform(scrollYProgress, [0, 0.25, 1], [1, 0, 0]);
+  const rotateLeftFast = useTransform(
+    scrollYProgress,
+    [0, 0.25, 1],
+    ["5deg", "-45deg", "0deg"]
+  );
+  const rotateLeftSlow = useTransform(
+    scrollYProgress,
+    [0, 0.25, 1],
+    ["-5deg", "-70deg", "0deg"]
+  );
+  const rotateRightFast = useTransform(
+    scrollYProgress,
+    [0, 0.25, 1],
+    ["-5deg", "45deg", "0deg"]
+  );
+  const rotateRightSlow = useTransform(
+    scrollYProgress,
+    [0, 0.25, 1],
+    ["-5deg", "-70deg", "0deg"]
+  );
+  const moveLeftOffScreen = useTransform(scrollYProgress, [0, 1], ["0%", "-100vw"]);
+  const moveRightOffScreen = useTransform(scrollYProgress, [0, 1], ["0%", "100vw"]);
+  const moveDown = useTransform(scrollYProgress, [0, 1], [0, 500]);
+
   async function submitForm(e) {
+    "use client";
     e.preventDefault();
     try {
       setLoading(true);
@@ -50,22 +79,90 @@ export default function Home() {
       setLoading(false);
     }
   }
+
   return (
     <>
+      {/* <motion.div 
+        className='h-full w-3 fixed top-0 right-1 z-10 origin-top
+        bg-accent rounded-full opacity-90' 
+        style={{ scaleY: scrollYProgress }} />   */}
+      {/* <motion.div 
+        className='hidden md:block h-36 w-36 absolute top-36 md:-left-5 lg:left-20 z-0 origin-top
+        bg-accent-200 rounded-xl' 
+        style={{
+          translateX: translateX, 
+          translateY: translateY, 
+          opacity: quickFade,
+          rotate: rotateLeft
+        }} />   */}
+      <motion.figure
+        className="hidden lg:block absolute top-[9rem] lg:left-0 xl:left-20 z-10 origin-top
+        bg-white shadow-2xl border border-base-400 rounded-xl md:rounded-2xl w-fit p-4"
+        style={{
+          translateX: moveLeftOffScreen,
+          translateY: moveDown,
+          opacity: quickFade,
+          rotate: rotateLeftFast,
+        }}
+      >
+        <img
+          src="/home/email-content.png"
+          className="w-40 md:w-48 h-auto transition-all duration-200"
+        />
+      </motion.figure>
+
+
+      <motion.figure
+        className="hidden lg:block absolute top-[28rem] lg:left-2 xl:left-20 z-10 origin-top
+        bg-white shadow-2xl border border-base-400 rounded-xl md:rounded-2xl w-fit p-4"
+        style={{
+          translateX: moveLeftOffScreen,
+          translateY: moveDown,
+          opacity: quickFade,
+          rotate: rotateLeftSlow,
+        }}
+      >
+      <img
+        src="/home/player.png"
+        className="w-56 md:w-64 h-auto transition-all duration-200"
+      />
+      </motion.figure>
+
+      <motion.figure
+        className="hidden lg:block absolute top-[5rem] lg:right-2 xl:right-20 z-10 origin-top
+        bg-white shadow-2xl border border-base-400 rounded-xl md:rounded-2xl w-fit p-4"
+        style={{
+          translateX: moveRightOffScreen,
+          translateY: moveDown,
+          opacity: quickFade,
+          rotate: rotateRightFast,
+        }}
+      >
+      <img
+        src="/home/side-bar.png"
+        className="w-40 md:w-44 h-auto transition-all duration-200"
+      />
+      </motion.figure>
+
       <section
         className="w-full h-full bg-primary flex flex-col justify-center items-center
         -mt-16 pt-16 gap-6 pb-8 md:pb-0"
         style={{ minHeight: "min(75vh, 800px)" }}
         id="hero"
       >
-        <h1 className="text-center text-6xl md:text-[5.5rem] text-base-50 font-bold max-w-2xl header-font leading-none">
+        <h1 className="z-50 text-center text-6xl md:text-[5.5rem] text-base-50 font-bold max-w-2xl header-font leading-none">
           Stand out from the crowd
         </h1>
-        <p className="text-base-50 text-xl md:text-2xl text-center max-w-3xl font-light">
-          Share cold calls, showcase emails, and display your deals
-        </p>
+        <div className="text-center z-50">
+          <p className="text-base-50 text-xl md:text-2xl text-center max-w-3xl font-light">
+            Share cold calls, showcase emails, and display your deals
+          </p>
+          <span className="text-sm font-extralight text-base-50 text-center">
+            Coming September 2024
+          </span>
+        </div>
         <a
-          className="btn btn-secondary text-xl w-80 h-12"
+          className="btn btn-secondary text-xl w-80 h-12 z-50"
           style={{ borderRadius: 9999 }}
           href="#email-list"
         >
@@ -79,7 +176,7 @@ export default function Home() {
       >
         <OvalSeperator className="w-full h-40 fill-primary absolute -top-1 z-0" />
         <article
-          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 
+          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-20 
           w-full max-w-[95%] md:max-w-2xl lg:max-w-3xl flex flex-col justify-start items-center
            transition-all duration-500 cursor-default"
         >
@@ -95,34 +192,36 @@ export default function Home() {
             with interviewers to stand out.
           </p>
           <figure className="mt-4 relative flex justify-start items-start -gap-2">
-            <motion.figure 
+            <motion.figure
               className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 z-10"
               transition={{ delay: 0.1, duration: 0.25 }}
               initial={{ opacity: 0, translateY: 15 }}
               whileInView={{ opacity: 1, translateY: 0 }}
-              >
+            >
               <img
                 src="/home/side-bar.png"
                 className="w-40 md:w-56 h-auto transition-all duration-200"
               />
             </motion.figure>
             <div className="z-20">
-              <motion.figure 
+              <motion.figure
                 className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-5 mt-4 w-fit z-20"
                 transition={{ delay: 0.15, duration: 0.25 }}
                 initial={{ opacity: 0, translateX: 15 }}
-                whileInView={{ opacity: 1, translateX: 0 }}>
+                whileInView={{ opacity: 1, translateX: 0 }}
+              >
                 <img
                   src="/home/player.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
                 />
               </motion.figure>
 
-              <motion.figure 
+              <motion.figure
                 className="bg-white shadow-md border rounded-xl md:rounded-2xl p-2 md:p-4 -ms-8 mt-1 w-fit z-20"
-                transition={{ delay: 0.30, duration: 0.25 }}
+                transition={{ delay: 0.3, duration: 0.25 }}
                 initial={{ opacity: 0, translateX: 15 }}
-                whileInView={{ opacity: 1, translateX: 0 }}>
+                whileInView={{ opacity: 1, translateX: 0 }}
+              >
                 <img
                   src="/home/email-content.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
@@ -135,13 +234,14 @@ export default function Home() {
 
       <section className="relative flex justify-center items-start gap-8 flex-wrap py-8">
         <motion.article
-          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 gap-4
+          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-20 gap-4
           w-full max-w-[95%] md:max-w-xl lg:max-w-lg flex flex-col justify-start items-center
           transition-all duration-500 cursor-default"
           viewport={{ once: true }}
           transition={{ delay: 0.0, duration: 0.35 }}
-          initial={{ scale: 0.90, translateY: 30 }}
-          whileInView={{ scale: 1, translateY: 0 }}>
+          initial={{ scale: 0.9, translateY: 30 }}
+          whileInView={{ scale: 1, translateY: 0 }}
+        >
           <span className="text-md font-bold text-base-700 text-center">
             Founders
           </span>
@@ -174,13 +274,14 @@ export default function Home() {
         </motion.article>
 
         <motion.article
-          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-10 gap-4
+          className="bg-base-50 rounded-2xl p-4 md:p-10 border shadow-lg z-20 gap-4
           w-full max-w-[95%] md:max-w-xl lg:max-w-lg flex flex-col justify-start items-center
           transition-all duration-500 cursor-default"
           viewport={{ once: true }}
-          transition={{ delay: 0, duration: 0.50 }}
-          initial={{ scale: 0.90, translateY: 30 }}
-          whileInView={{ scale: 1, translateY: 0 }}>
+          transition={{ delay: 0, duration: 0.5 }}
+          initial={{ scale: 0.9, translateY: 30 }}
+          whileInView={{ scale: 1, translateY: 0 }}
+        >
           <span className="text-md font-bold text-base-700 text-center">
             How it works
           </span>
@@ -207,7 +308,7 @@ export default function Home() {
         id="email-list"
       >
         <article
-          className={`rounded-2xl px-4 py-8 md:p-10 shadow-lg z-10 gap-4
+          className={`rounded-2xl px-4 py-8 md:p-10 shadow-lg z-20 gap-4
           w-full max-w-[95%] md:max-w-2xl lg:max-w-4xl flex flex-col justify-start items-center
           transition-all duration-500 cursor-default ${
             submitted ? "bg-success" : "bg-primary"
@@ -226,40 +327,37 @@ export default function Home() {
             className="w-full flex justify-center items-center gap-4 flex-wrap"
             onSubmit={submitForm}
           >
-            <div className="input rounded-full w-full max-w-96 flex items-center gap-2 transition-all duration-300">
+            <label className="input rounded-full w-full max-w-96 flex items-center gap-2 transition-all duration-300">
               <TbMailCheck
                 className={`${
                   submitted ? "stroke-success" : "stroke-primary"
                 } h-6 w-6 transition-all duration-300`}
               />
               <input
-                value={email}
-                aria-label="email list input"
-                title="email list input"
-                onChange={(e) => setEmail(e.target.value)}
                 type="text"
-                className="grow transition-all duration-300"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="grow"
                 placeholder="Email"
-                disabled={loading}
+                disabled={loading || submitted}
               />
-            </div>
+            </label>
 
             <button
               className="btn btn-secondary text-xl h-12 justify-between pe-0 gap-4 flex-nowrap transition-all duration-300"
               style={{ borderRadius: 9999 }}
-              href="#email-list"
               type="submit"
               disabled={loading || submitted}
             >
               Subscribe
-              <div
+              <span
                 className={`h-full w-auto aspect-square rounded-full flex justify-center items-center
                 transition-all duration-500 cursor-default ${
                   submitted ? "bg-success" : "bg-secondary"
                 }`}
               >
                 <FaAngleDoubleRight className="fill-base-50 h-7 w-7" />
-              </div>
+              </span>
             </button>
           </form>
         </article>
