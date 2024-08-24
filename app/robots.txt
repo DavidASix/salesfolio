@@ -1,0 +1,39 @@
+#
+#
+#              _____
+#             |     |
+#             | | | |
+#             |_____|
+#       ____ ___|_|___ ____
+#      ()___)         ()___)
+#      // /|           |\ \\
+#     // / |           | \ \\
+#    (___) |___________| (___)
+#    (___)   (_______)   (___)
+#    (___)     (___)     (___)
+#    (___)      |_|      (___)
+#    (___)  ___/___\___   | |
+#     | |  |           |  | |
+#     | |  |___________| /___\ 
+#    /___\  |||     ||| //   \\
+#   //   \\ |||     ||| \\   //
+#   \\   // |||     |||  \\ //
+#    \\ // ()__)   (__()
+#          ///       \\\ 
+#         ///         \\\ 
+#       _///___     ___\\\_
+#      |_______|   |_______|
+#
+#
+#
+# Search bots yes, other bots, no
+# Don't web scrape, don't train your AI's
+
+User-agent: *
+Disallow: 
+User-agent: facebookexternalhit
+Disallow: 
+User-agent: Twitterbot
+Disallow:
+
+Sitemap: https://mysalesfolio.com/sitemap.xml
