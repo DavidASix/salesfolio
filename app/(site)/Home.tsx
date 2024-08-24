@@ -118,7 +118,7 @@ export default function Home() {
         }}
       >
         <img
-          src="/home/email-content.png"
+          src="/images/home/email-content.png"
           className="w-40 md:w-48 h-auto transition-all duration-200"
         />
       </motion.figure>
@@ -134,7 +134,7 @@ export default function Home() {
         }}
       >
         <img
-          src="/home/player.png"
+          src="/images/home/player.png"
           className="w-56 md:w-64 h-auto transition-all duration-200"
         />
       </motion.figure>
@@ -150,7 +150,7 @@ export default function Home() {
         }}
       >
         <img
-          src="/home/side-bar.png"
+          src="/images/home/side-bar.png"
           className="w-40 md:w-44 h-auto transition-all duration-200"
         />
       </motion.figure>
@@ -210,7 +210,7 @@ export default function Home() {
               whileInView={{ opacity: 1, translateY: 0 }}
             >
               <img
-                src="/home/side-bar.png"
+                src="/images/home/side-bar.png"
                 className="w-40 md:w-56 h-auto transition-all duration-200"
               />
             </motion.figure>
@@ -222,7 +222,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, translateX: 0 }}
               >
                 <img
-                  src="/home/player.png"
+                  src="/images/home/player.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
                 />
               </motion.figure>
@@ -234,7 +234,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, translateX: 0 }}
               >
                 <img
-                  src="/home/email-content.png"
+                  src="/images/home/email-content.png"
                   className="w-56 md:w-64 h-auto transition-all duration-200"
                 />
               </motion.figure>
@@ -261,13 +261,13 @@ export default function Home() {
           </h2>
           <div className="flex gap-8">
             <figure className="flex flex-col justify-center">
-              <img src="/founder-eli.webp" className="w-36 h-36 rounded-full" />
+              <img src="/images/founder-eli.webp" className="w-36 h-36 rounded-full" />
               <h3 className="font-bold text-xl text-center">Eliezer Teferra</h3>
               <span className="text-center font-extralight">CEO & Founder</span>
             </figure>
             <figure className="flex flex-col justify-center">
               <img
-                src="/founder-david.webp"
+                src="/images/founder-david.webp"
                 className="w-36 h-36 rounded-full"
               />
               <h3 className="font-bold text-xl text-center">David Anderson</h3>
