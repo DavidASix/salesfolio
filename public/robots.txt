@@ -30,8 +30,7 @@
 # Don't web scrape, don't train your AI's
 
 User-agent: *
-# Disallow: /
-# Above will be re-added after addressing sharing.
+Allow: /
 # No bots on API or Profile, 
 Disallow: /api/
 Disallow: /profile/
