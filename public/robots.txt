@@ -1,0 +1,100 @@
+#
+#
+#              _____
+#             |     |
+#             | | | |
+#             |_____|
+#       ____ ___|_|___ ____
+#      ()___)         ()___)
+#      // /|           |\ \\
+#     // / |           | \ \\
+#    (___) |___________| (___)
+#    (___)   (_______)   (___)
+#    (___)     (___)     (___)
+#    (___)      |_|      (___)
+#    (___)  ___/___\___   | |
+#     | |  |           |  | |
+#     | |  |___________| /___\ 
+#    /___\  |||     ||| //   \\
+#   //   \\ |||     ||| \\   //
+#   \\   // |||     |||  \\ //
+#    \\ // ()__)   (__()
+#          ///       \\\ 
+#         ///         \\\ 
+#       _///___     ___\\\_
+#      |_______|   |_______|
+#
+#
+#
+# Search bots yes, other bots, no
+# Don't web scrape, don't train your AI's
+
+User-agent: *
+Disallow: /
+
+# No bots on API or Profile, 
+Disallow: /api/
+Disallow: /profile/
+
+# GOOGLE
+User-agent: Googlebot
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /video/
+
+User-agent: Googlebot-Video
+Allow: /images/
+Allow: /video/
+
+User-agent: Googlebot-Mobile
+Disallow: /api/
+Disallow: /profile/
+
+## MICROSOFT
+User-agent: bingbot
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: msnbot
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: msnbot-media
+Allow: /images/
+Allow: /video/
+
+# YAHOO
+User-agent: slurp
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: yahoo-mmcrawler
+Disallow: /api/
+Disallow: /profile/
+
+# BAIDU
+User-agent: baiduspider
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: baiduspider-mobile
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: baiduspider-image
+Allow: /images/
+Allow: /video/
+
+# OTHER
+User-agent: ia_archiver
+Disallow: /api/
+Disallow: /profile/
+
+User-agent: yandex
+Disallow: /api/
+Disallow: /profile/
+
+Sitemap: https://mysalesfolio.com/sitemap.xml
