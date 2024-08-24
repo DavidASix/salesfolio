@@ -7,9 +7,11 @@ import { TbMailCheck } from "react-icons/tb";
 
 import { AlertContext } from "@/components/AlertContext";
 import regex from "@/utils/regex";
+import { FAQ } from "@/utils/types";
+
 import OvalSeperator from "@/components/svgs/oval-seperator-thin.svg";
 
-const faq = [
+const faq:FAQ = [
   { question: "How is this not linkedin?", answer: "Here is why" },
   {
     question: "How do you verify deals?",
@@ -25,9 +27,9 @@ const faq = [
 
 export default function Home() {
   const { showAlert } = useContext(AlertContext);
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   // Motion Translations
   const { scrollYProgress } = useScroll();
@@ -76,11 +78,13 @@ export default function Home() {
       await axios.post("/api/marketing/recordEmail", { email });
       setSubmitted(true);
     } catch (err) {
-      let msg = typeof err === "string" ? err : false;
-      msg =
-        msg ||
-        err?.response?.data?.message ||
-        `An error occured with status ${err?.response?.status || 401}`;
+      let msg: string = typeof err === "string" ? err : null;
+      if (msg === null) {
+        msg =
+          err?.response?.data?.message ||
+          `An error occured with status ${err?.response?.status || 401}`;
+      }
+      
       // err?.response?.statusText
       showAlert("error", msg);
     } finally {
