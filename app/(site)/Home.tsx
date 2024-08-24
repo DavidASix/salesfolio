@@ -11,17 +11,31 @@ import type { FAQ } from "@/utils/types";
 
 import OvalSeperator from "@/components/svgs/oval-seperator-thin.svg";
 
-const faq:FAQ = [
-  { question: "How is this not linkedin?", answer: "Here is why" },
+const faq: FAQ = [
+  {
+    question: "How does this differ from Linkedin?",
+    answer:
+      "SalesFolio is unique because it allows sales people to create an online portfolio detailing their work in a structured way. This allows recruiters to easily browse and understand your achievements, not just your work history. ",
+  },
   {
     question: "How do you verify deals?",
-    answer: "We verify deals by verifying them",
-  },
-  { question: "What if I don't want to share?", answer: "You don't have to" },
-  {
-    question: "Some other question",
     answer:
-      "Pariatur ut laboris incididunt cillum cupidatat pariatur aliqua. Non sunt eu id reprehenderit. Incididunt cupidatat incididunt minim nisi. Ipsum veniam fugiat enim adipisicing nisi Lorem sunt Lorem amet exercitation officia cillum laboris voluptate. Cupidatat irure do velit est in eiusmod proident excepteur eu pariatur consequat do qui ad. Cupidatat minim Lorem aute Lorem velit mollit veniam magna irure ea consectetur.",
+      "Deals are verified by your peers. After other SalesFolio users have verfied your deal you will receive a verified check mark ✅",
+  },
+  {
+    question: "What if I don't want to share deals?",
+    answer:
+      "You're in control of what you share! On SalesFolio you can share deals, emails, phone calls; all some, or none!",
+  },
+  {
+    question: "Will it cost money?",
+    answer:
+      "No! SalesFolio will be a free service, allowing all users to create and share their portfolio.",
+  },
+  {
+    question: "How do you make money?",
+    answer:
+      "In the future SalesFolio will offer a premium version for a monthly fee; This will be introduced by adding new features, not pay-walling existing free features.",
   },
 ];
 
@@ -84,7 +98,7 @@ export default function Home() {
           err?.response?.data?.message ||
           `An error occured with status ${err?.response?.status || 401}`;
       }
-      
+
       // err?.response?.statusText
       showAlert("error", msg);
     } finally {
@@ -261,7 +275,10 @@ export default function Home() {
           </h2>
           <div className="flex gap-8">
             <figure className="flex flex-col justify-center">
-              <img src="/images/founder-eli.webp" className="w-36 h-36 rounded-full" />
+              <img
+                src="/images/founder-eli.webp"
+                className="w-36 h-36 rounded-full"
+              />
               <h3 className="font-bold text-xl text-center">Eliezer Teferra</h3>
               <span className="text-center font-extralight">CEO & Founder</span>
             </figure>
@@ -277,10 +294,10 @@ export default function Home() {
 
           <p>
             Eli & David first met working for Rogers Communications, selling
-            Telecom services over the phone. After Rogers, Eli began work in the
+            Telecom services over the phone. After Rogers Eli began work in the
             SaaS Sales sector, and David began work developing web applications.
             They reconnected and decided to combine their shared love of sales
-            with a passion to innovate, resulting in SalesFolio!
+            with their passion to innovate, resulting in SalesFolio!
           </p>
         </motion.article>
 
@@ -331,7 +348,7 @@ export default function Home() {
 
           <p className="text-base-50 text-lg md:text-xl text-center max-w-3xl">
             SalesFolio is coming out September 2024. To stay up to date with the
-            Latest SalesFolio news, and to get access to the early beta, enter
+            latest SalesFolio news and to get access to the early beta enter
             your email address below.
           </p>
           <form
