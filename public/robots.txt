@@ -30,6 +30,8 @@
 # Don't web scrape, don't train your AI's
 
 User-agent: *
-Allow: /
+Disallow: 
+User-agent: facebookexternalhit
+Disallow: 
 
 Sitemap: https://mysalesfolio.com/sitemap.xml
