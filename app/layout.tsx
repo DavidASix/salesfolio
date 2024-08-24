@@ -20,6 +20,7 @@ export const metadata = {
         url: '/images/og/og-image-001.png', 
         width: 1200,
         height: 630,
+        alt: 'Sales Folio - Stand out from the crowd',
       },
     ],
     locale: 'en_US',
