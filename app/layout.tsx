@@ -17,7 +17,7 @@ export const metadata = {
     siteName: 'SalesFolio',
     images: [
       {
-        url: 'https://mysalesfolio.com/images/og/og-image-001.png', 
+        url: '/images/og/og-image-001.png', 
         width: 840,
         height: 440,
       },
