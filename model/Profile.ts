@@ -45,7 +45,7 @@ const profileSchema = new mongoose.Schema(
         validator: function (v: string) {
           return regex.username.test(v);
         },
-        message: () => `Email format is invalid`,
+        message: () => `Username is invalid`,
       },
     },
     location: {
