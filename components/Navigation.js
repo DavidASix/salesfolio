@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import LogoWhite from '@/components/svgs/logo/logo-sf-white.svg'
 import Link from "next/link";
 
 const NavLink = (props) => {
@@ -85,7 +86,7 @@ export default function Navigation({ session }) {
         >
           <div className="h-12 w-full flex items-center justify-between">
             <div className="flex w-full flex-row items-center space-y-4 md:space-y-0">
-              <img src="/logo-sf-white.svg" className="h-10 w-10 me-4"/>
+              <LogoWhite className="h-10 w-10 me-4"/>
               <span className="text-2xl me-1 header-font cursor-default text-base-50">
                 Sales<span className="font-bold">Folio</span>
               </span>
