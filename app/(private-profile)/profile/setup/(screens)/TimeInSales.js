@@ -8,11 +8,11 @@ export default function TimeInSales({
   final,
   goNextStep,
   goBackStep,
-  user,
+  profile,
 }) {
   const { showAlert } = useContext(AlertContext);
   const [input, setInput] = useState(
-    user?.firstSalesYear || new Date().getFullYear()
+    profile?.firstSalesYear || new Date().getFullYear()
   );
   const [loading, setLoading] = useState(false);
 

@@ -21,6 +21,6 @@ export default async function Folio() {
       return redirect('/profile/setup');
     }
 
-    return <FolioComponent session={session} profile={profile} />;
+    return <FolioComponent profile={profile} />;
   }
   

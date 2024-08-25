@@ -1,17 +1,19 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 
+import regex from "@/utils/regex";
 import { AlertContext } from "@/components/AlertContext";
+import formatClientError from "@/utils/client-error";
 
 export default function Location({
   index,
   final,
   goNextStep,
   goBackStep,
-  user,
+  profile,
 }) {
-  const {showAlert} = useContext(AlertContext);
-  const [input, setInput] = useState(user?.location || "");
+  const { showAlert } = useContext(AlertContext);
+  const [input, setInput] = useState(profile?.location || "");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -19,9 +21,7 @@ export default function Location({
     setLoading(() => true);
 
     try {
-      const regex =
-        /^[a-zA-Z-\s]{3,32}\,?\s?[a-zA-Z-\s]{0,32}\,?\s?[a-zA-Z]{0,3}$/;
-      if (!regex.test(input)) {
+      if (!regex.location.test(input)) {
         throw "Location format is invalid";
       }
 
@@ -29,14 +29,11 @@ export default function Location({
         key: "location",
         value: input,
       });
+
       goNextStep();
     } catch (error) {
-      const msg =
-        typeof error === "string"
-          ? error
-          : error?.message || error?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
-      //alert(error);
+      const { message } = formatClientError(error);
+      showAlert("warning", message);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
     }

@@ -25,7 +25,7 @@ const Setup = async () => {
     return redirect("/profile/settings");
   }
 
-  return <SetupComponent user={session.user} />;
+  return <SetupComponent profile={profile} />;
 };
 
 export default Setup;

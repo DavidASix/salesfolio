@@ -17,44 +17,48 @@ import {
   BsPen,
 } from "react-icons/bs";
 
-import Home from './(sections)/Home'
-import OutreachPage from './(sections)/Outreach/'
-import Deals from './(sections)/Deals'
-import Highlights from './(sections)/Highlights'
-import Stats from './(sections)/Stats'
+import Home from "./(sections)/Home";
+import OutreachPage from "./(sections)/Outreach/";
+import Deals from "./(sections)/Deals";
+import Highlights from "./(sections)/Highlights";
+import Stats from "./(sections)/Stats";
 
 const tabs = [
   //{ slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
-  { slug: "outreach", title: "Outreach", icon: AiOutlineNotification, tab: OutreachPage },
+  {
+    slug: "outreach",
+    title: "Outreach",
+    icon: AiOutlineNotification,
+    tab: OutreachPage,
+  },
   { slug: "deals", title: "Deals", icon: LiaPenAltSolid, tab: Deals },
   //{ slug: "highlights", title: "Highlights", icon: LiaAwardSolid, tab: Highlights },
   //{ slug: "kpis", title: "KPI's", icon: BsGraphUpArrow, tab: Stats },
 ];
 
-export default function Folio({ session, profile }) {
+export default function Folio({ profile }) {
   const [activeTab, setActiveTab] = useState("outreach");
-  const user = session?.user;
   const aside = {
     list: [
       {
         key: "location",
-        value: user?.location,
+        value: profile?.location,
         icon: BsFillPinMapFill,
-        text: user?.location,
+        text: profile?.location,
       },
       {
         key: "company",
-        value: user?.company,
+        value: profile?.company,
         icon: BsBuildings,
-        text: user?.company,
+        text: profile?.company,
       },
       {
         key: "firstSalesYear",
-        value: user?.firstSalesYear,
+        value: profile?.firstSalesYear,
         icon: BsCalendar2Month,
-        text: user?.firstSalesYear
-          ? `${new Date().getFullYear() - user?.firstSalesYear || 1} Year${
-              new Date().getFullYear() - user?.firstSalesYear ? "s" : ""
+        text: profile?.firstSalesYear
+          ? `${new Date().getFullYear() - profile?.firstSalesYear || 1} Year${
+              new Date().getFullYear() - profile?.firstSalesYear ? "s" : ""
             } in sales`
           : false,
       },
@@ -62,43 +66,46 @@ export default function Folio({ session, profile }) {
     socials: [
       {
         key: "twitter",
-        value: user?.twitter,
+        value: profile?.twitter,
         icon: BsTwitterX,
-        link: `https://x.com/${user?.twitter}`,
+        link: `https://x.com/${profile?.twitter}`,
       },
       {
         key: "linkedin",
-        value: user?.linkedinUrl,
+        value: profile?.linkedinUrl,
         icon: FaLinkedinIn,
-        link: user?.linkedinUrl,
+        link: profile?.linkedinUrl,
       },
       {
         key: "publicEmail",
-        value: user?.publicEmail,
+        value: profile?.publicEmail,
         icon: BsEnvelopeAt,
-        link: `mailto:${user?.publicEmail}`,
+        link: `mailto:${profile?.publicEmail}`,
       },
       {
         key: "publicPhone",
-        value: user?.publicPhone,
+        value: profile?.publicPhone,
         icon: BsTelephone,
-        link: `tel:${user?.publicPhone}`,
+        link: `tel:${profile?.publicPhone}`,
       },
       {
         key: "website",
-        value: user?.website,
+        value: profile?.website,
         icon: BsGlobe,
-        link: `${user?.website}`,
+        link: `${profile?.website}`,
       },
     ],
   };
-  const CurrentTab = tabs.filter(t => t.slug === activeTab)[0].tab;
+
+  const CurrentTab = tabs.filter((t) => t.slug === activeTab)[0].tab;
   return (
     <>
       <section className="section-padding h-screen -mt-16 pt-16 px-2">
         <div className="content-container h-full flex flex-col lg:flex-row gap-4 lg:gap-0">
-          <aside className="relative h-min-content w-full lg:w-[300px] flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-6
-            items-center lg:items-start">
+          <aside
+            className="relative h-min-content w-full lg:w-[300px] flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-6
+            items-center lg:items-start"
+          >
             <Link
               href="/profile/settings"
               className="group z-30 absolute top-0 right-2 h-10 w-10 flex justify-center items-center"
@@ -110,7 +117,7 @@ export default function Folio({ session, profile }) {
               <div className="relative h-full w-full flex">
                 <div className="h-full aspect-square bg-primary rounded-full absolute -left-1 -bottom-1 z-0" />
                 <img
-                  src={session?.user?.image || "/default-user.webp"}
+                  src={profile?.image || "/default-user.webp"}
                   alt="Image Preview"
                   className="h-full w-full aspect-square object-cover rounded-full z-10"
                 />
@@ -119,28 +126,40 @@ export default function Folio({ session, profile }) {
 
             <div className="flex flex-col gap-2 sm:gap-6 justify-center px-2 items-center sm:items-start">
               <div>
-                <h1 className="text-4xl font-semibold text-center sm:text-start">{user?.name}</h1>
-                <h2 className="text-xl font-extralight text-center sm:text-start">{user?.role}</h2>
+                <h1 className="text-4xl font-semibold text-center sm:text-start">
+                  {profile?.name}
+                </h1>
+                <h2 className="text-xl font-extralight text-center sm:text-start">
+                  {profile?.role}
+                </h2>
               </div>
-              <ul className="flex gap-4">
-                {aside.socials.map((li, i) =>
-                  li.value ? (
-                    <li key={`${li.key}${i}`}>
-                      <a href={li.link} className="group">
-                        <li.icon className="h-5 w-5 group-hover:fill-primary transition-colors duration-200" />
-                      </a>
-                    </li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul>
+              {aside.socials.reduce(
+                (accum, social) => accum + (social.value || ""),
+                ""
+              ) ? (
+                <ul className="flex gap-4">
+                  {aside.socials.map((li, i) =>
+                    li.value ? (
+                      <li key={`${li.key}${i}`}>
+                        <a href={li.link} className="group">
+                          <li.icon className="h-5 w-5 group-hover:fill-primary transition-colors duration-200" />
+                        </a>
+                      </li>
+                    ) : (
+                      ""
+                    )
+                  )}
+                </ul>
+              ) : null}
             </div>
 
             <div className="flex flex-col gap-1 justify-center px-2">
               {aside.list.map((li, i) =>
                 li.value ? (
-                  <p key={`${li.key}${i}`} className="flex text-lg font-extralight items-center">
+                  <p
+                    key={`${li.key}${i}`}
+                    className="flex text-lg font-extralight items-center"
+                  >
                     <li.icon className="h-5 w-5 me-4" />
                     {li.text}
                   </p>
@@ -172,8 +191,7 @@ export default function Folio({ session, profile }) {
                 rounded-tr-3xl overflow-y-scroll
                 px-4 pt-4 lg:px-8 lg:pt-8"
             >
-              <CurrentTab
-                profile={profile} />
+              <CurrentTab profile={profile} />
             </div>
           </div>
         </div>

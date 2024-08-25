@@ -2,16 +2,17 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import { AlertContext } from "@/components/AlertContext";
+import formatClientError from "@/utils/client-error";
 
 export default function Username({
   index,
   final,
   goNextStep,
   goBackStep,
-  user,
+  profile,
 }) {
-  const { showAlert } = useContext(AlertContext)
-  const [input, setInput] = useState(user?.username || "");
+  const { showAlert } = useContext(AlertContext);
+  const [input, setInput] = useState(profile?.username || "");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -19,21 +20,15 @@ export default function Username({
     setLoading(() => true);
 
     try {
-      const regex = /^[a-zA-Z][a-zA-Z0-9_-]{2,29}$/g;
+      const regex = /^[a-zA-Z][a-zA-Z0-9_-]{3,29}$/g;
       if (!regex.test(input)) {
         throw "Username is invalid";
       }
-
-      await axios.post("/api/user/setUsername", { username: input });
+      await axios.post("/api/user/setValue", { key: "username", value: input });
       goNextStep();
     } catch (error) {
-      console.log({ error });
-      const msg =
-        typeof error === "string"
-          ? error
-          : error?.message || error?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
-      //alert(error);
+      const { message } = formatClientError(error);
+      showAlert("warning", message);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
     }

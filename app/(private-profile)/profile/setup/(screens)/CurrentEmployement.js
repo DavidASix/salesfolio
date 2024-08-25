@@ -1,17 +1,18 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AlertContext } from "@/components/AlertContext";
+import formatClientError from "@/utils/client-error";
 
 export default function CurrentEmployement({
   index,
   final,
   goNextStep,
   goBackStep,
-  user,
+  profile,
 }) {
   const { showAlert } = useContext(AlertContext);
-  const [role, setRole] = useState(user?.role || "");
-  const [company, setCompany] = useState(user?.company || "");
+  const [role, setRole] = useState(profile?.role || "");
+  const [company, setCompany] = useState(profile?.company || "");
   const [loading, setLoading] = useState(false);
   const [employed, setEmployed] = useState(null);
 
@@ -39,12 +40,8 @@ export default function CurrentEmployement({
       }
       goNextStep();
     } catch (error) {
-      const msg =
-        typeof error === "string"
-          ? error
-          : error?.message || error?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
-      //alert(error);
+      const { message } = formatClientError(error);
+      showAlert("warning", message);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
     }

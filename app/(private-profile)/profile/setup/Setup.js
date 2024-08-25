@@ -19,7 +19,7 @@ const screens = [
   TimeInSales,
 ];
 
-export default function Setup({ user }) {
+export default function Setup({ profile }) {
   const [step, setStep] = useState(1);
   const screensContainer = useRef(null);
   const router = useRouter();
@@ -76,7 +76,7 @@ export default function Setup({ user }) {
                 final={i === screens.length - 1}
                 goNextStep={goNextStep}
                 goBackStep={goBackStep}
-                user={user}
+                profile={profile}
               />
             ))}
           </div>

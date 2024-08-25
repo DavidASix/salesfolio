@@ -2,13 +2,14 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import { AlertContext } from "@/components/AlertContext";
+import formatClientError from "@/utils/client-error";
 
 export default function ProfilePicture({
   index,
   final,
   goNextStep,
   goBackStep,
-  user,
+  profile,
 }) {
   const { showAlert } = useContext(AlertContext);
   const [input, setInput] = useState(false);
@@ -37,7 +38,7 @@ export default function ProfilePicture({
     e.preventDefault();
     setLoading(true);
     try {
-      if (!input && !user?.image) {
+      if (!input && !profile?.image) {
         throw "Please upload an image";
       }
       // Users with an image provided from OAuth skip this validation
@@ -53,12 +54,8 @@ export default function ProfilePicture({
 
       goNextStep();
     } catch (error) {
-      console.log({ error });
-      const msg =
-        typeof error === "string"
-          ? error
-          : error?.message || error?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
+      const { message } = formatClientError(error);
+      showAlert("warning", message);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
     }
@@ -75,7 +72,7 @@ export default function ProfilePicture({
           <div className="h-48 w-48 bg-primary rounded-full flex justify-center items-center relative">
             <div className="h-48 w-48 bg-primary rounded-full absolute -left-1 -bottom-[2px] z-0" />
             <img
-              src={imgPreview || user?.image || "/default-user.webp"}
+              src={imgPreview || profile?.image || "/images/default-user.webp"}
               alt="Image Preview"
               className="h-auto w-auto object-cover rounded-full z-10"
             />
@@ -100,7 +97,7 @@ export default function ProfilePicture({
           </div>
         </div>
         <h3 className="text-2xl md:text-3xl self-center text-center">
-          {user?.image
+          {profile?.image
             ? "You look great! Would you like to change your photo?"
             : "Let's start with a profile picture"}
         </h3>

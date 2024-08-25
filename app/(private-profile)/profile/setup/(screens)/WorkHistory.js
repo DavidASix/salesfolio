@@ -3,17 +3,20 @@ import axios from "axios";
 
 import MonthYearPicker from "@/components/MonthYearPicker";
 import { AlertContext } from "@/components/AlertContext";
+import formatClientError from "@/utils/client-error";
 
 export default function WorkHistory({
   index,
   final,
   goNextStep,
   goBackStep,
-  user
+  profile,
 }) {
-  const { showAlert } = useContext(AlertContext)
+  const { showAlert } = useContext(AlertContext);
   const [inputs, setInputs] = useState(
-    user?.workHistory || [{ company: "", start: "", end: "" }]
+    profile?.workHistory?.length
+      ? profile.workHistory
+      : [{ company: "", start: "", end: "" }]
   );
   const [loading, setLoading] = useState(false);
 
@@ -28,11 +31,8 @@ export default function WorkHistory({
       });
       goNextStep();
     } catch (error) {
-      const msg =
-        typeof error === "string"
-          ? error
-          : error?.message || error?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
+      const { message } = formatClientError(error);
+      showAlert("warning", message);
       //alert(error);
     } finally {
       setTimeout(() => setLoading(() => false), 500);
