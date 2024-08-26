@@ -10,8 +10,8 @@ import { redirect } from "next/navigation";
  */
 
 export default async function Settings() {
-  let session;
-  let profile;
+  let session:any;
+  let profile:any;
 
   try {
     session = await auth();

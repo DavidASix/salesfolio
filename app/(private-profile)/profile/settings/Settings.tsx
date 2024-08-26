@@ -12,24 +12,30 @@ import formatClientError from "@/utils/client-error";
 export default function Settings({ profile, user }) {
   const { showAlert } = useContext(AlertContext);
 
-  const [username, setUsername] = useState(profile?.username || "");
-  const [publicEmail, setPublicEmail] = useState(profile?.publicEmail || "");
-  const [publicPhone, setPublicPhone] = useState(profile?.publicPhone || "");
-  const [location, setLocation] = useState(profile?.location || "");
-  const [role, setRole] = useState(profile?.role || "");
-  const [company, setCompany] = useState(profile?.company || "");
-  const [firstSalesYear, setFirstSalesYear] = useState(
+  const [username, setUsername] = useState<string>(profile?.username || "");
+  const [publicEmail, setPublicEmail] = useState<string>(
+    profile?.publicEmail || ""
+  );
+  const [publicPhone, setPublicPhone] = useState<string>(
+    profile?.publicPhone || ""
+  );
+  const [location, setLocation] = useState<string>(profile?.location || "");
+  const [role, setRole] = useState<string>(profile?.role || "");
+  const [company, setCompany] = useState<string>(profile?.company || "");
+  const [firstSalesYear, setFirstSalesYear] = useState<string | number>(
     profile?.firstSalesYear || ""
   );
-  const [emailConsent, setEmailConsent] = useState(
+  const [emailConsent, setEmailConsent] = useState<boolean>(
     profile?.emailConsent || false
   );
-  const [imgPreview, setImgPreview] = useState(false);
-  const [image, setImage] = useState(false);
-  const [linkedinUrl, setLinkedinUrl] = useState(profile?.linkedinUrl || "");
-  const [website, setWebsiteUrl] = useState(profile?.website || "");
-  const [twitter, setTwitter] = useState(profile?.twitter || "");
-  const [loading, setLoading] = useState(false);
+  const [imgPreview, setImgPreview] = useState<string | ArrayBuffer>(null);
+  const [image, setImage] = useState<Blob>(null);
+  const [linkedinUrl, setLinkedinUrl] = useState<string>(
+    profile?.linkedinUrl || ""
+  );
+  const [website, setWebsiteUrl] = useState<string>(profile?.website || "");
+  const [twitter, setTwitter] = useState<string>(profile?.twitter || "");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -49,8 +55,8 @@ export default function Settings({ profile, user }) {
         await axios.post("/api/user/uploadProfilePicture", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        setImage(false);
-        setImgPreview(false);
+        setImage(null);
+        setImgPreview(null);
       }
 
       // Validate Username
@@ -101,10 +107,10 @@ export default function Settings({ profile, user }) {
     const file = e.target.files[0];
 
     if (!file) {
-      return onError("warning", "Image Invalid");
+      return showAlert("warning", "Image Invalid");
     }
     if (file.size > 1024 * 1024 * 2) {
-      return onError("warning", "Please choose a smaller image");
+      return showAlert("warning", "Please choose a smaller image");
     }
 
     const reader = new FileReader();

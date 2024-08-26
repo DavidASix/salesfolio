@@ -104,7 +104,7 @@ export default function Navigation({ session }) {
               </div>
             </div>
 
-            {/* {session ? (
+            {session ? (
               <a href="/profile" className="h-10 w-10 flex justify-center items-center">
                 <img
                   src={session?.user?.image || "/default-user.webp"}
@@ -114,7 +114,7 @@ export default function Navigation({ session }) {
             ) : (
               <a
                 href="/login"
-                className="h-8 w-32 btn btn-primary btn-outline"
+                className="h-8 w-32 btn btn-secondary"
               >
                 Sign Up
               </a>
@@ -143,7 +143,7 @@ export default function Navigation({ session }) {
                   d="M3 1h10M0 7h16M3 14h10"
                 />
               </svg>
-            </button> */}
+            </button>
           </div>
         </nav>
       </div>
