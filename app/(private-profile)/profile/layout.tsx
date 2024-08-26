@@ -18,15 +18,15 @@ export default async function RootLayout({ children }) {
   };
 
   return (
-    <>
-      <header className="sticky top-0 z-40 h-16 bg-transparent">
+    <div className="bg-dotted flex flex-col w-full">
+      <header className="z-40 h-16">
         <NavBar session={session} />
       </header>
       <main
-        className={`z-20 row justify-content-center align-items-start relative bg-dotted`}
+        className={`z-20 row justify-content-center align-items-start relative overflow-x-clip`}
       >
         {children}
       </main>
-    </>
+    </div>
   );
 }

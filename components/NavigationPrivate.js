@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from '@/components/svgs/logo/logo-sf.svg'
 
 export default function Navigation({ session }) {
   const links = [
@@ -8,20 +9,25 @@ export default function Navigation({ session }) {
 
   return (
     <>
-      <div
-        className="flex items-center justify-end px-3 md:px-3 py-2"
-        aria-label="Main Menu"
+    <div
+      className="flex items-center justify-end px-3 md:px-3 py-2"
+      aria-label="Main Menu"
+    >
+      <nav
+        className={`relative overflow-hidden md:overflow-visible
+          flex justify-between items-start md:items-center px-4
+          w-full rounded-2xl 
+          border-0 border-primary-100
+          transition-all duration-300
+          `}
       >
-        <nav
-          className={`h-12 relative overflow-visible
-            flex justify-between items-start md:items-center px-4
-            w-full rounded-2xl 
-            `}
-        >
           <div className="h-12 w-full flex items-center justify-between">
-            <span className="text-3xl me-1 header-font cursor-default text-primary-800">
-              Sales<span className="font-bold">Folio</span>
-            </span>
+            <div className="flex items-center">
+            <Logo className="h-10 w-10 me-4"/>
+              <span className="text-2xl me-1 header-font cursor-default text-secondary">
+                Sales<span className="font-bold">Folio</span>
+              </span>
+              </div>
             <div className="dropdown md:dropdown-hover dropdown-end">
               <div tabIndex={0} role="button" className="m-1">
                 <img
