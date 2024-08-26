@@ -6,59 +6,40 @@ import axios from "axios";
 import { BsLinkedin, BsTwitterX, BsGlobe } from "react-icons/bs";
 
 import { AlertContext } from "@/components/AlertContext";
+import regex from "@/utils/regex";
+import formatClientError from "@/utils/client-error";
 
-export default function Settings({ session }) {
+export default function Settings({ profile, user }) {
   const { showAlert } = useContext(AlertContext);
 
-  const [username, setUsername] = useState(session?.user?.username || "");
-  const [publicEmail, setPublicEmail] = useState(
-    session?.user?.publicEmail || ""
-  );
-  const [publicPhone, setPublicPhone] = useState(
-    session?.user?.publicPhone || ""
-  );
-  const [location, setLocation] = useState(session?.user?.location || "");
-  const [role, setRole] = useState(session?.user?.role || "");
-  const [company, setCompany] = useState(session?.user?.company || "");
+  const [username, setUsername] = useState(profile?.username || "");
+  const [publicEmail, setPublicEmail] = useState(profile?.publicEmail || "");
+  const [publicPhone, setPublicPhone] = useState(profile?.publicPhone || "");
+  const [location, setLocation] = useState(profile?.location || "");
+  const [role, setRole] = useState(profile?.role || "");
+  const [company, setCompany] = useState(profile?.company || "");
   const [firstSalesYear, setFirstSalesYear] = useState(
-    session?.user?.firstSalesYear || ""
+    profile?.firstSalesYear || ""
   );
   const [emailConsent, setEmailConsent] = useState(
-    session?.user?.emailConsent || false
+    profile?.emailConsent || false
   );
   const [imgPreview, setImgPreview] = useState(false);
   const [image, setImage] = useState(false);
-
-  const [linkedinUrl, setLinkedinUrl] = useState(
-    session?.user?.linkedinUrl || ""
-  );
-  const [website, setWebsiteUrl] = useState(session?.user?.website || "");
-  const [twitter, setTwitter] = useState(session?.user?.twitter || "");
-
+  const [linkedinUrl, setLinkedinUrl] = useState(profile?.linkedinUrl || "");
+  const [website, setWebsiteUrl] = useState(profile?.website || "");
+  const [twitter, setTwitter] = useState(profile?.twitter || "");
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
-  const emailRegex =
-    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-
   async function saveChanges() {
-    console.log("saveChanges called");
     if (!inputChangeDetected()) {
-      console.log("No Change Detected");
       return;
     }
 
     try {
       setLoading(true);
-      // Update username
-      if (username && username !== session?.user?.username) {
-        const regex = /^[a-zA-Z][a-zA-Z0-9_-]{2,29}$/g;
-        if (!regex.test(username)) {
-          throw "Username is invalid";
-        }
-        await axios.post("/api/user/setUsername", { username });
-      }
 
       // Upload profile picture
       if (imgPreview) {
@@ -72,8 +53,16 @@ export default function Settings({ session }) {
         setImgPreview(false);
       }
 
+      // Validate Username
+      if (username && username !== profile?.username) {
+        if (!regex.username.test(username)) {
+          throw "Username is invalid";
+        }
+      }
+
       // Upload all other changed data
       const profileValues = {
+        username,
         publicEmail,
         location,
         role,
@@ -85,11 +74,12 @@ export default function Settings({ session }) {
         website,
         twitter,
       };
+
       for await (const key of Object.keys(profileValues)) {
         // Only upload values for things that have changed and have value
         if (
           profileValues[key] !== "" &&
-          profileValues[key] !== session?.user?.[key]
+          profileValues[key] !== profile?.[key]
         ) {
           await axios.post("/api/user/setValue", {
             key: key,
@@ -100,11 +90,8 @@ export default function Settings({ session }) {
 
       router.refresh();
     } catch (err) {
-      const msg =
-        typeof err === "string"
-          ? err
-          : err?.message || err?.data?.message || "Something went wrong";
-      showAlert("warning", msg);
+      const { message } = formatClientError(err);
+      showAlert("warning", message);
     } finally {
       setLoading(false);
     }
@@ -129,17 +116,17 @@ export default function Settings({ session }) {
 
   function inputChangeDetected() {
     return !(
-      username == (session?.user?.username || "") &&
-      publicEmail == (session?.user?.publicEmail || "") &&
-      location == (session?.user?.location || "") &&
-      role == (session?.user?.role || "") &&
-      company == (session?.user?.company || "") &&
-      firstSalesYear == (session?.user?.firstSalesYear || "") &&
-      emailConsent == (session?.user?.emailConsent || "") &&
-      publicPhone == (session?.user?.publicPhone || "") &&
-      linkedinUrl == (session?.user?.linkedinUrl || "") &&
-      website == (session?.user?.website || "") &&
-      twitter == (session?.user?.twitter || "") &&
+      username == (profile?.username || "") &&
+      publicEmail == (profile?.publicEmail || "") &&
+      location == (profile?.location || "") &&
+      role == (profile?.role || "") &&
+      company == (profile?.company || "") &&
+      firstSalesYear == (profile?.firstSalesYear || "") &&
+      emailConsent == (profile?.emailConsent || "") &&
+      publicPhone == (profile?.publicPhone || "") &&
+      linkedinUrl == (profile?.linkedinUrl || "") &&
+      website == (profile?.website || "") &&
+      twitter == (profile?.twitter || "") &&
       !imgPreview
     );
   }
@@ -211,9 +198,7 @@ export default function Settings({ session }) {
                 <div className="h-32 w-32 bg-primary rounded-full flex justify-center items-center relative">
                   <div className="h-32 w-32 bg-primary rounded-full absolute -left-1 -bottom-[2px] z-0" />
                   <img
-                    src={
-                      imgPreview || session?.user?.image || "/default-user.webp"
-                    }
+                    src={imgPreview || profile?.image || "/default-user.webp"}
                     alt="Image Preview"
                     className="h-full w-full object-cover rounded-full z-10"
                   />
@@ -476,27 +461,30 @@ export default function Settings({ session }) {
             </article>
           </div>
           {/* EMAIL ADDRESS */}
-          <article className="w-full">
-            <label htmlFor="email" className="font-bold text-sm text-base-800">
-              Account Email
-            </label>
-            <div className="w-full flex items-center gap-4 px-4 pb-3">
-              <span>✉️</span>
-              <input
-                disabled={true}
-                type="email"
-                id="email"
-                autoComplete="off"
-                maxLength={128}
-                value={
-                  (session?.user?.email ? "🔒️ " : "") + session?.user?.email
-                }
-                className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
+          {user?.email ? (
+            <article className="w-full">
+              <label
+                htmlFor="email"
+                className="font-bold text-sm text-base-800"
+              >
+                Account Email
+              </label>
+              <div className="w-full flex items-center gap-4 px-4 pb-3">
+                <span>✉️</span>
+                <input
+                  disabled={true}
+                  type="email"
+                  id="email"
+                  autoComplete="off"
+                  maxLength={128}
+                  value={`🔒️ ${user?.email}`}
+                  className={`focus-visible:outline-none bg-transparent text-lg flex-1 border-b border-base-200 focus-visible:border-primary
                 disabled:text-base-800`}
-                placeholder="myEmail@gmail.com"
-              />
-            </div>
-          </article>
+                  placeholder="myEmail@gmail.com"
+                />
+              </div>
+            </article>
+          ) : null}
           {/* SIGN OUT BUTTON */}
           <button
             type="button"
