@@ -76,7 +76,7 @@ body {
   }
 
   .content-container {
-    @apply max-w-[1500px] px-1 md:px-0 w-full;
+    @apply max-w-[1500px] px-1 lg:px-0 w-full;
   }
 
   .button {
@@ -114,7 +114,7 @@ body {
   .folio-tab {
     @apply flex justify-start items-center gap-2 px-4 flex-nowrap;
     @apply text-lg;
-    @apply min-w-36 h-12 bg-base-50 border-base border-t border-l border-r rounded-t-2xl;
+    @apply min-w-36 h-12 bg-base-50 border-base border-t border-l border-r border-b-0 rounded-t-2xl;
     @apply transition-all duration-300
   }
 }

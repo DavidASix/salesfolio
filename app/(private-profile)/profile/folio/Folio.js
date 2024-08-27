@@ -100,10 +100,14 @@ export default function Folio({ profile }) {
   const CurrentTab = tabs.filter((t) => t.slug === activeTab)[0].tab;
   return (
     <>
-      <section className="section-padding h-screen -mt-16 pt-16 px-2">
-        <div className="content-container h-full flex flex-col lg:flex-row gap-4 lg:gap-0">
+      <section className="section-padding lg:h-screen -mt-16 pt-16 px-2">
+        <div
+          className="content-container h-full flex 
+            flex-col gap-4 items-center
+            lg:flex-row lg:gap-0 lg:justify-center lg:items-stretch"
+        >
           <aside
-            className="relative h-min-content w-full lg:w-[300px] flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-6
+            className="relative h-min-content w-full lg:max-w-xs flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-6
             items-center lg:items-start"
           >
             <Link
@@ -170,8 +174,8 @@ export default function Folio({ profile }) {
             </div>
           </aside>
 
-          <div className="flex flex-col flex-1">
-            <ul className="flex gap-2 lg:gap-2 w-full z-10 -mb-[1px] overflow-scroll rounded-e-2xl no-scrollbar">
+          <div className="flex flex-col flex-1 max-w-3xl w-full relative">
+            <ul className="z-10 flex gap-2 w-full -mb-[1px] rounded-e-2xl rounded-tl-2xl overflow-scroll no-scrollbar">
               {tabs.map((tab, i) => (
                 <li key={i}>
                   <button
@@ -186,7 +190,7 @@ export default function Folio({ profile }) {
               ))}
             </ul>
             <div
-              className="flex-1 z-0 min-h-[80vh] sm:min-h-0
+              className="flex-1 z-0 min-h-[80vh] sm:min-h-0 
                 bg-base-50 border-x border-t border-base
                 rounded-tr-3xl overflow-y-scroll
                 px-4 pt-4 lg:px-8 lg:pt-8"
