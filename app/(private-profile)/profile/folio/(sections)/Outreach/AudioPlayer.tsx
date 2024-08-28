@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
 import playPauseAnimation from "@/assets/lottie/playPauseAccent.json";
 
 function Play({ isPlaying, setIsPlaying }) {

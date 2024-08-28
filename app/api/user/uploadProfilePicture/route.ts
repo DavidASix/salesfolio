@@ -39,7 +39,7 @@ export async function POST(request) {
     // Upload to S3
     const command = new PutObjectCommand(params);
     await s3.send(command);
-    const url = `https://${AWS_PP_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${params.Key}`;
+    const url = `https://s3.${AWS_REGION}.amazonaws.com/${AWS_PP_BUCKET}/${params.Key}`;
 
     // Pass the request off the setValue endpoint to add image to the profile object
     return await setValue({

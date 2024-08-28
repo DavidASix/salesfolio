@@ -45,7 +45,7 @@ export async function POST(request) {
     const command = new PutObjectCommand(params);
     await s3.send(command);
     console.log(`File uploaded successfully: ${params.Key}`);
-    const url = `https://${AWS_OCA_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${params.Key}`;
+    const url = `https://s3.${AWS_REGION}.amazonaws.com/${AWS_OCA_BUCKET}/${params.Key}`;
 
     return new Response(JSON.stringify(url));
   } catch (err) {

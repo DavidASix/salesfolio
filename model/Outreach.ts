@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import regex from "@/utils/regex";
 
 const outreachSchema = new mongoose.Schema(
   {
@@ -30,7 +31,7 @@ const outreachSchema = new mongoose.Schema(
       required: false,
       validate: {
         validator: function (v: string) {
-          return /^(https):\/\/[^ "]+$/.test(v);
+          return regex.url.test(v);
         },
         message: (props) => `File upload does not have valid URL`,
       },
@@ -40,7 +41,7 @@ const outreachSchema = new mongoose.Schema(
       required: false,
       validate: {
         validator: function (v: string) {
-          return /^(https):\/\/[^ "]+$/.test(v);
+          return regex.url.test(v);
         },
         message: (props) => `File upload does not have valid URL`,
       },
