@@ -8,26 +8,28 @@ import OutreachItem from "./OutreachItem";
 
 const pageSize = 2;
 
-const outreachTypes = {
-  call: {
-    slug: "call",
-    title: "Cold Call",
-    icon: BsTelephone,
-  },
-  email: {
-    slug: "email",
-    title: "Email",
-    icon: BsEnvelopeAt,
-  },
-  creative: {
-    slug: "creative",
-    title: "Creative",
-    icon: BsLightbulb,
-  },
-};
+// Keeping this in for future filtering of history
+// const outreachTypes = {
+//   call: {
+//     slug: "call",
+//     title: "Cold Call",
+//     icon: BsTelephone,
+//   },
+//   email: {
+//     slug: "email",
+//     title: "Email",
+//     icon: BsEnvelopeAt,
+//   },
+//   creative: {
+//     slug: "creative",
+//     title: "Creative",
+//     icon: BsLightbulb,
+//   },
+// };
 
-const outreachSlugs = [...Object.keys(outreachTypes)] as const;
-type OutreachTypes = (typeof outreachSlugs)[number];
+// const outreachSlugs = [...Object.keys(outreachTypes)] as const;
+// type OutreachTypes = (typeof outreachSlugs)[number];
+
 
 export default function OutreachPage({ profile }) {
   const { showAlert } = useContext(AlertContext);
@@ -61,14 +63,12 @@ export default function OutreachPage({ profile }) {
   }, []);
 
   return (
-    <section id="outreach" className="flex flex-col w-full gap-8 pb-20">
-      <h2 className="header-font text-4xl">Outreach!</h2>
-      <p className="mb-4 font-extralight">
-        Did you complete a killer cold call, write an amazing email, or have
-        some creative outreach strategy? Brag about it here.
-      </p>
+    <section id="outreach" className="flex flex-col w-full pb-20">
       {/* Add new outreach card */}
       <OutreachUpload />
+      <h2 className="header-font text-4xl mt-6 mb-6">
+        My Outreach
+      </h2>
       <div className="flex flex-col w-full items-center gap-8">
         {outreachList.map((outreach, i) => 
             <OutreachItem outreach={outreach} key={outreach.id + i} />

@@ -1,47 +1,34 @@
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
+import {
+  BsPen,
+} from "react-icons/bs";
 
-const Email = ({emailSubject, emailBody}) => {
+import AudioPlayer from "./AudioPlayer";
+
+const Email = ({ emailSubject, emailBody }) => {
   return (
     <div className="mockup-window border-base-900 border">
       <div className="border-base-900 border-t px-4 py-4 flex flex-col">
-        <label className="text-sm text-base-600 -ms-2">
-            Subject:
-        </label>
-        <h2 className="font-bold text-2xl mb-6">
-            {emailSubject}
-        </h2>
-        <label className="text-sm text-base-600 -ms-2">
-            Body:
-        </label>
-        <p className="text-lg whitespace-pre">
-            {emailBody}
-        </p>
+        <label className="text-sm text-base-600 -ms-2">Subject:</label>
+        <h2 className="font-bold text-2xl mb-6">{emailSubject}</h2>
+        <label className="text-sm text-base-600 -ms-2">Body:</label>
+        <p className="text-lg whitespace-pre">{emailBody}</p>
       </div>
     </div>
   );
-}
-const Call = ({audioFileUrl}) => {
+};
+const Call = ({ audioFileUrl }) => {
+  return <AudioPlayer url={audioFileUrl} />;
+};
+const Creative = ({ imageUrl }) => {
   return (
     <div className="mockup-window border-base-900 border">
       <div className="border-base-900 border-t px-4 py-4 flex flex-col">
-        <h2 className="font-bold text-2xl">
-            {audioFileUrl}
-        </h2>
+        <h2 className="font-bold text-2xl">{imageUrl}</h2>
       </div>
     </div>
   );
-}
-const Creative = ({imageUrl}) => {
-  return (
-    <div className="mockup-window border-base-900 border">
-      <div className="border-base-900 border-t px-4 py-4 flex flex-col">
-        <h2 className="font-bold text-2xl">
-            {imageUrl}
-        </h2>
-      </div>
-    </div>
-  );
-}
+};
 
 const outreachTypes = {
   call: {
@@ -64,22 +51,25 @@ const outreachTypes = {
   },
 };
 
-
 export default function OutreachItem({ outreach }) {
-  const OutreachDisplay = outreachTypes[outreach.type].component;
-  const Icon = outreachTypes[outreach.type].icon;
+  const { slug, title, icon, component } = outreachTypes[outreach.type];
+  const OutreachDisplay = component;
+  const Icon = icon;
   return (
-    <div className="w-full max-w-4xl">
-      <h1 className="text-4xl font-semibold flex gap-2">
-        <Icon /> {outreach.title}
-      </h1>
-      <span className="italic text-sm text-base-600">
-        Created: {outreach.createdAt.slice(0,10)}
+    <article className="flex flex-col w-full border border-base p-4 rounded-3xl shadow">
+      <header className="flex justify-between">
+          <Icon className="h-6 w-6 fill-accent-500" />
+        <span className="text-sm font-extralight text-base-900">
+          {outreach.createdAt.slice(0, 10)}
         </span>
-      <p className="text-lg font-light my-2 whitespace-pre">
-        {outreach.description}
-      </p>
+        <BsPen className="h-6 w-6 fill-accent-500 " />
+      </header>
       <OutreachDisplay {...outreach} />
-    </div>
+      <div>
+        <p className="text-md font-light whitespace-pre-wrap">
+          {outreach.description}
+        </p>
+      </div>
+    </article>
   );
 }

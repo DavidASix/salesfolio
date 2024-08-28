@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
-import { AlertContext } from "@/components/AlertContext";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { AlertContext } from "@/components/AlertContext";
 
 const outreachTypes = [
   { slug: "call", title: "Cold Call", icon: BsTelephone },
@@ -15,9 +17,7 @@ type OutreachTypes = (typeof outreachSlugs)[number];
 
 export default function OutreachUpload() {
   const { showAlert } = useContext(AlertContext);
-  const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(
-    outreachTypes[0].slug
-  );
+  const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(null);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -27,9 +27,15 @@ export default function OutreachUpload() {
   const [audioFile, setAudioFile] = useState<Blob>(null);
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [showInputs, setShowInputs] = useState<boolean>(false);
 
   const audioInput = useRef(null);
   const imageInput = useRef(null);
+
+  const outreachTypeClicked = (slug) => {
+    setNewOutreachType(slug);
+    setShowInputs(true);
+  };
 
   const onChangeAudioFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
@@ -140,57 +146,82 @@ export default function OutreachUpload() {
       if (audioInput?.current) {
         audioInput.current.value = "";
       }
+      setShowInputs(false)
+      setNewOutreachType(null)
       showAlert("success", "Outreach Uploaded!");
     } catch (err) {
       console.log(err);
-      showAlert("warning", err?.response?.data || "An error occured, try again.");
+      showAlert(
+        "warning",
+        err?.response?.data || "An error occured, try again."
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-      <div className="border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full max-w-[750px] self-center">
-        <div
-          className={`${
-            loading ? "bg-base-500" : "bg-primary"
-          } w-full h-min flex flex-col p-4`}
-        >
-          <h3 className="text-white header-font font-bold text-4xl">
-            New outreach
-          </h3>
+    <div className="border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center">
+      <div
+        className={`${
+          loading ? "bg-base-500" : "bg-primary"
+        } w-full h-min flex flex-col p-4 relative`}
+      >
+        {showInputs || newOutreachType ? (
+          <motion.button
+            className="absolute top-2 right-4"
+            onClick={() => setShowInputs(!showInputs)}
+            initial={{ rotate: '180deg' }}
+            animate={{
+              rotate: showInputs ? '0deg' : '180deg',
+            }}
+          >
+              <FaChevronUp className="fill-base-50 h-8 w-8" />
+          </motion.button>
+        ) : null}
+        <h3 className="text-white header-font font-bold text-4xl">
+          Record outreach
+        </h3>
 
-          <p className="text-white">What would you like to record?</p>
+        <p className="text-white">What would you like to share?</p>
 
-          <div className="flex w-full px-8 justify-around h-10 gap-4 mt-4">
-            {outreachTypes.map((type, i) => (
-              <button
-                disabled={loading}
-                className={`btn flex-1 max-w-64 h-full whitespace-nowrap font-extralight text-xs md:text-[1rem] flex-nowrap gap-0 ${
-                  newOutreachType === type.slug
-                    ? "btn-accent md:font-bold"
-                    : "text-base-dark"
-                }`}
-                onClick={() => setNewOutreachType(type.slug)}
-                key={type.slug}
-              >
-                <type.icon className="hidden sm:block h-4 md:h-5 w-4 md:w-5 me-1" />
-                {type.title}
-              </button>
-            ))}
-          </div>
+        <div className="flex w-full px-8 justify-around h-10 gap-4 mt-4">
+          {outreachTypes.map((type, i) => (
+            <button
+              disabled={loading}
+              className={`btn flex-1 max-w-64 h-full whitespace-nowrap font-extralight text-xs md:text-[1rem] flex-nowrap gap-0 ${
+                newOutreachType === type.slug
+                  ? "btn-accent md:font-bold"
+                  : "text-base-dark"
+              }`}
+              onClick={() => outreachTypeClicked(type.slug)}
+              key={type.slug}
+            >
+              <type.icon className="hidden sm:block h-4 md:h-5 w-4 md:w-5 me-1" />
+              {type.title}
+            </button>
+          ))}
         </div>
-        <div className="w-full flex flex-col p-4 gap-4">
+      </div>
+      <motion.div
+        initial={{ height: 0 }}
+        animate={{
+          height: showInputs ? "auto" : 0,
+          opacity: showInputs ? 1 : 0,
+        }}
+      >
+        <div className="w-full flex flex-col gap-4 p-4">
           <div>
             <label htmlFor="title" className="text-sm text-base-700">
               Title
             </label>
             <input
               disabled={loading}
+              maxLength={64}
               type="text"
               id="title"
               placeholder={`My Awesome ${
-                outreachTypes.find((v) => v.slug === newOutreachType).title
+                outreachTypes.find((v) => v.slug === newOutreachType)?.title
               } Outreach`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -204,6 +235,7 @@ export default function OutreachUpload() {
             </label>
             <textarea
               disabled={loading}
+              maxLength={512}
               className="w-full min-h-32 rounded-2xl border-2 border-dashed border-base px-4 py-2  focus-visible:outline-none focus:shadow transition-all duration-300"
               placeholder="This call is a great example of my etc etc etc"
               id="description"
@@ -295,6 +327,7 @@ export default function OutreachUpload() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
+    </div>
   );
 }
