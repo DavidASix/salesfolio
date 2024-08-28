@@ -18,7 +18,6 @@ type OutreachTypes = (typeof outreachSlugs)[number];
 export default function OutreachUpload() {
   const { showAlert } = useContext(AlertContext);
   const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(null);
-  const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
   const [emailSubject, setEmailSubject] = useState<string>("");
@@ -64,8 +63,8 @@ export default function OutreachUpload() {
   };
 
   async function submitOutreach() {
-    if (!title || !description) {
-      return showAlert("warning", "Please add a title & description");
+    if (!description) {
+      return showAlert("warning", "Please add a description");
     }
     setLoading(true);
 
@@ -119,7 +118,6 @@ export default function OutreachUpload() {
     // Upload outreach document
     try {
       const possibleValues = {
-        title,
         description,
         emailSubject,
         emailBody,
@@ -134,7 +132,6 @@ export default function OutreachUpload() {
       }
 
       await axios.post("/api/outreach/uploadNewOutreach", newOutreachData);
-      setTitle("");
       setDescription("");
       setEmailSubject("");
       setEmailBody("");
@@ -212,24 +209,6 @@ export default function OutreachUpload() {
         }}
       >
         <div className="w-full flex flex-col gap-4 p-4">
-          <div>
-            <label htmlFor="title" className="text-sm text-base-700">
-              Title
-            </label>
-            <input
-              disabled={loading}
-              maxLength={64}
-              type="text"
-              id="title"
-              placeholder={`My Awesome ${
-                outreachTypes.find((v) => v.slug === newOutreachType)?.title
-              } Outreach`}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-2xl border-2 border-dashed border-base px-4 py-2 focus-visible:outline-none focus:shadow transition-all duration-300"
-            />
-          </div>
-
           <div>
             <label htmlFor="description" className="text-sm text-base-700">
               Description

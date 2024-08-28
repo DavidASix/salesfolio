@@ -11,11 +11,6 @@ const outreachSchema = new mongoose.Schema(
       enum: ["call", "email", "creative"],
       required: [true, "A server error has occured"],
     },
-    title: {
-      type: String,
-      required: true,
-      minLength: [1, "Title must be longer"],
-    },
     description: {
       type: String,
       required: true,

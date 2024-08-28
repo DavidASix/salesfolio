@@ -1,19 +1,17 @@
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
-import {
-  BsPen,
-} from "react-icons/bs";
+import { BsPen } from "react-icons/bs";
 
 import AudioPlayer from "./AudioPlayer";
 
 const Email = ({ emailSubject, emailBody }) => {
   return (
-    <div className="mockup-window border-base-900 border">
-      <div className="border-base-900 border-t px-4 py-4 flex flex-col">
-        <label className="text-sm text-base-600 -ms-2">Subject:</label>
-        <h2 className="font-bold text-2xl mb-6">{emailSubject}</h2>
-        <label className="text-sm text-base-600 -ms-2">Body:</label>
-        <p className="text-lg whitespace-pre">{emailBody}</p>
-      </div>
+    <div className="flex flex-col py-4 border-b-2 border-accent mb-4">
+      <label className="text-sm text-base-600">Subject:</label>
+      <h2 className="font-bold text-lg px-2 mb-2">{emailSubject}</h2>
+      <label className="text-sm text-base-600">Body:</label>
+      <p className="text-md font-normal whitespace-pre-wrap px-2">
+        {emailBody}
+      </p>
     </div>
   );
 };
@@ -22,10 +20,11 @@ const Call = ({ audioFileUrl }) => {
 };
 const Creative = ({ imageUrl }) => {
   return (
-    <div className="mockup-window border-base-900 border">
-      <div className="border-base-900 border-t px-4 py-4 flex flex-col">
-        <h2 className="font-bold text-2xl">{imageUrl}</h2>
-      </div>
+    <div className="flex flex-col py-4 border-b-2 border-accent mb-4 content-center items-center">
+      <img
+        src={imageUrl}
+        className="w-auto h-auto object-contain max-h-[440px] rounded-2xl border border-base-900"
+      />
     </div>
   );
 };
@@ -56,17 +55,17 @@ export default function OutreachItem({ outreach }) {
   const OutreachDisplay = component;
   const Icon = icon;
   return (
-    <article className="flex flex-col w-full border border-base-300 rounded-3xl bg-white overflow-hidden pb-4 shadow">
+    <article className="flex flex-col w-full border border-base-300 rounded-3xl bg-white overflow-hidden pb-4">
       <header className="flex justify-between border-b border-base-300 py-3 px-4 bg-accent-50">
-          <Icon className="h-6 w-6 fill-accent-500" />
+        <Icon className="h-6 w-6 fill-accent-500" />
         <span className="text-md font-light text-base-900">
           {outreach.createdAt.slice(0, 10)}
         </span>
         <BsPen className="h-6 w-6 fill-accent-500 " />
       </header>
       <div className="px-4">
-      <OutreachDisplay {...outreach} />
-        <p className="text-md font-light whitespace-pre-wrap">
+        <OutreachDisplay {...outreach} />
+        <p className="text-sm font-light whitespace-pre-wrap">
           {outreach.description}
         </p>
       </div>
