@@ -56,16 +56,16 @@ export default function OutreachItem({ outreach }) {
   const OutreachDisplay = component;
   const Icon = icon;
   return (
-    <article className="flex flex-col w-full border border-base p-4 rounded-3xl shadow">
-      <header className="flex justify-between">
+    <article className="flex flex-col w-full border border-base-300 rounded-3xl bg-white overflow-hidden pb-4 shadow">
+      <header className="flex justify-between border-b border-base-300 py-3 px-4 bg-accent-50">
           <Icon className="h-6 w-6 fill-accent-500" />
-        <span className="text-sm font-extralight text-base-900">
+        <span className="text-md font-light text-base-900">
           {outreach.createdAt.slice(0, 10)}
         </span>
         <BsPen className="h-6 w-6 fill-accent-500 " />
       </header>
+      <div className="px-4">
       <OutreachDisplay {...outreach} />
-      <div>
         <p className="text-md font-light whitespace-pre-wrap">
           {outreach.description}
         </p>

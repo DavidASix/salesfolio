@@ -58,9 +58,14 @@ body {
 }
 
 @layer utilities {
-
   .bg-dotted {
     background-image: radial-gradient(circle at 1.2px 1.2px, theme('colors.secondary') 1.2px, transparent 0);
+    background-size: 25px 25px;
+    background-position: -25px -25px;
+  }
+
+  .bg-dotted-accent {
+    background-image: radial-gradient(circle at 1.2px 1.2px, theme('colors.accent.400') 1.2px, transparent 0);
     background-size: 25px 25px;
     background-position: -25px -25px;
   }

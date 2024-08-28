@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Lottie from "lottie-react";
-import playPauseAnimation from "@/assets/lottie/playPausePrimary.json";
+import playPauseAnimation from "@/assets/lottie/playPauseAccent.json";
 
 function Play({ isPlaying, setIsPlaying }) {
   const lottieRef = useRef(null);
@@ -77,7 +77,7 @@ export default function AudioPlayer({ url }) {
 
   return (
     <div className="w-full flex flex-col gap-0 p-4 rounded-2xl">
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-2">
         <Play isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
       </div>
       <div className="flex justify-between items-center gap-4">
@@ -88,7 +88,7 @@ export default function AudioPlayer({ url }) {
           step="1"
           min={0}
           max={duration || 0}
-          className="range range-secondary range-xs flex-1"
+          className="range range-accent range-xs flex-1"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}
           onKeyUp={onScrubEnd}

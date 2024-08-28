@@ -161,7 +161,8 @@ export default function OutreachUpload() {
   }
 
   return (
-    <div className="border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center">
+    <div className={`border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center
+    transition-all duration-200 ${showInputs ? 'shadow-md' : ''}`}>
       <div
         className={`${
           loading ? "bg-base-500" : "bg-primary"

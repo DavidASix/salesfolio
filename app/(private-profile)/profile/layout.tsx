@@ -18,7 +18,7 @@ export default async function RootLayout({ children }) {
   };
 
   return (
-    <div className="bg-dotted flex flex-col w-full">
+    <div className="bg-dotted-accent flex flex-col w-full">
       <header className="z-40 h-16">
         <NavBar session={session} />
       </header>
