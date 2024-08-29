@@ -9,7 +9,7 @@ import { AlertContext } from "@/components/AlertContext";
 import OutreachItem from "./OutreachItem";
 import formatClientError from "@/utils/client-error";
 
-const pageSize = 2;
+const pageSize = 20;
 
 export default function OutreachList({ profile, newOutreach }) {
   const { showAlert } = useContext(AlertContext);
@@ -79,7 +79,7 @@ export default function OutreachList({ profile, newOutreach }) {
 
   return (
     <div className="flex flex-col w-full items-center gap-8">
-      {hasFetchedOnce.current && !outreachList.length ? (
+      {hasFetchedOnce.current && !loading && !outreachList.length ? (
         <div className="flex flex-col justify-center items-center gap-4">
           <span className="text-2xl font-bold text-center">Sure is empty here</span>
           <figure className="h-64 w-64">

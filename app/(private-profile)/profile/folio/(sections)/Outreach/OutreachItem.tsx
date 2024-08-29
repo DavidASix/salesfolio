@@ -5,7 +5,7 @@ import AudioPlayer from "./AudioPlayer";
 
 const Email = ({ emailSubject, emailBody }) => {
   return (
-    <div className="flex flex-col py-4 border-b-2 border-accent mb-4">
+    <div className="flex flex-col py-4 border-b border-accent mb-4">
       <label className="text-sm text-base-600">Subject:</label>
       <h2 className="font-bold text-lg px-2 mb-2">{emailSubject}</h2>
       <label className="text-sm text-base-600">Body:</label>
@@ -20,7 +20,7 @@ const Call = ({ audioFileUrl }) => {
 };
 const Creative = ({ imageUrl }) => {
   return (
-    <div className="flex flex-col py-4 border-b-2 border-accent mb-4 content-center items-center">
+    <div className="flex flex-col py-4 border-b border-accent mb-4 content-center items-center">
       <img
         src={imageUrl}
         className="w-auto h-auto object-contain max-h-[440px] rounded-2xl border border-base-900"
@@ -61,7 +61,7 @@ export default function OutreachItem({ outreach }) {
         <span className="text-md font-light text-base-900">
           {outreach.createdAt.slice(0, 10)}
         </span>
-        <BsPen className="h-6 w-6 fill-accent-500 " />
+        <BsPen className="h-6 w-6 fill-accent-500 opacity-0" />
       </header>
       <div className="px-4">
         <OutreachDisplay {...outreach} />
