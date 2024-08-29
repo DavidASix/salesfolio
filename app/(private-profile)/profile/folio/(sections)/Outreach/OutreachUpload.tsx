@@ -1,9 +1,13 @@
 "use client";
 import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
+import confettiAnimation from "@/assets/lottie/confetti.json";
 import { AlertContext } from "@/components/AlertContext";
 
 const outreachTypes = [
@@ -17,6 +21,7 @@ type OutreachTypes = (typeof outreachSlugs)[number];
 
 export default function OutreachUpload() {
   const { showAlert } = useContext(AlertContext);
+  const lottieRef = useRef(null);
   const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(null);
   const [description, setDescription] = useState<string>("");
 
@@ -143,9 +148,11 @@ export default function OutreachUpload() {
       if (audioInput?.current) {
         audioInput.current.value = "";
       }
-      setShowInputs(false)
+      //setShowInputs(false)
       setNewOutreachType(null)
       showAlert("success", "Outreach Uploaded!");
+      // Play confetti Animation
+      lottieRef.current.goToAndPlay(0, true);
     } catch (err) {
       console.log(err);
       showAlert(
@@ -158,12 +165,12 @@ export default function OutreachUpload() {
   }
 
   return (
-    <div className={`border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center
+    <div className={`relative border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center
     transition-all duration-200 ${showInputs ? 'shadow-md' : ''}`}>
       <div
         className={`${
           loading ? "bg-base-500" : "bg-primary"
-        } w-full h-min flex flex-col p-4 relative`}
+        } z-10 w-full h-min flex flex-col p-4 relative`}
       >
         {showInputs || newOutreachType ? (
           <motion.button
@@ -308,6 +315,14 @@ export default function OutreachUpload() {
           </div>
         </div>
       </motion.div>
+
+      <figure title="confetti animation" className="z-50 top-0 absolute h-full pointer-events-none">
+        <Lottie
+          animationData={confettiAnimation}
+          lottieRef={lottieRef}
+          loop={false}
+          autoplay={false} />
+      </figure>
     </div>
   );
 }

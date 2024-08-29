@@ -1,6 +1,10 @@
 "use client";
 import React, { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
+import emptyAnimation from "@/assets/lottie/empty.json";
 import { AlertContext } from "@/components/AlertContext";
 import OutreachItem from "./OutreachItem";
 import formatClientError from "@/utils/client-error";
@@ -13,7 +17,7 @@ export default function OutreachList({ profile }) {
   const [outreachList, setOutreachList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [outreachItemCount, setOutreachItemCount] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // In strict mode, React calls useEffect twice on first render
@@ -75,21 +79,37 @@ export default function OutreachList({ profile }) {
 
   return (
     <div className="flex flex-col w-full items-center gap-8">
+      {hasFetchedOnce.current && !outreachList.length ? (
+        <div className="flex flex-col justify-center items-center gap-4">
+          <span className="text-2xl font-bold text-center">Sure is empty here</span>
+          <figure className="h-64 w-64">
+            <Lottie
+              animationData={emptyAnimation}
+              loop={true}
+              autoplay={true}
+              className="h-64 w-64"
+            />
+          </figure>
+          <span className="text-2xl font-bold text-center">
+            Share your first outreach above
+          </span>
+        </div>
+      ) : null}
       {outreachList.map((outreach, i) => (
         <OutreachItem outreach={outreach} key={`${outreach.id}${i}`} />
       ))}
       {loading ? (
-        <span className="loading loading-dots loading-lg text-primary"></span>
+        <span className="loading loading-dots loading-lg text-accent"></span>
       ) : null}
-      {outreachItemCount > outreachList.length ? 
-      <button 
-        className="btn btn-primary"
-        disabled={loading}
-        onClick={onClickNextPage}>
-        Load More
-      </button>
-      : null
-      }
+      {outreachItemCount > outreachList.length ? (
+        <button
+          className="btn btn-primary"
+          disabled={loading}
+          onClick={onClickNextPage}
+        >
+          Load More
+        </button>
+      ) : null}
     </div>
   );
 }
