@@ -11,7 +11,7 @@ import formatClientError from "@/utils/client-error";
 
 const pageSize = 2;
 
-export default function OutreachList({ profile }) {
+export default function OutreachList({ profile, newOutreach }) {
   const { showAlert } = useContext(AlertContext);
   const hasFetchedOnce = useRef(false);
   const [outreachList, setOutreachList] = useState([]);
@@ -95,7 +95,7 @@ export default function OutreachList({ profile }) {
           </span>
         </div>
       ) : null}
-      {outreachList.map((outreach, i) => (
+      {[...newOutreach, ...outreachList].map((outreach, i) => (
         <OutreachItem outreach={outreach} key={`${outreach.id}${i}`} />
       ))}
       {loading ? (

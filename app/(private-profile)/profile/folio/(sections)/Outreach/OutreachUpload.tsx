@@ -19,7 +19,7 @@ const outreachTypes = [
 const outreachSlugs = [...outreachTypes.map((v) => v.slug)] as const;
 type OutreachTypes = (typeof outreachSlugs)[number];
 
-export default function OutreachUpload() {
+export default function OutreachUpload({passOutreachToDisplay}) {
   const { showAlert } = useContext(AlertContext);
   const lottieRef = useRef(null);
   const [newOutreachType, setNewOutreachType] = useState<OutreachTypes>(null);
@@ -136,7 +136,7 @@ export default function OutreachUpload() {
         value ? (newOutreachData[key] = value) : null;
       }
 
-      await axios.post("/api/outreach/uploadNewOutreach", newOutreachData);
+      const {data} = await axios.post("/api/outreach/uploadNewOutreach", newOutreachData);
       setDescription("");
       setEmailSubject("");
       setEmailBody("");
@@ -148,11 +148,14 @@ export default function OutreachUpload() {
       if (audioInput?.current) {
         audioInput.current.value = "";
       }
-      //setShowInputs(false)
+      setShowInputs(false)
       setNewOutreachType(null)
-      showAlert("success", "Outreach Uploaded!");
+      //showAlert("success", "Outreach Uploaded!");
       // Play confetti Animation
+      lottieRef.current.setSpeed(0.5);
       lottieRef.current.goToAndPlay(0, true);
+      // Return the new outreach to parent, for display in list
+      passOutreachToDisplay(data)
     } catch (err) {
       console.log(err);
       showAlert(
@@ -165,7 +168,7 @@ export default function OutreachUpload() {
   }
 
   return (
-    <div className={`relative border border-primary bg-white rounded-3xl flex flex-col overflow-hidden w-full self-center
+    <div className={`relative overflow-hidden  border border-primary bg-white rounded-3xl flex flex-col w-full self-center
     transition-all duration-200 ${showInputs ? 'shadow-md' : ''}`}>
       <div
         className={`${

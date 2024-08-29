@@ -29,8 +29,8 @@ export async function POST(request) {
       imageUrl,
       audioFileUrl,
     });
-    await outreach.save();
-    return new Response("Success");
+    const inputtedOutreach = await outreach.save();
+    return new Response(JSON.stringify(inputtedOutreach));
   } catch (err) {
     let message: string = err.message;
     if (err instanceof MongooseError.ValidationError) {
