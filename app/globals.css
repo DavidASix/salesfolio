@@ -25,6 +25,9 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+button {
+  @apply duration-200 transition-all;
+}
 .btn {
   @apply rounded-xl
 }
