@@ -10,6 +10,7 @@ import OutreachUpload from "./OutreachUpload";
 import OutreachList from "./OutreachList";
 import { AlertContext } from "@/components/AlertContext";
 import formatClientError from "@/utils/client-error";
+import { Outreach } from "@/utils/types";
 
 const pageSize = 2;
 // Keeping this in for future filtering of history
@@ -37,53 +38,12 @@ const pageSize = 2;
 export default function OutreachPage({ profile }) {
   const hasFetchedOnce = useRef(false);
   const { showAlert } = useContext(AlertContext);
-  const [outreachList, setOutreachList] = useState([]);
+  const [outreachList, setOutreachList] = useState<Outreach[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [outreachItemCount, setOutreachItemCount] = useState<number>(null);
+  const [outreachItemCount, setOutreachItemCount] = useState<number>(0);
   const [dataRefreshRequired, setDataRefreshRequired] = useState(false);
   const [loading, setLoading] = useState(true);
   const shouldFetchContent = useRef(false);
-
-  useEffect(() => {
-    // In strict mode, React calls useEffect twice on first render
-    // This is done to highlight problems as regardless of times run the initialization
-    // ... useEffect should only have an effect once.
-    // To skip the second render, we use useRef to check if a render has been complete.
-    if (!hasFetchedOnce.current) {
-      getCurrentPage();
-      getOutreachItemCount();
-      hasFetchedOnce.current = true;
-    }
-  });
-
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  useEffect(() => {
-    // shouldFetchRef is set by requestNextPage
-    // This is favoured over checking loading/pageNum for fetch validity to avoid
-    // unneccisary dependancies in the dep array
-    if (!shouldFetchContent.current) {
-      return;
-    }
-    if (dataRefreshRequired) {
-      // Data has either been deleted or added from the database
-      // Refresh the entire client side list
-      refreshContent();
-    } else {
-      getCurrentPage();
-    }
-  }, [currentPage, dataRefreshRequired]);
-
-  const getOutreachItemCount = async () => {
-    try {
-      const { data } = await axios.post("/api/outreach/getUserOutreachCount", {
-        username: profile.username,
-      });
-      setOutreachItemCount(data);
-    } catch (err) {
-      const { message } = formatClientError(err);
-      showAlert("error", message);
-    }
-  };
 
   const getCurrentPage = useCallback(async () => {
     try {
@@ -121,6 +81,47 @@ export default function OutreachPage({ profile }) {
       shouldFetchContent.current = false;
     }
   }, [currentPage, profile.username, showAlert]);
+
+  useEffect(() => {
+    // In strict mode, React calls useEffect twice on first render
+    // This is done to highlight problems as regardless of times run the initialization
+    // ... useEffect should only have an effect once.
+    // To skip the second render, we use useRef to check if a render has been complete.
+    if (!hasFetchedOnce.current) {
+      getCurrentPage();
+      getOutreachItemCount();
+      hasFetchedOnce.current = true;
+    }
+  });
+
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  useEffect(() => {
+    // shouldFetchRef is set by requestNextPage
+    // This is favoured over checking loading/pageNum for fetch validity to avoid
+    // unneccisary dependancies in the dep array
+    if (!shouldFetchContent.current) {
+      return;
+    }
+    if (dataRefreshRequired) {
+      // Data has either been deleted or added from the database
+      // Refresh the entire client side list
+      refreshContent();
+    } else {
+      getCurrentPage();
+    }
+  }, [currentPage, dataRefreshRequired, getCurrentPage, refreshContent]);
+
+  const getOutreachItemCount = async () => {
+    try {
+      const { data } = await axios.post("/api/outreach/getUserOutreachCount", {
+        username: profile.username,
+      });
+      setOutreachItemCount(data);
+    } catch (err) {
+      const { message } = formatClientError(err);
+      showAlert("error", message);
+    }
+  };
 
   const requestNextPage = async () => {
     if (outreachItemCount <= outreachList.length) {
