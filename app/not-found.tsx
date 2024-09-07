@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="w-full p-4 flex flex-col items-center">
           <h1 className="text-7xl header-font mb-6 text-center">404</h1>
           <h2 className="text-md font-semibold mb-6 text-base-700 text-center">
-            We couldn't find the Folio you're looking for
+            We couldn&apos;t find the Folio you&apos;re looking for
           </h2>
           <Link href="/" className="btn btn-neutral">
             Try going to our homepage

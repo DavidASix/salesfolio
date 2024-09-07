@@ -1,11 +1,17 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import axios from "axios";
 import OutreachUpload from "./OutreachUpload";
 import OutreachList from "./OutreachList";
 import { AlertContext } from "@/components/AlertContext";
 import formatClientError from "@/utils/client-error";
 
-const pageSize = 5;
+const pageSize = 2;
 // Keeping this in for future filtering of history
 // const outreachTypes = {
 //   call: {
@@ -36,6 +42,7 @@ export default function OutreachPage({ profile }) {
   const [outreachItemCount, setOutreachItemCount] = useState<number>(null);
   const [dataRefreshRequired, setDataRefreshRequired] = useState(false);
   const [loading, setLoading] = useState(true);
+  const shouldFetchContent = useRef(false);
 
   useEffect(() => {
     // In strict mode, React calls useEffect twice on first render
@@ -47,15 +54,14 @@ export default function OutreachPage({ profile }) {
       getOutreachItemCount();
       hasFetchedOnce.current = true;
     }
-  }, []);
+  });
 
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
-    // Loading is set by requestNextPage
-    if (!loading) {
-      return;
-    }
-    // Don't run for first page, that's handled by the fetchedOnce effect
-    if (currentPage <= 1) {
+    // shouldFetchRef is set by requestNextPage
+    // This is favoured over checking loading/pageNum for fetch validity to avoid
+    // unneccisary dependancies in the dep array
+    if (!shouldFetchContent.current) {
       return;
     }
     if (dataRefreshRequired) {
@@ -65,7 +71,7 @@ export default function OutreachPage({ profile }) {
     } else {
       getCurrentPage();
     }
-  }, [currentPage]);
+  }, [currentPage, dataRefreshRequired]);
 
   const getOutreachItemCount = async () => {
     try {
@@ -79,7 +85,7 @@ export default function OutreachPage({ profile }) {
     }
   };
 
-  const getCurrentPage = async () => {
+  const getCurrentPage = useCallback(async () => {
     try {
       const { data } = await axios.post("/api/outreach/getPage", {
         page: currentPage,
@@ -93,10 +99,11 @@ export default function OutreachPage({ profile }) {
       showAlert("error", message);
     } finally {
       setLoading(false);
+      shouldFetchContent.current = false;
     }
-  };
+  }, [currentPage, profile.username, showAlert]);
 
-  const refreshContent = async () => {
+  const refreshContent = useCallback(async () => {
     try {
       const { data } = await axios.post("/api/outreach/getUpToPage", {
         page: currentPage,
@@ -111,8 +118,9 @@ export default function OutreachPage({ profile }) {
       showAlert("error", message);
     } finally {
       setLoading(false);
+      shouldFetchContent.current = false;
     }
-  };
+  }, [currentPage, profile.username, showAlert]);
 
   const requestNextPage = async () => {
     if (outreachItemCount <= outreachList.length) {
@@ -122,6 +130,7 @@ export default function OutreachPage({ profile }) {
       return;
     }
     setLoading(true);
+    shouldFetchContent.current = true;
     setCurrentPage((page) => page + 1);
   };
 
@@ -148,7 +157,7 @@ export default function OutreachPage({ profile }) {
       // Update flag to ensure a full refresh is done if another page is loaded
       setDataRefreshRequired(true);
       setOutreachItemCount((c) => c - 1);
-      showAlert('success', "Entry deleted successfully")
+      showAlert("success", "Entry deleted successfully");
     } catch (err) {
       setOutreachList(preDeleteList);
       const { message } = formatClientError(err);

@@ -41,7 +41,7 @@ export default function Username({
       flex flex-col justify-center items-center relative gap-y-16"
     >
       <div className="max-w-[800px] w-full flex-1 flex flex-col justify-center items-center gap-8">
-        <h3 className="text-3xl self-start">Let's start with a handle</h3>
+        <h3 className="text-3xl self-start">Let&apost;s start with a handle</h3>
         <div className="flex items-center justify-center content-start flex-nowrap self-center">
           <label
             htmlFor="handle"

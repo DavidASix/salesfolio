@@ -95,7 +95,7 @@ export default function CurrentEmployement({
               htmlFor="title"
               className="text-2xl md:text-3xl font-extralight"
             >
-              I'm a
+              I&apost;m a
             </label>
             <input
               type="text"

@@ -1,5 +1,5 @@
 "use client";
-import { useState, } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 import { PiLaptopThin } from "react-icons/pi";
@@ -137,9 +137,7 @@ export default function Home({ profile }) {
             <CiCircleList className="h-6 w-6 me-2 fill-base-dark" />
             Work History
           </h3>
-          <ul
-            className="flex flex-col gap-4"
-          >
+          <ul className="flex flex-col gap-4">
             {workHistory.map((work, i) => {
               return (
                 <li
@@ -148,10 +146,7 @@ export default function Home({ profile }) {
                        items-start justify-center self-center`}
                 >
                   <div className="w-full">
-                    <label
-                      htmlFor="company"
-                      className="font-extralight"
-                    >
+                    <label htmlFor="company" className="font-extralight">
                       I worked at
                     </label>
                     <input
@@ -165,15 +160,12 @@ export default function Home({ profile }) {
                     />
                   </div>
                   <div className="flex gap-2 justify-center items-center w-full">
-
                     <MonthYearPicker
                       className="text-sm rounded-2xl border-2 border-dashed border-base bg-white"
                       value={work.start || null}
                       onChange={(e) => setStartDate(e, i)}
                     />
-                    <span className="font-extralight">
-                      to
-                    </span>
+                    <span className="font-extralight">to</span>
                     <MonthYearPicker
                       className="text-sm rounded-2xl border-2 border-dashed border-base bg-white"
                       value={work.end || null}
@@ -198,7 +190,10 @@ export default function Home({ profile }) {
           >
             {software.map((software, i) => {
               return (
-                <label className="label cursor-pointer w-full gap-2 flex-nowrap">
+                <label
+                  key={i}
+                  className="label cursor-pointer w-full gap-2 flex-nowrap"
+                >
                   <span className="label-text">{software}</span>
                   <input
                     type="checkbox"
@@ -222,7 +217,10 @@ export default function Home({ profile }) {
           >
             {industries.map((industry, i) => {
               return (
-                <label className="label cursor-pointer w-full gap-2 flex-nowrap">
+                <label
+                  key={i}
+                  className="label cursor-pointer w-full gap-2 flex-nowrap"
+                >
                   <span className="label-text">{industry}</span>
                   <input
                     type="checkbox"

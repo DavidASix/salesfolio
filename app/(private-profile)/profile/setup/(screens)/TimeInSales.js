@@ -85,7 +85,7 @@ export default function TimeInSales({
         </div>
 
         <p className="text-base-800 text-sm italic self-end">
-          Your profile will show you've been in sales for{" "}
+          Your profile will show you have been in sales for{" "}
           {parseInt(input) > 1950 ? years : "some"} year{years > 2 && "s"}.
         </p>
       </div>

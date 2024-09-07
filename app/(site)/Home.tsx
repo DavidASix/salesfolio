@@ -313,14 +313,14 @@ export default function Home() {
             that truly reflects your hard work?”
           </p>
           <p>
-            We realized that despite the countless meetings we’d booked and the
-            revenue we’d generated, there was no easy way to document and share
-            these successes. That’s why we created Salesfolio.
+            We realized that despite the countless meetings we&apost;d booked and the
+            revenue we&apost;d generated, there was no easy way to document and share
+            these successes. That&apost;s why we created Salesfolio.
           </p>
           <p>
             With Salesfolio, you can document your successes and, for added
-            credibility, have your peers verify your achievements. It's more
-            than just a portfolio—it's a powerful tool to demonstrate your
+            credibility, have your peers verify your achievements. It&apost;s more
+            than just a portfolio—it&apost;s a powerful tool to demonstrate your
             impact and stand out in a competitive job market.
           </p>
         </motion.article>
@@ -367,7 +367,7 @@ export default function Home() {
           }`}
         >
           <h2 className="text-base-50 font-bold text-5xl text-center">
-            Let's stay in touch
+            Let&apost;s stay in touch
           </h2>
 
           <p className="text-base-50 text-lg md:text-xl text-center max-w-3xl">

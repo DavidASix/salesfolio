@@ -61,7 +61,7 @@ export default function Setup({ profile }) {
             </span>
           </h1>
           <p className="ps-4 mt-2 mb-4 text-2xl font-extralight">
-            Let's set up your profile...
+            Let&apost;s set up your profile...
           </p>
           <div
             id="inputScreen"
