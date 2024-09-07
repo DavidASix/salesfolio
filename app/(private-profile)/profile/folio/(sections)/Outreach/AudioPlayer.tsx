@@ -31,17 +31,28 @@ function Play({ isPlaying, setIsPlaying }) {
 export default function AudioPlayer({ url }) {
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(new Audio(url));
+  const [duration, setDuration] = useState<number>(0);
+  const audioRef = useRef(null);
   const intervalRef = useRef(null);
 
-  const { duration } = audioRef.current;
-  const currentPercentage = duration ? progress / duration : 0;
+  useEffect(() => {
+    // Metdata is not immediately available
+    // so start listening for it to load after the audio is loaded
+    const audio = new Audio(url);
+    audioRef.current = audio;
+    const setAudioData = () => setDuration(audio.duration);
+    audio.addEventListener("loadedmetadata", setAudioData);
+    return () => {
+      audio.removeEventListener("loadedmetadata", setAudioData);
+    };
+  }, [url]);
 
-  const formatDuration = (duration: number) => {
-    const mm = Math.floor(duration / 60)
+  const formatTime = (t: number) => {
+    const time = t || 0;
+    const mm = Math.floor(time / 60)
       .toString()
       .padStart(2, "0");
-    const ss = Math.floor(duration % 60)
+    const ss = Math.floor(time % 60)
       .toString()
       .padStart(2, "0");
     return `${mm}:${ss}`;
@@ -84,7 +95,7 @@ export default function AudioPlayer({ url }) {
         <Play isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
       </div>
       <div className="flex justify-between items-center gap-4">
-        <span className="font-extralight">{formatDuration(progress)}</span>
+        <span className="font-extralight">{formatTime(progress)}</span>
         <input
           type="range"
           value={progress}
@@ -96,7 +107,7 @@ export default function AudioPlayer({ url }) {
           onMouseUp={onScrubEnd}
           onKeyUp={onScrubEnd}
         />
-        <span className="font-extralight">{formatDuration(duration)}</span>
+        <span className="font-extralight">{formatTime(duration)}</span>
       </div>
     </div>
   );
