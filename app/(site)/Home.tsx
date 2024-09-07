@@ -175,7 +175,7 @@ export default function Home() {
         id="hero"
       >
         <h1 className="z-50 text-center text-6xl md:text-[5.5rem] text-base-50 font-bold max-w-2xl header-font leading-none">
-          Stand out from the crowd
+          Land Your Dream Sales Role with SalesFolio
         </h1>
         <div className="text-center z-50">
           <p className="text-base-50 text-xl md:text-2xl text-center max-w-3xl font-light">
