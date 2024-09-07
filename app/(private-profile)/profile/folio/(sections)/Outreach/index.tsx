@@ -136,16 +136,21 @@ export default function OutreachPage({ profile }) {
   };
 
   const deleteOutreach = async (id) => {
-    console.log(id);
+    // Backup the list to be restored if the server update fails
+    const preDeleteList = [...outreachList];
     try {
-      // Delete record on server
-      await axios.post("/api/outreach/deleteById", { id, });
-      // Update the outreach list without re-fetching
+      // Optimistically update the list to remove the object
       setOutreachList(outreachList.filter((o) => o._id !== id));
+
+      // Attemp to delete the record on server
+      await axios.post("/api/outreach/deleteById", { id });
+
       // Update flag to ensure a full refresh is done if another page is loaded
       setDataRefreshRequired(true);
       setOutreachItemCount((c) => c - 1);
+      showAlert('success', "Entry deleted successfully")
     } catch (err) {
+      setOutreachList(preDeleteList);
       const { message } = formatClientError(err);
       showAlert("error", message);
     }

@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
 //import { BsPen } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md";
@@ -52,29 +53,50 @@ const outreachTypes = {
 };
 
 export default function OutreachItem({ outreach, onClickDelete }) {
+  const modalRef = useRef<HTMLDialogElement>(null);
   const { icon, component } = outreachTypes[outreach.type];
   const OutreachDisplay = component;
   const Icon = icon;
   return (
-    <article className="flex flex-col w-full border border-base-300 rounded-3xl bg-white overflow-hidden pb-4">
-      <header className="flex justify-between border-b border-base-300 py-3 px-4 bg-accent-50">
-        <Icon className="h-6 w-6 fill-accent-500" />
-        <span className="text-md font-light text-base-900">
-          {outreach.createdAt.slice(0, 10)}
-        </span>
-        <button
-          className="h-6 w-6 flex justify-center items-center rounded-md hover:bg-base-200 md:first-line:hover:scale-[1.02]"
-          onClick={onClickDelete}
-        >
-          <MdDeleteOutline className="h-6 w-6 fill-error" />
-        </button>
-      </header>
-      <div className="px-4">
-        <OutreachDisplay {...outreach} />
-        <p className="text-sm font-light whitespace-pre-wrap">
-          {outreach.description}
-        </p>
-      </div>
-    </article>
+    <>
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Delete this Outreach?</h3>
+          <p className="py-4">
+            Are you sure you want to delete this entry?<br/>This cannot be reversed.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn me-4">Cancel</button>
+              <button className="btn btn-error" onClick={onClickDelete}>
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      <article className="flex flex-col w-full border border-base-300 rounded-3xl bg-white overflow-hidden pb-4">
+        <header className="flex justify-between border-b border-base-300 py-3 px-4 bg-accent-50">
+          <Icon className="h-6 w-6 fill-accent-500" />
+          <span className="text-md font-light text-base-900">
+            {outreach.createdAt.slice(0, 10)}
+          </span>
+          <button
+            className="h-6 w-6 flex justify-center items-center rounded-md hover:bg-base-200 md:first-line:hover:scale-[1.02]"
+            onClick={() => modalRef.current.showModal()}
+          >
+            <MdDeleteOutline className="h-6 w-6 fill-error" />
+          </button>
+        </header>
+        <div className="px-4">
+          <OutreachDisplay {...outreach} />
+          <p className="text-sm font-light whitespace-pre-wrap">
+            {outreach.description}
+          </p>
+        </div>
+      </article>
+    </>
   );
 }
