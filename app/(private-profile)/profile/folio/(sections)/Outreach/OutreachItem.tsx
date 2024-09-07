@@ -1,5 +1,6 @@
 import { BsTelephone, BsEnvelopeAt, BsLightbulb } from "react-icons/bs";
-import { BsPen } from "react-icons/bs";
+//import { BsPen } from "react-icons/bs";
+import { MdDeleteOutline } from "react-icons/md";
 
 import AudioPlayer from "./AudioPlayer";
 
@@ -50,8 +51,8 @@ const outreachTypes = {
   },
 };
 
-export default function OutreachItem({ outreach }) {
-  const { slug, title, icon, component } = outreachTypes[outreach.type];
+export default function OutreachItem({ outreach, onClickDelete }) {
+  const { icon, component } = outreachTypes[outreach.type];
   const OutreachDisplay = component;
   const Icon = icon;
   return (
@@ -61,7 +62,12 @@ export default function OutreachItem({ outreach }) {
         <span className="text-md font-light text-base-900">
           {outreach.createdAt.slice(0, 10)}
         </span>
-        <BsPen className="h-6 w-6 fill-accent-500 opacity-0" />
+        <button
+          className="h-6 w-6 flex justify-center items-center rounded-md hover:bg-base-200 md:first-line:hover:scale-[1.02]"
+          onClick={onClickDelete}
+        >
+          <MdDeleteOutline className="h-6 w-6 fill-error" />
+        </button>
       </header>
       <div className="px-4">
         <OutreachDisplay {...outreach} />

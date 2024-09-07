@@ -125,7 +125,7 @@ export default function OutreachPage({ profile }) {
     setCurrentPage((page) => page + 1);
   };
 
-  function addNewOutreach(outreach) {
+  const addNewOutreach = (outreach) => {
     // Server upload is handled by OutreachUpload
     // This function is called after successful upload
     // Update the outreach list without re-fetching
@@ -133,7 +133,23 @@ export default function OutreachPage({ profile }) {
     // Update flag to ensure a full refresh is done if another page is loaded
     setDataRefreshRequired(true);
     setOutreachItemCount((c) => c + 1);
-  }
+  };
+
+  const deleteOutreach = async (id) => {
+    console.log(id);
+    try {
+      // Delete record on server
+      await axios.post("/api/outreach/deleteById", { id, });
+      // Update the outreach list without re-fetching
+      setOutreachList(outreachList.filter((o) => o._id !== id));
+      // Update flag to ensure a full refresh is done if another page is loaded
+      setDataRefreshRequired(true);
+      setOutreachItemCount((c) => c - 1);
+    } catch (err) {
+      const { message } = formatClientError(err);
+      showAlert("error", message);
+    }
+  };
 
   return (
     <section id="outreach" className="flex flex-col w-full pb-20">
@@ -145,6 +161,7 @@ export default function OutreachPage({ profile }) {
         loadNextPage={requestNextPage}
         loading={loading}
         outreachItemCount={outreachItemCount}
+        deleteItem={(id) => deleteOutreach(id)}
       />
     </section>
   );

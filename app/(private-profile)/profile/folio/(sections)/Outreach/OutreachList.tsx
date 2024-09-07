@@ -11,6 +11,7 @@ export default function OutreachList({
   entryList,
   loading,
   outreachItemCount,
+  deleteItem,
 }) {
   return (
     <div className="flex flex-col w-full items-center gap-8">
@@ -33,7 +34,10 @@ export default function OutreachList({
         </div>
       ) : null}
       {entryList.map((outreach, i) => (
-        <OutreachItem outreach={outreach} key={`${outreach.id}${i}`} />
+        <OutreachItem 
+          outreach={outreach} 
+          onClickDelete={() => deleteItem(outreach._id)}
+          key={`${outreach.id}${i}`} />
       ))}
       {loading ? (
         <span className="loading loading-dots loading-lg text-accent"></span>
