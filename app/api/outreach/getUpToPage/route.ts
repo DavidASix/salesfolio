@@ -1,17 +1,26 @@
+import { auth } from "@/auth";
 import { Error as MongooseError } from "mongoose";
+import { ObjectId } from "mongodb";
 import clientPromise from "@/utils/mongoose-connect";
 import Outreach from "@/model/Outreach";
 import Profile from "@/model/Profile";
 
 /*
-  This route is used to retrieve the current users outreaches
-  This is done seperately from retireiving other users as it will return the 
+  This route collects all of the users outreaches up to a certain page
+  This is done when after the user has added or removed an entry and needs
+  to re-sync with the database.
+  This route is authenticated as users should not be able to fetch all of the 
+  outreaches for another user
 */
 
 export async function POST(request) {
   const { page, pageSize, username } = await request.json();
   try {
-    console.log({page, pageSize, username})
+    const session = await auth();
+    if (!session) {
+      throw { code: 403, message: "Could not authenticate" };
+    }
+
     if (
       typeof page !== "number" ||
       typeof pageSize !== "number" ||
@@ -22,16 +31,20 @@ export async function POST(request) {
     }
 
     await clientPromise;
+
     let profile = await Profile.findOne({username});
     if (!profile) {
       throw { message: "Error with information provided", code: 401 };
     }
 
+    if (!profile.userId.equals(new ObjectId(session?.user.id))) {
+      throw { code: 403, message: "Could not authenticate 2 " };
+    }
+
     const query = Outreach.find({ userId: profile.userId })
       .select('-userId')
       .sort({ createdAt: -1 })
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
+      .limit(pageSize * page);
     const outreaches = await query;
 
     return new Response(JSON.stringify(outreaches));
