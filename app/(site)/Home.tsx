@@ -13,29 +13,28 @@ import OvalSeperator from "@/components/svgs/oval-seperator-thin.svg";
 
 const faq: FAQ = [
   {
+    question: "What is SalesFolio?",
+    answer:
+      "SalesFolio is a sharable Sales Portfolio designed to help you easily track and showcase your sales achievements. With SalesFolio, you can log cold calls, upload deal information, and even add videos. To boost credibility, we’ve included a peer verification feature, allowing your colleagues to confirm the validity of your claims.",
+  },
+  {
+    question: "How do I verify deals?",
+    answer:
+      'When you close a deal or book a meeting, you can log it in your SalesFolio. Share a link to the achievement, and others on the platform can verify your achievement by clicking the "Verify" button.',
+  },
+  {
+    question: "What if I don’t want to share?",
+    answer:
+      'We get it—sometimes you want to keep certain information private, like cold call recordings or specific deal details. That’s why we’ve added a "Private" button. If you have content in your SalesFolio that you’d rather not share publicly, change the visibility to "Private", which will ensure only you, have access to it.',
+  },
+  {
     question: "How does this differ from Linkedin?",
     answer:
-      "SalesFolio is unique because it allows sales people to create an online portfolio detailing their work in a structured way. This allows recruiters to easily browse and understand your achievements, not just your work history. ",
+      "SalesFolio is unique because it allows salespeople to create an online portfolio detailing their work in a structured way. This allows hiring managers and recruiters to easily browse and understand your achievements, not just your work history.",
   },
   {
-    question: "How do you verify deals?",
-    answer:
-      "Deals are verified by your peers. After other SalesFolio users have verfied your deal you will receive a verified check mark ✅",
-  },
-  {
-    question: "What if I don't want to share deals?",
-    answer:
-      "You're in control of what you share! On SalesFolio you can share deals, emails, phone calls; all some, or none!",
-  },
-  {
-    question: "Will it cost money?",
-    answer:
-      "No! SalesFolio will be a free service, allowing all users to create and share their portfolio.",
-  },
-  {
-    question: "How do you make money?",
-    answer:
-      "In the future SalesFolio will offer a premium version for a monthly fee; This will be introduced by adding new features, not pay-walling existing free features.",
+    question: "How much does it cost?",
+    answer: "SalesFolio is FREE!",
   },
 ];
 
@@ -271,33 +270,58 @@ export default function Home() {
             Founders
           </span>
           <h2 className="font-bold text-4xl md:text-5xl text-center">
-            Meet the team
+            Our Story
           </h2>
           <div className="flex gap-8">
-            <figure className="flex flex-col justify-center">
+            <figure className="flex flex-col justify-center items-center">
               <img
                 src="/images/founder-eli.webp"
                 className="w-36 h-36 rounded-full"
               />
-              <h3 className="font-bold text-xl text-center">Eliezer Teferra</h3>
-              <span className="text-center font-extralight">CEO & Founder</span>
+              <figcaption className="text-center">
+                <h3 className="font-bold text-xl text-center">
+                  Eliezer Teferra
+                </h3>
+                <span className="text-center font-extralight">
+                  Co-Founder
+                  <br />
+                  Business Lead
+                </span>
+              </figcaption>
             </figure>
-            <figure className="flex flex-col justify-center">
+            <figure className="flex flex-col justify-center items-center">
               <img
                 src="/images/founder-david.webp"
                 className="w-36 h-36 rounded-full"
               />
-              <h3 className="font-bold text-xl text-center">David Anderson</h3>
-              <span className="text-center font-extralight">CTO & Founder</span>
+              <figcaption className="text-center">
+                <h3 className="font-bold text-xl text-center">
+                  David Anderson
+                </h3>
+                <span className="text-center font-extralight">
+                  Co-Founder
+                  <br />
+                  Technical Lead
+                </span>
+              </figcaption>
             </figure>
           </div>
 
           <p>
-            Eli & David first met working for Rogers Communications, selling
-            Telecom services over the phone. After Rogers Eli began work in the
-            SaaS Sales sector, and David began work developing web applications.
-            They reconnected and decided to combine their shared love of sales
-            with their passion to innovate, resulting in SalesFolio!
+            Salesfolio was born out of a simple yet frustrating challenge: “How
+            do you showcase your sales achievements to hiring managers in a way
+            that truly reflects your hard work?”
+          </p>
+          <p>
+            We realized that despite the countless meetings we’d booked and the
+            revenue we’d generated, there was no easy way to document and share
+            these successes. That’s why we created Salesfolio.
+          </p>
+          <p>
+            With Salesfolio, you can document your successes and, for added
+            credibility, have your peers verify your achievements. It's more
+            than just a portfolio—it's a powerful tool to demonstrate your
+            impact and stand out in a competitive job market.
           </p>
         </motion.article>
 

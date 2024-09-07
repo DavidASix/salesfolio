@@ -1,6 +1,8 @@
 import "./globals.css";
 import "./animations.css";
+import Script from "next/script";
 import {AlertProvider} from "@/components/AlertContext";
+import c from '@/assets/constants';
 
 export const metadata = {
   metadataBase: new URL('https://mysalesfolio.com'),
@@ -43,6 +45,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         ></link>
       </head>
+      <Script defer data-domain={c.plausible_domain} src="https://plausible.io/js/script.tagged-events.js"></Script>
       <body className="flex flex-col w-full">
         <AlertProvider>
           {children}
