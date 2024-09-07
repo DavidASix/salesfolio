@@ -13,7 +13,7 @@ import {
   BsFillPinMapFill,
   BsBuildings,
   BsCalendar2Month,
-  BsGraphUpArrow,
+  //BsGraphUpArrow,
   BsPen,
 } from "react-icons/bs";
 
@@ -21,10 +21,10 @@ import Home from "./(sections)/Home";
 import OutreachPage from "./(sections)/Outreach/";
 import Deals from "./(sections)/Deals";
 import Highlights from "./(sections)/Highlights";
-import Stats from "./(sections)/Stats";
+//import Stats from "./(sections)/Stats";
 
 const tabs = [
-  //{ slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
+  { slug: "home", title: "Home", icon: AiOutlineHome, tab: Home },
   {
     slug: "outreach",
     title: "Outreach",
@@ -32,12 +32,12 @@ const tabs = [
     tab: OutreachPage,
   },
   { slug: "deals", title: "Deals", icon: LiaPenAltSolid, tab: Deals },
-  //{ slug: "highlights", title: "Highlights", icon: LiaAwardSolid, tab: Highlights },
+  { slug: "highlights", title: "Highlights", icon: LiaAwardSolid, tab: Highlights },
   //{ slug: "kpis", title: "KPI's", icon: BsGraphUpArrow, tab: Stats },
 ];
 
 export default function Folio({ profile }) {
-  const [activeTab, setActiveTab] = useState("outreach");
+  const [activeTab, setActiveTab] = useState("home");
   const aside = {
     list: [
       {
