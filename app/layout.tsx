@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./animations.css";
 import Script from "next/script";
+import { Lilita_One, Roboto_Flex} from 'next/font/google'
 import {AlertProvider} from "@/components/AlertContext";
 import c from '@/assets/constants';
 
@@ -30,11 +31,24 @@ export const metadata = {
   },
 };
 
+const lilitaOne = Lilita_One({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-lilita-one',
+  display: 'swap',
+})
+
+const robotoFlex = Roboto_Flex({
+  subsets: ['latin'],
+  variable: '--font-roboto-flex',
+  display: 'swap',
+})
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="salesfolio">
       <Script defer data-domain={c.plausible_domain} src="https://plausible.io/js/script.tagged-events.js"></Script>
-      <body className="flex flex-col w-full">
+      <body className={`${lilitaOne.variable} ${robotoFlex.variable} flex flex-col w-full`}>
         <AlertProvider>
           {children}
         </AlertProvider>
