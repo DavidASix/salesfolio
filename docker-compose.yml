@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: salesfolio
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgres://docker:docker@postgres:5432/docker
+      - NODE_VERSION=$(cat .nvmrc | tr -cd [:digit:].)-f
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
