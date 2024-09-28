@@ -2,8 +2,8 @@ import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
   dialect: "postgresql",
-  schema: "./schema/database.ts",
-  out: "./schema/generated/",
+  schema: "./database/schema.ts",
+  out: "./database/generated/",
   verbose: true,
   strict: true,
   dbCredentials: {
@@ -12,5 +12,6 @@ export default defineConfig({
     database: "salesfolio",
     user: "docker",
     password: "root",
+    ssl: false,
   },
 });

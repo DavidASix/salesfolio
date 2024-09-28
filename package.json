@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:clear": "sudo rm -rf ./.database && sudo docker compose down"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.5.3",
     "@auth/mongodb-adapter": "^3.4.1",
     "@aws-sdk/client-s3": "^3.614.0",
     "@upstash/ratelimit": "^2.0.1",
