@@ -1,5 +1,5 @@
 import { signIn, signOut, auth } from "@/auth";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 
 //import LoginGraphic from "@/public/login.svg";
 
@@ -13,16 +13,18 @@ async function loginGoogle() {
   await signIn("google", { redirectTo: "/profile" });
 }
 
-async function loginEmail() {
+async function loginResend(formData) {
   "use server";
-  await signIn("email", { redirectTo: "/profile" });
+  await signIn("resend", formData);
 }
 
 export default async function Login() {
   const session = await auth();
+
   if (session?.user) {
-    return redirect('/profile');
+    return redirect("/profile");
   }
+
   return (
     <>
       <div className="flex h-screen">
@@ -83,18 +85,18 @@ export default async function Login() {
                 </button>
               </form>
             </div>
-            <form
-              className="mt-4 text-sm text-gray-600 text-center"
-              action={loginEmail}
-            >
-              <p>
-                or with{" "}
-                <button type="submit" className="underline">
-                  email
-                </button>
-              </p>
+            <span>or</span>
+            <form action={loginResend} className="w-full flex flex-col">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                className="input-primary"
+              />
+              <button type="submit" className="w-full btn btn-neutral">
+                Log in with Resend
+              </button>
             </form>
-
           </div>
         </div>
       </div>
