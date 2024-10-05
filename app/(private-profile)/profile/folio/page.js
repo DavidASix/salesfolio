@@ -8,20 +8,21 @@ const { DOMAIN } = process.env;
 export default async function Folio() {
   let session;
   let profile;
-  try {
-    session = await auth();
-    const { data } = await axios.post(`${DOMAIN}/api/user/getProfile`, {
-      userId: session.user.id,
-    });
-    profile = data;
-  } catch (err) {
-    return redirect("/");
-  }
+    try {
+      session = await auth()
+      const {data} = await axios.post(`${DOMAIN}/api/user/getProfile`, {userId: session.user.id});
+      profile = data;
+    } catch (err) {
+      console.log(err)
+      return redirect('/');
+    }
+    console.log(profile)
 
-  if (profile?.firstLogin) {
-    // redirect throws an error internal, must be called outside of try catch
-    return redirect("/profile/setup");
-  }
+    if (profile?.firstLogin) {
+      // redirect throws an error internal, must be called outside of try catch
+      return redirect('/profile/setup');
+    }
 
-  return <FolioComponent profile={profile} />;
-}
+    return <FolioComponent profile={profile} />;
+  }
+  
