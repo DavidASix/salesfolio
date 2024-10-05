@@ -18,13 +18,18 @@ async function loginResend(formData) {
   await signIn("resend", formData);
 }
 
+async function logout() {
+  "use server";
+  await signOut();
+}
+
 export default async function Login() {
   const session = await auth();
-
+  /*
   if (session?.user) {
     return redirect("/profile");
   }
-
+  */
   return (
     <>
       <div className="flex h-screen">
@@ -91,10 +96,16 @@ export default async function Login() {
                 type="text"
                 name="email"
                 placeholder="Email"
-                className="input-primary"
+                className="input input-primary"
               />
               <button type="submit" className="w-full btn btn-neutral">
                 Log in with Resend
+              </button>
+            </form>
+
+            <form action={logout} className="w-full flex flex-col">
+              <button type="submit" className="w-full btn btn-warning">
+                Logout
               </button>
             </form>
           </div>
