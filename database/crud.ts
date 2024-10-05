@@ -1,3 +1,4 @@
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import * as schema from "./schema";
 
 export const users = {
@@ -6,6 +7,11 @@ export const users = {
 
 export const profiles = {
   table: schema.profiles,
+  insert: createInsertSchema(schema.profiles).omit({
+    id: true,
+    created_at: true,
+    updated_at: true,
+  }),
 };
 
 export const marketing_emails = {

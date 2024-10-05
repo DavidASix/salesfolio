@@ -1,5 +1,5 @@
 {
-  "id": "ee62ef45-8c17-4f2c-96cb-cc290f40c03c",
+  "id": "d37bdedb-3858-4e66-bddc-8275f21ddac2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -322,9 +322,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "status": {
           "name": "status",
@@ -332,6 +333,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'active'"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "name": {
           "name": "name",
@@ -430,12 +437,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "profile_id_user_id_fk": {
-          "name": "profile_id_user_id_fk",
+        "profile_user_id_user_id_fk": {
+          "name": "profile_user_id_user_id_fk",
           "tableFrom": "profile",
           "tableTo": "user",
           "columnsFrom": [
-            "id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -526,9 +533,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "status": {
           "name": "status",
@@ -536,6 +544,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'active'"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "category_id": {
           "name": "category_id",
@@ -590,12 +604,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "post_id_user_id_fk": {
-          "name": "post_id_user_id_fk",
+        "post_user_id_user_id_fk": {
+          "name": "post_user_id_user_id_fk",
           "tableFrom": "post",
           "tableTo": "user",
           "columnsFrom": [
-            "id"
+            "user_id"
           ],
           "columnsTo": [
             "id"

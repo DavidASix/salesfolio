@@ -6,7 +6,7 @@ import { post_categories } from "./post_categories";
 export const posts = pgTable("post", {
   id: uuid("id").primaryKey().unique().defaultRandom(),
   status: text("status").notNull().default("active"),
-  user_id: text("id").references(() => users.id),
+  user_id: text("user_id").references(() => users.id),
   category_id: uuid("category_id").references(() => post_categories.id),
   description: text("description"),
   image_url: text("image_url"),

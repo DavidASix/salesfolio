@@ -4,7 +4,7 @@ import { users } from "./nextauth";
 export const profiles = pgTable("profile", {
   id: uuid("id").primaryKey().unique().defaultRandom(),
   status: text("status").notNull().default("active"),
-  user_id: text("id").references(() => users.id),
+  user_id: text("user_id").references(() => users.id),
   name: text("name"),
   first_login: boolean("first_login").notNull().default(true),
   email_consent: boolean("email_consent").notNull().default(true),
