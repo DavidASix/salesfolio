@@ -20,6 +20,7 @@ Had SalesFolio continued, the dream roadmap looked something like this:
 ## 📦 Why Open Source Now?
 
 It's important to know when to pivot. Another startup in the same market beat us to the punch on this idea, and they executed very well. While we could have pushed on, the SalesFolio team felt that it was better to shift focus as we would have launched a few months after this other company, and their product was already looking great.
+If you're browsing this repo, note that the [development branch](https://github.com/DavidASix/salesfolio/tree/development) has +39 commits on main containing actual application changes.
 
 ## 👏 Thanks for stopping by!
 
